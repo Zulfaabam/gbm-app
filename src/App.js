@@ -1,10 +1,14 @@
 import React from "react";
 import "./App.css";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <div className="App">
-      <h1 className="text-blue-500">GBM APP</h1>
+      <Navbar />
+      <h1 className="text-dark font-shrikhand">GBM APP</h1>
+      <Footer />
     </div>
   );
 }

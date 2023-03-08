@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <h1 className="text-dark font-shrikhand">GBM APP</h1>
+      <h1 className="text-dark font-heading">GBM APP</h1>
       <Footer />
     </div>
   );

@@ -7,13 +7,13 @@ module.exports = {
         dark: "#313552",
         cream: "#EEE6CE",
         maroon: "#B8405E",
-        "gbm-green": "#2EB086"
+        "gbm-green": "#2EB086",
       },
       fontFamily: {
-        shrikhand: ["Shrikhand", "cursive"],
-        quicksand: ["Quicksand", "sans-serif"]
-      }
-    }
+        heading: ["Shrikhand", "cursive"],
+        primary: ["Quicksand", "sans-serif"],
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 };

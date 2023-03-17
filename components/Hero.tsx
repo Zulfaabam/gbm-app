@@ -3,7 +3,7 @@ import React from "react";
 
 export const Hero = () => {
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero min-h-screen bg-gradient-to-br from-cream via-gbm-green-light to-gbm-green-dark">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <Image
           src="/images/gbm-logo.png"
@@ -12,7 +12,7 @@ export const Hero = () => {
           height={454}
         />
         <div>
-          <h1 className="text-5xl text-gbm-green font-bold font-heading">
+          <h1 className="text-5xl text-gbm-green-dark font-bold font-heading">
             Gizi Bakti Masyarakat
           </h1>
           <p className="py-6 font-semibold pr-40">

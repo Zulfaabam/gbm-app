@@ -26,6 +26,8 @@ module.exports = {
         cream: "#EEE6CE",
         maroon: "#B8405E",
         "gbm-green": "#2EB086",
+        "gbm-green-light": "#87D1B9",
+        "gbm-green-dark": "#3E7768",
       },
       fontFamily: {
         sans: ["Quicksand", "sans-serif"],

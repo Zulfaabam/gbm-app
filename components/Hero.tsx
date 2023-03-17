@@ -15,7 +15,7 @@ export const Hero = () => {
           <h1 className="text-5xl text-gbm-green font-bold font-heading">
             Gizi Bakti Masyarakat
           </h1>
-          <p className="py-6 font-semibold font-sans pr-40">
+          <p className="py-6 font-semibold pr-40">
             Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
             excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
             a id nisi.

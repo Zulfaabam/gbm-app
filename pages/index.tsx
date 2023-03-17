@@ -1,3 +1,13 @@
+import { Footer } from "../components/Footer";
+import { Hero } from "../components/Hero";
+import { Navbar } from "../components/Navbar";
+
 export default function Home() {
-  return <h1 className="text-gbm-green">GBM app</h1>;
+  return (
+    <>
+      <Navbar />
+      <Hero />
+      <Footer />
+    </>
+  );
 }

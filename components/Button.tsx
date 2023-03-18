@@ -23,6 +23,8 @@ export const Button = ({
             ? "btn btn-ghost text-white"
             : variant === "green"
             ? "btn bg-gbm-green-darker text-white hover:bg-gbm-green-dark hover:text-white border-none"
+            : variant === "red"
+            ? "btn bg-maroon text-white hover:bg-maroon hover:text-white border-none"
             : "btn bg-white text-black hover:bg-slate-300 hover:text-black border-none"
         }
         {...props}

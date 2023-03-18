@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
-import { Button } from "./Button";
+import { Button } from "../../Button";
 
-export const Hero = () => {
+const Hero = () => {
   return (
     <div className="hero min-h-screen bg-gradient-to-br from-cream via-gbm-green-light to-gbm-green-dark">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -30,3 +30,5 @@ export const Hero = () => {
     </div>
   );
 };
+
+export default Hero;

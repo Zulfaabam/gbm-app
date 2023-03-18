@@ -28,6 +28,7 @@ module.exports = {
         "gbm-green": "#2EB086",
         "gbm-green-light": "#87D1B9",
         "gbm-green-dark": "#3E7768",
+        "gbm-green-darker": "#418775",
       },
       fontFamily: {
         sans: ["Quicksand", "sans-serif"],

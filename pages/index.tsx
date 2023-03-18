@@ -1,13 +1,10 @@
-import { Footer } from "../components/Footer";
 import { Hero } from "../components/Hero";
-import { Navbar } from "../components/Navbar";
+import MainLayout from "../layouts/MainLayout";
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
+    <MainLayout>
       <Hero />
-      <Footer />
-    </>
+    </MainLayout>
   );
 }

@@ -94,8 +94,8 @@ export const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end flex gap-2">
-        <Button isLink path="/" content="Sign up" variant="ghost" />
-        <Button isLink path="/" content="Log in" />
+        <Button isLink path="/register" content="Sign up" variant="ghost" />
+        <Button isLink path="/login" content="Log in" />
       </div>
     </div>
   );

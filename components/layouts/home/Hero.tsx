@@ -4,7 +4,7 @@ import { Button } from "../../Button";
 
 const Hero = () => {
   return (
-    <div className="hero min-h-screen bg-gradient-to-br from-cream via-gbm-green-light to-gbm-green-dark">
+    <div className="hero min-h-screen bg-gradient-to-br from-cream via-gbm-green-lighter to-gbm-green-dark">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="flex justify-center bg-[url('/images/blob-hero.svg')] bg-contain bg-center bg-no-repeat w-full">
           <Image

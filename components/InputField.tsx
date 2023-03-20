@@ -17,10 +17,10 @@ const InputField = ({
   ...inputProps
 }: InputFieldProps) => {
   return (
-    <div className={classNames("form-control w-full")}>
+    <div className="form-control w-full">
       {label ? (
         <label className="label">
-          <span className={classNames("label-text")}>{label}</span>
+          <span className="label-text">{label}</span>
         </label>
       ) : null}
       <input

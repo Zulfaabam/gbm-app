@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 
 interface ButtonProps {
   isLink?: boolean;
@@ -16,29 +17,29 @@ export const Button = ({
 }: ButtonProps) => {
   const btnVariant =
     variant === "ghost"
-      ? "btn btn-ghost text-white"
+      ? "btn-ghost text-white"
       : variant === "light-green"
-      ? "btn bg-gbm-green-light text-white hover:bg-gbm-green-light hover:text-white border-none"
+      ? "bg-gbm-green-light text-white hover:bg-gbm-green-light hover:text-white border-none"
       : variant === "green"
-      ? "btn bg-gbm-green-darker text-white hover:bg-gbm-green-dark hover:text-white border-none"
+      ? "bg-gbm-green-darker text-white hover:bg-gbm-green-dark hover:text-white border-none"
       : variant === "red"
-      ? "btn bg-maroon text-white hover:bg-maroon hover:text-white border-none"
+      ? "bg-maroon text-white hover:bg-maroon hover:text-white border-none"
       : variant === "purple"
-      ? "btn bg-gbm-purple text-white hover:bg-gbm-purple hover:text-white border-none"
+      ? "bg-gbm-purple text-white hover:bg-gbm-purple hover:text-white border-none"
       : variant === "cream"
-      ? "btn bg-cream text-matcha hover:bg-cream hover:text-matcha border-none"
-      : "btn bg-white text-black hover:bg-slate-300 hover:text-black border-none";
+      ? "bg-cream text-matcha hover:bg-cream hover:text-matcha border-none"
+      : "bg-white text-black hover:bg-slate-300 hover:text-black border-none";
 
   if (isLink) {
     return (
-      <a href={path} className={btnVariant} {...props}>
+      <a href={path} className={classNames("btn", btnVariant)} {...props}>
         {content}
       </a>
     );
   }
 
   return (
-    <button className={btnVariant} {...props}>
+    <button className={classNames("btn", btnVariant)} {...props}>
       {content}
     </button>
   );

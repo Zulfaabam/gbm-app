@@ -13,29 +13,18 @@ const login = () => {
             type="email"
             label="Email:"
             placeholder="example@email.com"
+            className="border-matcha"
+            onChange={(e) => console.log(e.target.value)}
           />
-          <InputField type="password" label="Password:" placeholder="****" />
-          {/* <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Email:</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Type here"
-              className="input input-bordered w-full"
-            />
-          </div> */}
-          {/* <div className="form-control w-full">
-            <label className="label">
-              <span className="label-text">Password:</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Type here"
-              className="input input-bordered w-full"
-            />
-          </div> */}
-          <a href="">Lupa Password?</a>
+          <InputField
+            type="password"
+            label="Kata sandi:"
+            placeholder="****"
+            className="border-matcha"
+          />
+          <a href="" className="underline">
+            Lupa Password?
+          </a>
           <Button content="Masuk" variant="cream" />
         </form>
       </div>

@@ -4,9 +4,8 @@ import classNames from "classnames";
 export interface InputFieldProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  type?: string;
   placeholder?: string;
-  className?: string;
+  // className?: string;
 }
 
 const InputField = ({

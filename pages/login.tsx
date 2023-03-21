@@ -8,7 +8,7 @@ const login = () => {
     <div className="flex w-full h-screen">
       <div className="w-2/3 flex items-center justify-center">
         <form action="" className="flex flex-col gap-8 w-1/2">
-          <h1 className="font-heading text-[40px] text-matcha">Login</h1>
+          <h1 className="font-heading text-4xl text-matcha">Login</h1>
           <InputField
             type="email"
             label="Email:"

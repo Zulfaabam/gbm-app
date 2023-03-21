@@ -7,14 +7,25 @@ const register = () => {
   return (
     <div className="flex w-full h-screen">
       <div className="w-2/3 flex items-center justify-center">
-        <form action="" className="flex flex-col gap-8 w-1/2">
-          <h1 className="font-heading text-[40px] text-matcha">Login</h1>
+        <form action="" className="flex flex-col gap-2 w-1/2">
+          <h1 className="font-heading text-4xl text-matcha">Register</h1>
           <InputField
             type="email"
             label="Email:"
             placeholder="example@email.com"
             className="border-matcha"
-            onChange={(e) => console.log(e.target.value)}
+          />
+          <InputField
+            type="text"
+            label="Nama pengguna:"
+            placeholder="Nama"
+            className="border-matcha"
+          />
+          <InputField
+            type="number"
+            label="Nomor Handphone"
+            placeholder="021020120"
+            className="border-matcha"
           />
           <InputField
             type="password"
@@ -22,10 +33,13 @@ const register = () => {
             placeholder="****"
             className="border-matcha"
           />
-          <a href="" className="underline">
-            Lupa Password?
-          </a>
-          <Button content="Masuk" variant="cream" />
+          <InputField
+            type="password"
+            label="Konfirmasi password:"
+            placeholder="****"
+            className="border-matcha"
+          />
+          <Button content="Daftar" variant="cream" />
         </form>
       </div>
       <div className="relative w-1/3 h-full bg-gbm-green-dark flex items-center">

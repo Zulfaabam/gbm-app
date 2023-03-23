@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { Button } from "../../Button";
 
@@ -24,7 +25,9 @@ const Hero = () => {
             excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
             a id nisi.
           </p>
-          <Button isLink path="/" content="Selengkapnya" variant="green" />
+          <Link href="/">
+            <Button content="Selengkapnya" className="btn-dark-green" />
+          </Link>
         </div>
       </div>
     </div>

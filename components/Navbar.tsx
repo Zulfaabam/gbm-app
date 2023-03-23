@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { Button } from "./Button";
 
@@ -93,8 +94,12 @@ export const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end flex gap-2">
-        <Button isLink path="/register" content="Sign up" variant="ghost" />
-        <Button isLink path="/login" content="Log in" />
+        <Link href="/register">
+          <Button content="Sign up" className="btn-secondary" />
+        </Link>
+        <Link href="/login">
+          <Button content="Log in" />
+        </Link>
       </div>
     </div>
   );

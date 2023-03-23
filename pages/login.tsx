@@ -25,7 +25,7 @@ const login = () => {
           <a href="" className="underline">
             Lupa Password?
           </a>
-          <Button content="Masuk" variant="cream" />
+          <Button content="Masuk" className="btn-cream" />
         </form>
       </div>
       <div className="relative w-1/3 h-full bg-gbm-green-dark flex items-center">

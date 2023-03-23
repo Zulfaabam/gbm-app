@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { Button } from "../../Button";
 
@@ -28,7 +29,9 @@ const Layanan = () => {
             tristique imperdiet sodales amet donec. Orci tellus et auctor
             adipiscing ultrices integer id. Enim diam.
           </p>
-          <Button isLink path="/" content="Selengkapnya" variant="red" />
+          <Link href="/">
+            <Button content="Selengkapnya" className="btn-maroon" />
+          </Link>
         </div>
       </div>
       <div className="flex flex-row-reverse justify-evenly items-center">
@@ -51,7 +54,9 @@ const Layanan = () => {
             tristique imperdiet sodales amet donec. Orci tellus et auctor
             adipiscing ultrices integer id. Enim diam.
           </p>
-          <Button isLink path="/" content="Selengkapnya" variant="purple" />
+          <Link href="/">
+            <Button content="Selengkapnya" className="btn-purple" />
+          </Link>
         </div>
       </div>
       <div className="flex justify-evenly items-center">
@@ -74,12 +79,9 @@ const Layanan = () => {
             tristique imperdiet sodales amet donec. Orci tellus et auctor
             adipiscing ultrices integer id. Enim diam.
           </p>
-          <Button
-            isLink
-            path="/"
-            content="Selengkapnya"
-            variant="light-green"
-          />
+          <Link href="/">
+            <Button content="Selengkapnya" className="btn-light-green" />
+          </Link>
         </div>
       </div>
     </div>

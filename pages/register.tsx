@@ -39,7 +39,7 @@ const register = () => {
             placeholder="****"
             className="border-matcha"
           />
-          <Button content="Daftar" variant="cream" />
+          <Button content="Daftar" className="btn-cream" />
         </form>
       </div>
       <div className="relative w-1/3 h-full bg-gbm-green-dark flex items-center">

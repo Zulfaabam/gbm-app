@@ -25,7 +25,7 @@ export const Navbar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-56"
           >
             <li>
               <a>Item 1</a>
@@ -54,6 +54,28 @@ export const Navbar = () => {
             </li>
             <li>
               <a>Item 3</a>
+            </li>
+            <li tabIndex={0}>
+              <a className="justify-between">
+                Sign up/Log in
+                <svg
+                  className="fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+                </svg>
+              </a>
+              <ul className="p-2">
+                <li>
+                  <Link href="/register">Sign up</Link>
+                </li>
+                <li>
+                  <Link href="/login">Log in</Link>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -93,7 +115,7 @@ export const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div className="navbar-end flex gap-2">
+      <div className="navbar-end hidden lg:flex lg:gap-2">
         <Link href="/register">
           <Button content="Sign up" className="btn-secondary" />
         </Link>

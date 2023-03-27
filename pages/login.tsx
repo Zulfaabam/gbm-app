@@ -6,8 +6,11 @@ import InputField from "../components/InputField";
 const login = () => {
   return (
     <div className="flex w-full h-screen">
-      <div className="w-2/3 flex items-center justify-center">
-        <form action="" className="flex flex-col gap-8 w-1/2">
+      <div className="w-full lg:w-2/3 flex items-center justify-center">
+        <form
+          action=""
+          className="flex flex-col gap-8 w-full px-8 sm:px-0 sm:w-1/2"
+        >
           <h1 className="font-heading text-4xl text-matcha">Login</h1>
           <InputField
             type="email"
@@ -28,7 +31,7 @@ const login = () => {
           <Button content="Masuk" className="btn-cream" />
         </form>
       </div>
-      <div className="relative w-1/3 h-full bg-gbm-green-dark flex items-center">
+      <div className="relative w-1/3 h-full bg-gbm-green-dark hidden lg:flex items-center">
         <Image src="/images/bro.svg" alt="bro" fill />
       </div>
     </div>

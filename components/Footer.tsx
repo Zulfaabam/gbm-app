@@ -102,7 +102,7 @@ export const Footer = () => {
           <p className="max-w-md text-center lg:text-right text-white">
             Gizi Bakti Masyarakat (GBM) dibentuk pada tanggal 21 Februari 2008
             dimana merupakan sebuah mandat dari ILMAGI (Ikatan Lembaga Mahasiswa
-            Gizi Indonesia). Alamat:{" "}
+            Gizi Indonesia).
             <a href="" className="underline lg:hidden">
               Jalan Prof. H. Soedarto, S.H., Tembalang, Semarang, Jawa Tengah.
               50275
@@ -110,7 +110,7 @@ export const Footer = () => {
           </p>
           <div className="hidden lg:flex items-center gap-2 text-white">
             <TfiLocationPin size={iconSize} />
-            <a href="" className="underline max-w-md">
+            <a href="" className="underline max-w-md lg:max-w-sm">
               Jalan Prof. H. Soedarto, S.H., Tembalang, Semarang, Jawa Tengah.
               50275
             </a>

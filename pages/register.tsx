@@ -6,8 +6,11 @@ import InputField from "../components/InputField";
 const register = () => {
   return (
     <div className="flex w-full h-screen">
-      <div className="w-2/3 flex items-center justify-center">
-        <form action="" className="flex flex-col gap-2 w-1/2">
+      <div className="w-full lg:w-2/3 flex items-center justify-center">
+        <form
+          action=""
+          className="flex flex-col gap-2 w-full px-8 sm:px-0 sm:w-1/2"
+        >
           <h1 className="font-heading text-4xl text-matcha">Register</h1>
           <InputField
             type="email"
@@ -39,10 +42,10 @@ const register = () => {
             placeholder="****"
             className="border-matcha"
           />
-          <Button content="Daftar" className="btn-cream" />
+          <Button content="Daftar" className="btn-cream mt-4" />
         </form>
       </div>
-      <div className="relative w-1/3 h-full bg-gbm-green-dark flex items-center">
+      <div className="relative w-1/3 h-full bg-gbm-green-dark hidden lg:flex items-center">
         <Image src="/images/bro.svg" alt="bro" fill />
       </div>
     </div>

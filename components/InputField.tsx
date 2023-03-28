@@ -8,6 +8,7 @@ export interface InputFieldProps
 }
 
 const InputField = ({
+  name,
   label,
   type = "text",
   placeholder = "Type here",
@@ -17,11 +18,13 @@ const InputField = ({
   return (
     <div className="form-control w-full">
       {label ? (
-        <label className="label">
+        <label htmlFor={name} className="label">
           <span className="label-text">{label}</span>
         </label>
       ) : null}
       <input
+        id={name}
+        name={name}
         type={type}
         placeholder={placeholder}
         className={classNames("input input-bordered w-full", className)}

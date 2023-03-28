@@ -27,12 +27,9 @@ export const Navbar = () => {
             tabIndex={0}
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-56"
           >
-            <li>
-              <a>Item 1</a>
-            </li>
             <li tabIndex={0}>
               <a className="justify-between">
-                Parent
+                Pelayanan
                 <svg
                   className="fill-current"
                   xmlns="http://www.w3.org/2000/svg"
@@ -43,17 +40,48 @@ export const Navbar = () => {
                   <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
                 </svg>
               </a>
-              <ul className="p-2">
+              <ul className="p-2 bg-white">
                 <li>
-                  <a>Submenu 1</a>
+                  <a>Sewa Alkes</a>
                 </li>
                 <li>
-                  <a>Submenu 2</a>
+                  <a>PO Alkes</a>
+                </li>
+                <li>
+                  <a>Konsultasi Online</a>
+                </li>
+              </ul>
+            </li>
+            <li tabIndex={0}>
+              <a className="justify-between">
+                Event
+                <svg
+                  className="fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+                </svg>
+              </a>
+              <ul className="p-2 bg-white">
+                <li>
+                  <a>Event GBM</a>
+                </li>
+                <li>
+                  <a>Event Partnership</a>
                 </li>
               </ul>
             </li>
             <li>
-              <a>Item 3</a>
+              <a>Informasi</a>
+            </li>
+            <li>
+              <a>Artikel</a>
+            </li>
+            <li>
+              <a>Tentang Kami</a>
             </li>
             <li tabIndex={0}>
               <a className="justify-between">
@@ -68,7 +96,7 @@ export const Navbar = () => {
                   <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
                 </svg>
               </a>
-              <ul className="p-2">
+              <ul className="p-2 bg-white">
                 <li>
                   <Link href="/register">Sign up</Link>
                 </li>
@@ -85,12 +113,9 @@ export const Navbar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <li>
-            <a className="text-white">Item 1</a>
-          </li>
           <li tabIndex={0}>
             <a className="text-white">
-              Parent
+              Pelayanan
               <svg
                 className="fill-current"
                 xmlns="http://www.w3.org/2000/svg"
@@ -101,17 +126,48 @@ export const Navbar = () => {
                 <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
               </svg>
             </a>
-            <ul className="p-2">
+            <ul className="p-2 bg-white">
               <li>
-                <a>Submenu 1</a>
+                <a>Sewa Alkes</a>
               </li>
               <li>
-                <a>Submenu 2</a>
+                <a>PO Alkes</a>
+              </li>
+              <li>
+                <a>Konsultasi Online</a>
+              </li>
+            </ul>
+          </li>
+          <li tabIndex={0}>
+            <a className="text-white">
+              Pelayanan
+              <svg
+                className="fill-current"
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+              >
+                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+              </svg>
+            </a>
+            <ul className="p-2 bg-white">
+              <li>
+                <a>Event GBM</a>
+              </li>
+              <li>
+                <a>Event Partnership</a>
               </li>
             </ul>
           </li>
           <li>
-            <a className="text-white">Item 3</a>
+            <a className="text-white">Informasi</a>
+          </li>
+          <li>
+            <a className="text-white">Artikel</a>
+          </li>
+          <li>
+            <a className="text-white">Tentang Kami</a>
           </li>
         </ul>
       </div>

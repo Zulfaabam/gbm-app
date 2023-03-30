@@ -18,6 +18,6 @@ const firebaseApp =
 
 // const analytics = getAnalytics(firebaseApp);
 
-const firestore = getFirestore();
+const db = getFirestore(firebaseApp);
 
-export { firestore, firebaseApp };
+export { db, firebaseApp };

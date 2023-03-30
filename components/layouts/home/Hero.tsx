@@ -25,7 +25,7 @@ const Hero = () => {
             excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
             a id nisi.
           </p>
-          <Link href="/">
+          <Link href="/company-profile">
             <Button content="Selengkapnya" className="btn-dark-green" />
           </Link>
         </div>

@@ -13,11 +13,11 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebase_app =
+const firebaseApp =
   getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
-// const analytics = getAnalytics(firebase_app);
+// const analytics = getAnalytics(firebaseApp);
 
 const firestore = getFirestore();
 
-export { firestore, firebase_app };
+export { firestore, firebaseApp };

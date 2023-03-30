@@ -29,7 +29,7 @@ const Layanan = () => {
             tristique imperdiet sodales amet donec. Orci tellus et auctor
             adipiscing ultrices integer id. Enim diam.
           </p>
-          <Link href="/">
+          <Link href="/pre-order">
             <Button content="Selengkapnya" className="btn-maroon" />
           </Link>
         </div>
@@ -54,7 +54,7 @@ const Layanan = () => {
             tristique imperdiet sodales amet donec. Orci tellus et auctor
             adipiscing ultrices integer id. Enim diam.
           </p>
-          <Link href="/">
+          <Link href="/sewa">
             <Button content="Selengkapnya" className="btn-purple" />
           </Link>
         </div>
@@ -79,7 +79,7 @@ const Layanan = () => {
             tristique imperdiet sodales amet donec. Orci tellus et auctor
             adipiscing ultrices integer id. Enim diam.
           </p>
-          <Link href="/">
+          <Link href="/konsultasi">
             <Button content="Selengkapnya" className="btn-light-green" />
           </Link>
         </div>

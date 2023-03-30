@@ -140,7 +140,7 @@ export const Navbar = () => {
           </li>
           <li tabIndex={0}>
             <a className="text-white">
-              Pelayanan
+              Event
               <svg
                 className="fill-current"
                 xmlns="http://www.w3.org/2000/svg"

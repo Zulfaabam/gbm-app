@@ -37,6 +37,9 @@ module.exports = {
         sans: ["Quicksand", "sans-serif"],
         heading: ["Shrikhand", "cursive"],
       },
+      maxWidth: {
+        "8xl": "86.5rem", //1384px
+      },
     },
   },
 };

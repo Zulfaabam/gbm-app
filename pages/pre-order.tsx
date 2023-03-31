@@ -1,39 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { db } from "@/firebase/clientApp";
-import {
-  collection,
-  DocumentData,
-  getDocs,
-  QueryDocumentSnapshot,
-} from "firebase/firestore";
+import React from "react";
+import useSWR from "swr";
+import { fetcher } from "@/common/utils/fetcher";
+import { BarLoader } from "react-spinners";
+import MainLayout from "@/components/layouts/MainLayout";
 
 const preOrder = () => {
-  const [data, setData] = useState<QueryDocumentSnapshot<DocumentData>[]>([]);
+  const { data, error, isLoading } = useSWR<any[], Error>(
+    "/api/pre-order",
+    fetcher
+  );
 
-  const getPo = async () => {
-    const result: QueryDocumentSnapshot<DocumentData>[] = [];
+  if (error) return <div>failed to load</div>;
 
-    const querySnapshot = await getDocs(collection(db, "preorderProds"));
+  if (isLoading)
+    return (
+      <MainLayout>
+        <BarLoader />
+      </MainLayout>
+    );
 
-    querySnapshot.forEach((snapshot) => {
-      result.push(snapshot);
-    });
-
-    setData(result);
-  };
-
-  useEffect(() => {
-    getPo();
-  }, []);
-
-  console.log(data.map((d) => d.data()));
+  console.log(data);
 
   return (
-    <div>
-      {data.map((d) => (
-        <p key={d.id}>{d.data().desc}</p>
+    <MainLayout>
+      {data?.map((d) => (
+        <p key={d.id}>{d.data.desc}</p>
       ))}
-    </div>
+    </MainLayout>
   );
 };
 

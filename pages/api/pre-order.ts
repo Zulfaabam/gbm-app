@@ -17,11 +17,12 @@ const preOrder = async (req: NextApiRequest, res: NextApiResponse) => {
   });
 
   if (!docs.empty) {
-    console.log(
-      "Document data:",
-      result.map((d) => d.data())
+    res.status(200).json(
+      result.map((d) => ({
+        id: d.id,
+        data: d.data(),
+      }))
     );
-    res.status(200).json(result.map((d) => d.data()));
   } else {
     console.log("No such document!");
   }

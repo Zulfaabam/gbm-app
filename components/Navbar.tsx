@@ -26,13 +26,13 @@ export const Navbar = () => {
               </a>
               <ul className="p-2 bg-white">
                 <li>
-                  <a>Sewa Alkes</a>
+                  <Link href="/sewa">Sewa Alkes</Link>
                 </li>
                 <li>
-                  <a>PO Alkes</a>
+                  <Link href="/pre-order">PO Alkes</Link>
                 </li>
                 <li>
-                  <a>Konsultasi Online</a>
+                  <Link href="/konsultasi">Konsultasi Online</Link>
                 </li>
               </ul>
             </li>
@@ -88,13 +88,13 @@ export const Navbar = () => {
             </a>
             <ul className="p-2 bg-white">
               <li>
-                <a>Sewa Alkes</a>
+                <Link href="/sewa">Sewa Alkes</Link>
               </li>
               <li>
-                <a>PO Alkes</a>
+                <Link href="/pre-order">PO Alkes</Link>
               </li>
               <li>
-                <a>Konsultasi Online</a>
+                <Link href="/konsultasi">Konsultasi Online</Link>
               </li>
             </ul>
           </li>

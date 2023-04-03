@@ -3,6 +3,7 @@ import useSWR from "swr";
 import { fetcher } from "@/common/utils/fetcher";
 import { BarLoader } from "react-spinners";
 import MainLayout from "@/components/layouts/MainLayout";
+import Card from "@/components/Card";
 
 const preOrder = () => {
   const { data, error, isLoading } = useSWR<any[], Error>(
@@ -15,7 +16,9 @@ const preOrder = () => {
   if (isLoading)
     return (
       <MainLayout>
-        <BarLoader />
+        <div className="py-7 max-w-8xl min-h-screen mx-auto flex justify-center items-center gap-4 flex-wrap">
+          <BarLoader />
+        </div>
       </MainLayout>
     );
 
@@ -23,9 +26,16 @@ const preOrder = () => {
 
   return (
     <MainLayout>
-      {data?.map((d) => (
-        <p key={d.id}>{d.data.desc}</p>
-      ))}
+      <div className="py-7 max-w-8xl mx-auto flex justify-center gap-4 flex-wrap">
+        {data?.map((d) => (
+          <Card
+            key={d.id}
+            img={d.data.iconURL}
+            title={d.data.desc}
+            desc={d.data.longdesc}
+          />
+        ))}
+      </div>
     </MainLayout>
   );
 };

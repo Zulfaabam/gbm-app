@@ -4,7 +4,13 @@ This App uses [`next-pwa`](https://github.com/shadowwalker/next-pwa) to create a
 
 ## How to run in your local
 
-### Install
+### Clone
+
+```bash
+git clone https://github.com/Zulfaabam/gbm-app.git
+```
+
+### Install modules
 
 ```bash
 npm install

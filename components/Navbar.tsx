@@ -7,6 +7,14 @@ import {
   MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
 
+export interface DropdownMenuProps {
+  children: React.ReactNode;
+}
+
+const DropdownMenu = ({ children }: DropdownMenuProps) => (
+  <ul className="p-2 bg-white z-10">{children}</ul>
+);
+
 export const Navbar = () => {
   return (
     <div className="navbar bg-dark px-8">
@@ -24,7 +32,7 @@ export const Navbar = () => {
                 Pelayanan
                 <MdOutlineKeyboardArrowRight className="fill-current h-6 w-6" />
               </a>
-              <ul className="p-2 bg-white">
+              <DropdownMenu>
                 <li>
                   <Link href="/sewa">Sewa Alkes</Link>
                 </li>
@@ -34,21 +42,21 @@ export const Navbar = () => {
                 <li>
                   <Link href="/konsultasi">Konsultasi Online</Link>
                 </li>
-              </ul>
+              </DropdownMenu>
             </li>
             <li tabIndex={0}>
               <a className="justify-between">
                 Event
                 <MdOutlineKeyboardArrowRight className="fill-current h-6 w-6" />
               </a>
-              <ul className="p-2 bg-white">
+              <DropdownMenu>
                 <li>
                   <a>Event GBM</a>
                 </li>
                 <li>
                   <a>Event Partnership</a>
                 </li>
-              </ul>
+              </DropdownMenu>
             </li>
             <li>
               <a>Informasi</a>
@@ -64,14 +72,14 @@ export const Navbar = () => {
                 Sign up/Log in
                 <MdOutlineKeyboardArrowRight className="fill-current h-6 w-6" />
               </a>
-              <ul className="p-2 bg-white">
+              <DropdownMenu>
                 <li>
                   <Link href="/register">Sign up</Link>
                 </li>
                 <li>
                   <Link href="/login">Log in</Link>
                 </li>
-              </ul>
+              </DropdownMenu>
             </li>
           </ul>
         </div>
@@ -86,7 +94,7 @@ export const Navbar = () => {
               Pelayanan
               <MdOutlineKeyboardArrowDown className="fill-current h-5 w-5" />
             </a>
-            <ul className="p-2 bg-white">
+            <DropdownMenu>
               <li>
                 <Link href="/sewa">Sewa Alkes</Link>
               </li>
@@ -96,21 +104,21 @@ export const Navbar = () => {
               <li>
                 <Link href="/konsultasi">Konsultasi Online</Link>
               </li>
-            </ul>
+            </DropdownMenu>
           </li>
           <li tabIndex={0}>
             <a className="text-white">
               Event
               <MdOutlineKeyboardArrowDown className="fill-current h-5 w-5" />
             </a>
-            <ul className="p-2 bg-white">
+            <DropdownMenu>
               <li>
                 <a>Event GBM</a>
               </li>
               <li>
                 <a>Event Partnership</a>
               </li>
-            </ul>
+            </DropdownMenu>
           </li>
           <li>
             <a className="text-white">Informasi</a>

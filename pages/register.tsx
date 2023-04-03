@@ -19,7 +19,7 @@ const register = () => {
 
     // else successful
     console.log(result);
-    return router.push("/");
+    return router.push("/login");
   };
 
   return (
@@ -35,6 +35,7 @@ const register = () => {
             { setSubmitting }: FormikHelpers<Values>
           ) => {
             handleRegister(values.email, values.password);
+            console.log(values);
             setSubmitting(false);
           }}
         >
@@ -72,7 +73,7 @@ const register = () => {
             placeholder="****"
             className="border-matcha"
           /> */}
-            <Button content="Daftar" className="btn-cream mt-4" />
+            <Button type="submit" content="Daftar" className="btn-cream mt-4" />
           </Form>
         </Formik>
       </div>

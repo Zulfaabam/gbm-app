@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import useSWR from "swr";
-import { fetcher } from "@/common/utils/fetcher";
+import { fetcher } from "common/utils/fetcher";
 import { BarLoader } from "react-spinners";
-import MainLayout from "@/components/layouts/MainLayout";
-import Card from "@/components/Card";
+import MainLayout from "components/layouts/MainLayout";
+import Card from "components/Card";
+import { AuthContext } from "context/AuthContext";
 
 const preOrder = () => {
+  const user = useContext(AuthContext);
+
   const { data, error, isLoading } = useSWR<any[], Error>(
     "/api/pre-order",
     fetcher
@@ -23,6 +26,7 @@ const preOrder = () => {
     );
 
   console.log(data);
+  console.log("user", user);
 
   return (
     <MainLayout>

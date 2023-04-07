@@ -6,16 +6,18 @@ import {
   MdOutlineKeyboardArrowRight,
   MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
+import { onAuthStateChanged, getAuth, User } from "firebase/auth";
+import Image from "next/image";
 
-export interface DropdownMenuProps {
-  children: React.ReactNode;
-}
-
-const DropdownMenu = ({ children }: DropdownMenuProps) => (
+const DropdownMenu: React.FC = ({ children }) => (
   <ul className="p-2 bg-white z-10">{children}</ul>
 );
 
-export const Navbar = () => {
+interface NavbarProps {
+  user: User | null;
+}
+
+export const Navbar = ({ user }: NavbarProps) => {
   return (
     <div className="navbar bg-dark px-8">
       <div className="navbar-start">
@@ -131,14 +133,25 @@ export const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div className="navbar-end hidden lg:flex lg:gap-2">
-        <Link href="/register">
-          <Button content="Sign up" className="btn-secondary" />
-        </Link>
-        <Link href="/login">
-          <Button content="Log in" />
-        </Link>
-      </div>
+      {user ? (
+        <div className="navbar-end hidden lg:flex lg:gap-2">
+          <div className="avatar">
+            <div className="w-12 rounded-full">
+              <img src={user.photoURL || "/icons/gbm-logo-32.png"} />
+            </div>
+          </div>
+          <p className="text-white">{user.displayName || user.email}</p>
+        </div>
+      ) : (
+        <div className="navbar-end hidden lg:flex lg:gap-2">
+          <Link href="/register">
+            <Button content="Sign up" className="btn-secondary" />
+          </Link>
+          <Link href="/login">
+            <Button content="Log in" />
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

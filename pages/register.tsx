@@ -2,11 +2,10 @@ import { Form, Formik, FormikHelpers } from "formik";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { Button } from "@/components/Button";
-import InputField from "@/components/InputField";
+import { Button } from "components/Button";
+import InputField from "components/InputField";
 import signUp from "@/firebase/auth/signup";
 import { Values } from "./login";
-import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { RiEyeCloseLine, RiEyeLine } from "react-icons/ri";
 
@@ -27,7 +26,10 @@ const register = () => {
     return router.push("/login");
   }
 
-  function handleShowPassword() {
+  function handleShowPassword(event: React.FormEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+
     if (passwordType === "password") {
       setPasswordType("text");
       return;
@@ -78,7 +80,7 @@ const register = () => {
                   )
                 }
                 className="absolute top-[50px] right-[15px]"
-                onClick={handleShowPassword}
+                onClick={(e) => handleShowPassword(e)}
               />
             </div>
             <Button type="submit" content="Daftar" className="btn-cream mt-4" />

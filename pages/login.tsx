@@ -1,13 +1,12 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import { Button } from "@/components/Button";
-import InputField from "@/components/InputField";
+import { Button } from "components/Button";
+import InputField from "components/InputField";
 import { Formik, Form, FormikHelpers } from "formik";
 import { useRouter } from "next/router";
 import { signIn, signInWithGoogle } from "@/firebase/auth/signin";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
-import { HiPhone } from "react-icons/hi";
 import { RiEyeCloseLine, RiEyeLine } from "react-icons/ri";
 
 export interface Values {
@@ -42,7 +41,10 @@ const login = () => {
     return router.push("/");
   }
 
-  function handleShowPassword() {
+  function handleShowPassword(event: React.FormEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+
     if (passwordType === "password") {
       setPasswordType("text");
       return;
@@ -92,7 +94,7 @@ const login = () => {
                   )
                 }
                 className="absolute top-[50px] right-[15px]"
-                onClick={handleShowPassword}
+                onClick={(e) => handleShowPassword(e)}
               />
             </div>
             <a href="" className="underline">

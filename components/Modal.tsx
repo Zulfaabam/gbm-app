@@ -1,9 +1,13 @@
 import React from "react";
 
-const Modal = () => {
+interface ModalProps {
+  id: string;
+}
+
+const Modal = ({ id }: ModalProps) => {
   return (
     <>
-      <input type="checkbox" id="my-modal-6" className="modal-toggle" />
+      <input type="checkbox" id={id} className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-lg">
@@ -14,7 +18,7 @@ const Modal = () => {
             use Wikipedia for free!
           </p>
           <div className="modal-action">
-            <label htmlFor="my-modal-6" className="btn">
+            <label htmlFor={id} className="btn">
               Yay!
             </label>
           </div>

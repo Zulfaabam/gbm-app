@@ -88,11 +88,9 @@ export const Navbar = ({ user }: NavbarProps) => {
                 </a>
                 <DropdownMenu>
                   <li>
-                    <Button
-                      content="Profil saya"
-                      className="capitalize"
-                      onClick={handleOpenModal}
-                    />
+                    <label htmlFor="profile" className="btn-primary capitalize">
+                      Profil Saya
+                    </label>
                   </li>
                   <li>
                     <Button content="Sign out" className="capitalize" />
@@ -175,11 +173,9 @@ export const Navbar = ({ user }: NavbarProps) => {
               </a>
               <DropdownMenu>
                 <li>
-                  <Button
-                    content="Profil saya"
-                    className="capitalize"
-                    onClick={handleOpenModal}
-                  />
+                  <label htmlFor="profile" className="btn-primary capitalize">
+                    Profil Saya
+                  </label>
                 </li>
                 <li>
                   <Button content="Sign out" className="capitalize" />
@@ -198,7 +194,7 @@ export const Navbar = ({ user }: NavbarProps) => {
           </Link>
         </div>
       )}
-      {openModal ? <Modal /> : null}
+      {openModal ? <Modal id="profile" /> : null}
     </div>
   );
 };

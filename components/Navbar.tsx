@@ -1,13 +1,14 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "./Button";
 import { HiMenuAlt1 } from "react-icons/hi";
 import {
   MdOutlineKeyboardArrowRight,
   MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
-import { onAuthStateChanged, getAuth, User } from "firebase/auth";
-import Image from "next/image";
+import { User } from "firebase/auth";
+import Avatar from "./Avatar";
+import Modal from "./Modal";
 
 const DropdownMenu: React.FC = ({ children }) => (
   <ul className="p-2 bg-white z-10">{children}</ul>
@@ -18,6 +19,16 @@ interface NavbarProps {
 }
 
 export const Navbar = ({ user }: NavbarProps) => {
+  const [openModal, setOpenModal] = useState(false);
+
+  function handleOpenModal() {
+    setOpenModal(true);
+  }
+
+  function handleCloseModal() {
+    setOpenModal(false);
+  }
+
   return (
     <div className="navbar bg-dark px-8">
       <div className="navbar-start">
@@ -69,20 +80,41 @@ export const Navbar = ({ user }: NavbarProps) => {
             <li>
               <a>Tentang Kami</a>
             </li>
-            <li tabIndex={0}>
-              <a className="justify-between">
-                Sign up/Log in
-                <MdOutlineKeyboardArrowRight className="fill-current h-6 w-6" />
-              </a>
-              <DropdownMenu>
-                <li>
-                  <Link href="/register">Sign up</Link>
-                </li>
-                <li>
-                  <Link href="/login">Log in</Link>
-                </li>
-              </DropdownMenu>
-            </li>
+            {user ? (
+              <li tabIndex={0}>
+                <a className="justify-between">
+                  {user.displayName || user.email}
+                  <MdOutlineKeyboardArrowRight className="fill-current h-6 w-6" />
+                </a>
+                <DropdownMenu>
+                  <li>
+                    <Button
+                      content="Profil saya"
+                      className="capitalize"
+                      onClick={handleOpenModal}
+                    />
+                  </li>
+                  <li>
+                    <Button content="Sign out" className="capitalize" />
+                  </li>
+                </DropdownMenu>
+              </li>
+            ) : (
+              <li tabIndex={0}>
+                <a className="justify-between">
+                  Sign up/Log in
+                  <MdOutlineKeyboardArrowRight className="fill-current h-6 w-6" />
+                </a>
+                <DropdownMenu>
+                  <li>
+                    <Link href="/register">Sign up</Link>
+                  </li>
+                  <li>
+                    <Link href="/login">Log in</Link>
+                  </li>
+                </DropdownMenu>
+              </li>
+            )}
           </ul>
         </div>
         <a className="btn btn-ghost normal-case text-xl text-white" href="/">
@@ -135,12 +167,26 @@ export const Navbar = ({ user }: NavbarProps) => {
       </div>
       {user ? (
         <div className="navbar-end hidden lg:flex lg:gap-2">
-          <div className="avatar">
-            <div className="w-12 rounded-full">
-              <img src={user.photoURL || "/icons/gbm-logo-32.png"} />
-            </div>
-          </div>
-          <p className="text-white">{user.displayName || user.email}</p>
+          <ul className="menu menu-horizontal px-1">
+            <li tabIndex={0}>
+              <a className="text-white flex gap-2">
+                <Avatar imgUrl={user.photoURL} />
+                <p>{user.displayName || user.email}</p>
+              </a>
+              <DropdownMenu>
+                <li>
+                  <Button
+                    content="Profil saya"
+                    className="capitalize"
+                    onClick={handleOpenModal}
+                  />
+                </li>
+                <li>
+                  <Button content="Sign out" className="capitalize" />
+                </li>
+              </DropdownMenu>
+            </li>
+          </ul>
         </div>
       ) : (
         <div className="navbar-end hidden lg:flex lg:gap-2">
@@ -152,6 +198,7 @@ export const Navbar = ({ user }: NavbarProps) => {
           </Link>
         </div>
       )}
+      {openModal ? <Modal /> : null}
     </div>
   );
 };

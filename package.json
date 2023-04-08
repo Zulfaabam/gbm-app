@@ -7,6 +7,10 @@
     "export": "next export"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/material": "^5.11.16",
     "classnames": "^2.3.2",
     "daisyui": "^2.51.4",
     "firebase": "^9.18.0",

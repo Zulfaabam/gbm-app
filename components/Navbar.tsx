@@ -9,6 +9,8 @@ import {
 import { User } from "firebase/auth";
 import Avatar from "./Avatar";
 import Modal from "./Modal";
+import logOut from "@/firebase/auth/signout";
+import { useRouter } from "next/router";
 
 const DropdownMenu: React.FC = ({ children }) => (
   <ul className="p-2 bg-white z-10">{children}</ul>
@@ -19,6 +21,8 @@ interface NavbarProps {
 }
 
 export const Navbar = ({ user }: NavbarProps) => {
+  const router = useRouter();
+
   const [openModal, setOpenModal] = useState(false);
 
   function handleOpenModal() {
@@ -27,6 +31,17 @@ export const Navbar = ({ user }: NavbarProps) => {
 
   function handleCloseModal() {
     setOpenModal(false);
+  }
+
+  async function handleSignOut() {
+    const { res, error } = await logOut();
+
+    if (error) {
+      console.log(error);
+    }
+
+    console.log(res);
+    router.push("/login");
   }
 
   return (
@@ -88,12 +103,18 @@ export const Navbar = ({ user }: NavbarProps) => {
                 </a>
                 <DropdownMenu>
                   <li>
-                    <label htmlFor="profile" className="btn-primary capitalize">
-                      Profil Saya
-                    </label>
+                    <Button
+                      content="Profil saya"
+                      className="capitalize"
+                      onClick={handleOpenModal}
+                    />
                   </li>
                   <li>
-                    <Button content="Sign out" className="capitalize" />
+                    <Button
+                      content="Sign out"
+                      className="capitalize"
+                      onClick={handleSignOut}
+                    />
                   </li>
                 </DropdownMenu>
               </li>
@@ -173,12 +194,18 @@ export const Navbar = ({ user }: NavbarProps) => {
               </a>
               <DropdownMenu>
                 <li>
-                  <label htmlFor="profile" className="btn-primary capitalize">
-                    Profil Saya
-                  </label>
+                  <Button
+                    content="Profil saya"
+                    className="capitalize"
+                    onClick={handleOpenModal}
+                  />
                 </li>
                 <li>
-                  <Button content="Sign out" className="capitalize" />
+                  <Button
+                    content="Sign out"
+                    className="capitalize"
+                    onClick={handleSignOut}
+                  />
                 </li>
               </DropdownMenu>
             </li>
@@ -194,7 +221,7 @@ export const Navbar = ({ user }: NavbarProps) => {
           </Link>
         </div>
       )}
-      {openModal ? <Modal id="profile" /> : null}
+      {openModal ? <Modal open={openModal} onClose={handleCloseModal} /> : null}
     </div>
   );
 };

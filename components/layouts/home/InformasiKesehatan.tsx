@@ -1,5 +1,24 @@
 import React from "react";
 
+interface TextBoxProps {
+  content: string;
+  color?: string;
+  onClick?: () => void;
+}
+
+const TextBox = ({ content, color, onClick }: TextBoxProps) => (
+  <div
+    className={`border-2 border-${
+      color ? color : "black"
+    } rounded-lg flex justify-center items-center max-w-[266px] px-7 py-14 cursor-pointer bg-white`}
+    onClick={onClick}
+  >
+    <p className={`font-heading text-${color ? color : "black"} text-center`}>
+      {content}
+    </p>
+  </div>
+);
+
 const InformasiKesehatan = () => {
   return (
     <div className="py-7 w-full">
@@ -25,16 +44,10 @@ const InformasiKesehatan = () => {
             pretium orci eget fringilla nunc at.
           </p>
         </div>
-        <div>
-          <div>
-            <p>Informasi Event GBM</p>
-          </div>
-          <div>
-            <p>Informasi Partnership Event</p>
-          </div>
-          <div>
-            <p>Informasi Kesehatan dan Gizi</p>
-          </div>
+        <div className="flex flex-wrap gap-4 justify-center">
+          <TextBox color="gbm-green-dark" content="Informasi Event GBM" />
+          <TextBox color="maroon" content="Informasi Partnership Event" />
+          <TextBox color="gbm-purple" content="Informasi Kesehatan dan Gizi" />
         </div>
       </div>
     </div>

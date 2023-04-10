@@ -8,6 +8,7 @@ import signUp from "@/firebase/auth/signup";
 import { Values } from "./login";
 import Link from "next/link";
 import { RiEyeCloseLine, RiEyeLine } from "react-icons/ri";
+import { BsArrowLeft } from "react-icons/bs";
 
 const register = () => {
   const router = useRouter();
@@ -21,7 +22,6 @@ const register = () => {
       return console.log(error);
     }
 
-    // else successful
     console.log(result);
     return router.push("/login");
   }
@@ -55,6 +55,9 @@ const register = () => {
           }}
         >
           <Form className="flex flex-col gap-8 w-full px-8 sm:px-0 sm:w-1/2">
+            <Link href="/" className="flex items-center gap-2 self-start">
+              <BsArrowLeft size="1.25rem" /> Beranda
+            </Link>
             <h1 className="font-heading text-4xl text-matcha">Register</h1>
             <InputField
               name="email"

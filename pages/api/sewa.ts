@@ -7,7 +7,7 @@ import {
 } from "firebase/firestore";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const preOrder = async (req: NextApiRequest, res: NextApiResponse) => {
+const sewa = async (req: NextApiRequest, res: NextApiResponse) => {
   const result: QueryDocumentSnapshot<DocumentData>[] = [];
 
   const docs = await getDocs(collection(db, "rentProds"));
@@ -28,4 +28,4 @@ const preOrder = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export default preOrder;
+export default sewa;

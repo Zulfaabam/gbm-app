@@ -8,6 +8,7 @@ import { signIn, signInWithGoogle } from "@/firebase/auth/signin";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { RiEyeCloseLine, RiEyeLine } from "react-icons/ri";
+import { BsArrowLeft } from "react-icons/bs";
 
 export interface Values {
   email: string;
@@ -69,6 +70,9 @@ const login = () => {
           }}
         >
           <Form className="flex flex-col gap-8 w-full px-8 sm:px-0 sm:w-1/2">
+            <Link href="/" className="flex items-center gap-2 self-start">
+              <BsArrowLeft size="1.25rem" /> Beranda
+            </Link>
             <h1 className="font-heading text-4xl text-matcha">Login</h1>
             <InputField
               name="email"

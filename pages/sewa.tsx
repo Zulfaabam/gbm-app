@@ -3,10 +3,10 @@ import useSWR from "swr";
 import { fetcher } from "common/utils/fetcher";
 import { BarLoader } from "react-spinners";
 import MainLayout from "components/layouts/MainLayout";
-import Card from "components/Card";
+import ActionAreaCard from "components/ActionAreaCard";
 import { AuthContext } from "context/AuthContext";
 import Link from "next/link";
-import { Button } from "@/components/Button";
+import { Button } from "components/Button";
 import { Typography } from "@mui/material";
 export interface Sewa {
   id: string;
@@ -59,10 +59,11 @@ const sewa = () => {
 
   return (
     <MainLayout>
-      <div className="py-7 max-w-8xl mx-auto min-h-screen flex justify-center gap-4 flex-wrap">
+      <div className="py-7 max-w-8xl mx-auto min-h-screen grid grid-cols-4 gap-4">
         {data?.map((d) => (
-          <Card
+          <ActionAreaCard
             key={d.id}
+            maxWidth={300}
             img={d.data.iconURL}
             title={d.data.desc}
             desc={d.data.longDesc}

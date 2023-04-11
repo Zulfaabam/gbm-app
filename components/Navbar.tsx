@@ -7,10 +7,10 @@ import {
   MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
 import { User } from "firebase/auth";
-import Avatar from "./Avatar";
 import Modal from "./Modal";
 import logOut from "@/firebase/auth/signout";
 import { useRouter } from "next/router";
+import { Avatar } from "@mui/material";
 
 const DropdownMenu: React.FC = ({ children }) => (
   <ul className="p-2 bg-white z-10">{children}</ul>
@@ -189,7 +189,10 @@ export const Navbar = ({ user }: NavbarProps) => {
           <ul className="menu menu-horizontal px-1">
             <li tabIndex={0}>
               <a className="text-white flex gap-2">
-                <Avatar imgUrl={user.photoURL} />
+                <Avatar
+                  src={user.photoURL || "/icons/gbm-logo-32.png"}
+                  alt={user.displayName || "Foto profil"}
+                />
                 <p>{user.displayName || user.email}</p>
               </a>
               <DropdownMenu>

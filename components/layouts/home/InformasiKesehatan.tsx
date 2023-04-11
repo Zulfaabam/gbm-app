@@ -9,11 +9,11 @@ interface TextBoxProps {
 const TextBox = ({ content, color, onClick }: TextBoxProps) => (
   <div
     className={`border-2 border-${
-      color ? color : "black"
+      color || "black"
     } rounded-lg flex justify-center items-center max-w-[266px] px-7 py-14 cursor-pointer bg-white`}
     onClick={onClick}
   >
-    <p className={`font-heading text-${color ? color : "black"} text-center`}>
+    <p className={`font-heading text-${color || "black"} text-center`}>
       {content}
     </p>
   </div>

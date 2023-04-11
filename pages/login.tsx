@@ -99,6 +99,9 @@ const login = () => {
                 }
                 className="absolute top-[50px] right-[15px]"
                 onClick={(e) => handleShowPassword(e)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") return;
+                }}
               />
             </div>
             <a href="" className="underline">

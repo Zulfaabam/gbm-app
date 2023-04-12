@@ -5,9 +5,7 @@ import { BarLoader } from "react-spinners";
 import MainLayout from "components/layouts/MainLayout";
 import ActionAreaCard from "components/ActionAreaCard";
 import { AuthContext } from "context/AuthContext";
-import Link from "next/link";
-import { Button } from "components/Button";
-import { Typography } from "@mui/material";
+import RequiredLogin from "@/components/RequiredLogin";
 export interface Sewa {
   id: string;
   data: SewaData;
@@ -37,13 +35,7 @@ const sewa = () => {
     return (
       <MainLayout>
         <div className="py-7 max-w-8xl min-h-screen mx-auto flex flex-col justify-center items-center gap-4 flex-wrap">
-          <Typography className="font-bold">
-            Oops... Anda harus Log In terlebih dahulu untuk mengakses halaman
-            ini
-          </Typography>
-          <Link href="/login">
-            <Button content="Log In" className="btn-light-green" />
-          </Link>
+          <RequiredLogin />
         </div>
       </MainLayout>
     );

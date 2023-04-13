@@ -7,7 +7,7 @@ import {
   MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
 import { User } from "firebase/auth";
-import Modal from "./Modal";
+import UserProfileModal from "./UserProfileModal";
 import logOut from "@/firebase/auth/signout";
 import { useRouter } from "next/router";
 import { Avatar } from "@mui/material";
@@ -224,7 +224,9 @@ export const Navbar = ({ user }: NavbarProps) => {
           </Link>
         </div>
       )}
-      {openModal ? <Modal open={openModal} onClose={handleCloseModal} /> : null}
+      {openModal ? (
+        <UserProfileModal open={openModal} onClose={handleCloseModal} />
+      ) : null}
     </div>
   );
 };

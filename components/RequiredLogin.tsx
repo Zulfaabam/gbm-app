@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import { Button } from "./Button";
+import MyButton from "./MyButton";
 import Image from "next/image";
 
 const RequiredLogin = () => {
@@ -18,7 +18,7 @@ const RequiredLogin = () => {
         Untuk langkah selanjutnya harap login atau lengkapi data terlebih dahulu
       </Typography>
       <Link href="/login">
-        <Button content="Log In" className="btn-light-green w-40" />
+        <MyButton content="Log In" className="btn-light-green w-40" />
       </Link>
     </div>
   );

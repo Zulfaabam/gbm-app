@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import { Button } from "components/Button";
+import MyButton from "@/components/MyButton";
 import InputField from "components/InputField";
 import { Formik, Form, FormikHelpers } from "formik";
 import { useRouter } from "next/router";
@@ -89,7 +89,7 @@ const login = () => {
                 placeholder="******"
                 className="border-matcha"
               />
-              <Button
+              <MyButton
                 content={
                   passwordType === "password" ? (
                     <RiEyeCloseLine size="24px" />
@@ -107,11 +107,11 @@ const login = () => {
             <a href="" className="underline">
               Lupa Password?
             </a>
-            <Button type="submit" content="Masuk" className="btn-cream" />
+            <MyButton type="submit" content="Masuk" className="btn-cream" />
           </Form>
         </Formik>
         <p className="mt-12 mb-3 font-medium">atau masuk melalui</p>
-        <Button
+        <MyButton
           content={<FcGoogle size="40px" />}
           className="border rounded-lg px-4 py-1 mb-6"
           onClick={handleLoginWithGoogle}

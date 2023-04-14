@@ -2,7 +2,7 @@ import { Form, Formik, FormikHelpers } from "formik";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { Button } from "components/Button";
+import MyButton from "@/components/MyButton";
 import InputField from "components/InputField";
 import signUp from "@/firebase/auth/signup";
 import { Values } from "./login";
@@ -74,7 +74,7 @@ const register = () => {
                 placeholder="******"
                 className="border-matcha"
               />
-              <Button
+              <MyButton
                 content={
                   passwordType === "password" ? (
                     <RiEyeCloseLine size="24px" />
@@ -86,7 +86,11 @@ const register = () => {
                 onClick={(e) => handleShowPassword(e)}
               />
             </div>
-            <Button type="submit" content="Daftar" className="btn-cream mt-4" />
+            <MyButton
+              type="submit"
+              content="Daftar"
+              className="btn-cream mt-4"
+            />
           </Form>
         </Formik>
         <p className="font-medium mt-12">

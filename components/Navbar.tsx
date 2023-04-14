@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { Button } from "./Button";
+import MyButton from "./MyButton";
 import { HiMenuAlt1 } from "react-icons/hi";
 import {
   MdOutlineKeyboardArrowRight,
@@ -103,14 +103,14 @@ export const Navbar = ({ user }: NavbarProps) => {
                 </a>
                 <DropdownMenu>
                   <li>
-                    <Button
+                    <MyButton
                       content="Profil saya"
                       className="capitalize"
                       onClick={handleOpenModal}
                     />
                   </li>
                   <li>
-                    <Button
+                    <MyButton
                       content="Sign out"
                       className="capitalize"
                       onClick={handleSignOut}
@@ -197,14 +197,14 @@ export const Navbar = ({ user }: NavbarProps) => {
               </a>
               <DropdownMenu>
                 <li>
-                  <Button
+                  <MyButton
                     content="Profil saya"
                     className="capitalize"
                     onClick={handleOpenModal}
                   />
                 </li>
                 <li>
-                  <Button
+                  <MyButton
                     content="Sign out"
                     className="capitalize"
                     onClick={handleSignOut}
@@ -217,10 +217,10 @@ export const Navbar = ({ user }: NavbarProps) => {
       ) : (
         <div className="navbar-end hidden lg:flex lg:gap-2">
           <Link href="/register">
-            <Button content="Sign up" className="btn-secondary" />
+            <MyButton content="Sign up" className="btn-secondary" />
           </Link>
           <Link href="/login">
-            <Button content="Log in" />
+            <MyButton content="Log in" />
           </Link>
         </div>
       )}

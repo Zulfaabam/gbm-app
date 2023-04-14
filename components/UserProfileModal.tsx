@@ -7,12 +7,12 @@ import {
 import { AuthContext } from "context/AuthContext";
 import React, { useContext } from "react";
 import { auth } from "@/firebase/clientApp";
-import { updateUserProfile } from "@/common/utils/updateUserProfile";
-import { Button } from "./Button";
+import updateUserProfile from "@/common/utils/updateUserProfile";
+import MyButton from "./MyButton";
 
 interface ModalProps {
   open: boolean;
-  onClose: (value: string) => void;
+  onClose: () => void;
 }
 
 const UserProfileModal = ({ open, onClose }: ModalProps) => {
@@ -25,9 +25,11 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
       <DialogTitle>Profil Saya</DialogTitle>
       <DialogContent>dsadsad</DialogContent>
       <DialogActions>
-        <Button
-          content="Save"
+        <MyButton content="Batal" onClick={onClose} />
+        <MyButton
+          content="Simpan"
           onClick={() => updateUserProfile(auth, "example1", "")}
+          className="btn-purple"
         />
       </DialogActions>
     </Dialog>

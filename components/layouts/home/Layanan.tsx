@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Button } from "../../Button";
+import MyButton from "../../MyButton";
 
 const Layanan = () => {
   let imgWidth = 540;
@@ -34,7 +34,7 @@ const Layanan = () => {
               adipiscing ultrices integer id. Enim diam.
             </p>
             <Link href="/pre-order">
-              <Button content="Selengkapnya" className="btn-maroon" />
+              <MyButton content="Selengkapnya" className="btn-maroon" />
             </Link>
           </div>
         </div>
@@ -62,7 +62,7 @@ const Layanan = () => {
               adipiscing ultrices integer id. Enim diam.
             </p>
             <Link href="/sewa">
-              <Button content="Selengkapnya" className="btn-purple" />
+              <MyButton content="Selengkapnya" className="btn-purple" />
             </Link>
           </div>
         </div>
@@ -90,7 +90,7 @@ const Layanan = () => {
               adipiscing ultrices integer id. Enim diam.
             </p>
             <Link href="/konsultasi">
-              <Button content="Selengkapnya" className="btn-light-green" />
+              <MyButton content="Selengkapnya" className="btn-light-green" />
             </Link>
           </div>
         </div>

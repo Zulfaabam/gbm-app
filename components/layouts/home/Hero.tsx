@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Button } from "../../Button";
+import MyButton from "../../MyButton";
 
 const Hero = () => {
   return (
@@ -26,7 +26,7 @@ const Hero = () => {
             a id nisi.
           </p>
           <Link href="/company-profile">
-            <Button content="Selengkapnya" className="btn-dark-green" />
+            <MyButton content="Selengkapnya" className="btn-dark-green" />
           </Link>
         </div>
       </div>

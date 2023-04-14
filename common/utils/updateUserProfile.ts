@@ -1,6 +1,6 @@
 import { updateProfile, Auth } from "firebase/auth";
 
-export const updateUserProfile = (
+const updateUserProfile = (
   auth: Auth,
   displayName: string,
   photoURL: string
@@ -18,3 +18,5 @@ export const updateUserProfile = (
       console.log(error);
     });
 };
+
+export default updateUserProfile;

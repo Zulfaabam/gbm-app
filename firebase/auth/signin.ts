@@ -1,12 +1,10 @@
-import { firebaseApp } from "../clientApp";
+import { firebaseApp, auth } from "../clientApp";
 import {
   signInWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-
-const auth = getAuth(firebaseApp);
 
 const provider = new GoogleAuthProvider();
 

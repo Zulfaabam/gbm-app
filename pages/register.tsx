@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import MyButton from "@/components/MyButton";
-import InputField from "components/InputField";
+import FormikInputField from "@/components/FormikInputField";
 import signUp from "@/firebase/auth/signup";
 import { Values } from "./login";
 import Link from "next/link";
@@ -59,7 +59,7 @@ const register = () => {
               <BsArrowLeft size="1.25rem" /> Beranda
             </Link>
             <h1 className="font-heading text-4xl text-matcha">Register</h1>
-            <InputField
+            <FormikInputField
               name="email"
               type="email"
               label="Email:"
@@ -67,7 +67,7 @@ const register = () => {
               className="border-matcha"
             />
             <div className="relative">
-              <InputField
+              <FormikInputField
                 name="password"
                 type={passwordType}
                 label="Password:"

@@ -17,15 +17,6 @@ const uploadImage = async (image: File, user: User) => {
   }
 
   return { data, error };
-
-  // uploadBytes(imageRef, image)
-  //   .then((res) => {
-  //     getDownloadURL(res.ref)
-  //       .then((url) => console.log(url))
-  //       .catch((error) => console.log(error));
-  //     console.log("upload image success");
-  //   })
-  //   .catch((error) => console.log(error));
 };
 
 export default uploadImage;

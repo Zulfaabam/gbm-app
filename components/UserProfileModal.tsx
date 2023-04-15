@@ -30,7 +30,6 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
   const user = useContext(AuthContext);
 
   const [edit, setEdit] = useState(false);
-  // const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [userPhotoURL, setUserPhotoURL] = useState(user?.photoURL || "");
   const [userName, setUserName] = useState(user?.displayName || "");
   const [userEmail, setUserEmail] = useState(user?.email || "");
@@ -41,12 +40,10 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
   console.log(user);
 
   function handleSubmit() {
-    updateUserProfile(auth, userName, userPhotoURL);
-
-    // updateUserEmail(auth, userEmail);
+    updateUserEmail(auth, userEmail);
 
     // updateUserPhoneNumber(auth, userPhoneNumber);
-    console.log("submit success");
+    console.log("submit clicked");
   }
 
   function handleUploadImage(e: React.ChangeEvent<HTMLInputElement>) {
@@ -92,7 +89,16 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
               />
-              <IconButton onClick={() => setEdit(false)}>
+              <IconButton
+                onClick={() => {
+                  setEdit(false);
+                  if (
+                    user?.displayName !== userName ||
+                    user.photoURL !== userPhotoURL
+                  )
+                    updateUserProfile(auth, userName, userPhotoURL);
+                }}
+              >
                 <MdOutlineCheck />
               </IconButton>
             </>

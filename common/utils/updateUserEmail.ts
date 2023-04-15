@@ -5,7 +5,7 @@ const updateUserEmail = (auth: Auth, email: string) => {
 
   updateEmail(auth.currentUser, email)
     .then(() => {
-      console.log("success");
+      console.log("update email success");
     })
     .catch((error) => {
       console.log(error);

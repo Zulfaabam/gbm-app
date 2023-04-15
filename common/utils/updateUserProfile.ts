@@ -12,7 +12,7 @@ const updateUserProfile = (
     photoURL: photoURL,
   })
     .then(() => {
-      console.log("success");
+      console.log("update profile success");
     })
     .catch((error) => {
       console.log(error);

@@ -22,8 +22,8 @@ const TextBox = ({ content, color, onClick }: TextBoxProps) => (
 const InformasiKesehatan = () => {
   return (
     <div className="py-7 w-full">
-      <div className="max-w-8xl flex justify-between items-center mx-auto">
-        <div className="space-y-6">
+      <div className="max-w-8xl flex flex-col lg:flex-row gap-6 lg:gap-0 justify-between items-center mx-auto">
+        <div className="px-4 space-y-6">
           <h2 className="font-heading text-dark text-5xl">
             Informasi Kesehatan
           </h2>

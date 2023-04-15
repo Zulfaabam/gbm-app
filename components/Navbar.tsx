@@ -190,8 +190,8 @@ export const Navbar = ({ user }: NavbarProps) => {
             <li tabIndex={0}>
               <a className="text-white flex gap-2">
                 <Avatar
-                  src={user.photoURL || "/icons/gbm-logo-32.png"}
-                  alt={user.displayName || "Foto profil"}
+                  src={user.photoURL || ""}
+                  alt={`${user.displayName} photo`}
                 />
                 <p>{user.displayName || user.email}</p>
               </a>

@@ -2,6 +2,7 @@ import Head from "next/head";
 import "../styles/globals.css";
 import { AppProps } from "next/app";
 import { AuthContextProvider } from "context/AuthContext";
+import { SnackbarProvider } from "notistack";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -34,7 +35,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#317EFB" />
       </Head>
       <AuthContextProvider>
-        <Component {...pageProps} />
+        <SnackbarProvider
+          anchorOrigin={{ horizontal: "center", vertical: "top" }}
+          preventDuplicate
+          autoHideDuration={3000}
+        >
+          <Component {...pageProps} />
+        </SnackbarProvider>
       </AuthContextProvider>
     </>
   );

@@ -26,8 +26,6 @@ const preOrder = () => {
     fetcher
   );
 
-  console.log(data);
-
   if (error) return <div>failed to load</div>;
 
   if (user == null)

@@ -11,6 +11,7 @@ import UserProfileModal from "./UserProfileModal";
 import logOut from "@/firebase/auth/signout";
 import { useRouter } from "next/router";
 import { Avatar } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 const DropdownMenu: React.FC = ({ children }) => (
   <ul className="p-2 bg-white z-10">{children}</ul>
@@ -22,6 +23,8 @@ interface NavbarProps {
 
 export const Navbar = ({ user }: NavbarProps) => {
   const router = useRouter();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -37,10 +40,10 @@ export const Navbar = ({ user }: NavbarProps) => {
     const { res, error } = await logOut();
 
     if (error) {
-      console.log(error);
+      enqueueSnackbar(error, { variant: "error" });
     }
 
-    console.log(res);
+    enqueueSnackbar("Anda telah keluar", { variant: "info" });
     router.push("/login");
   }
 

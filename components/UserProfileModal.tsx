@@ -20,6 +20,7 @@ import { MdModeEdit, MdOutlineCheck, MdPhotoCamera } from "react-icons/md";
 import updateUserEmail from "@/common/utils/updateUserEmail";
 import uploadImage from "@/common/utils/uploadImage";
 import { getDownloadURL } from "firebase/storage";
+import { useSnackbar } from "notistack";
 
 export interface ModalProps {
   open: boolean;
@@ -29,6 +30,8 @@ export interface ModalProps {
 const UserProfileModal = ({ open, onClose }: ModalProps) => {
   const user = useContext(AuthContext);
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const [edit, setEdit] = useState(false);
   const [userPhotoURL, setUserPhotoURL] = useState(user?.photoURL || "");
   const [userName, setUserName] = useState(user?.displayName || "");
@@ -37,13 +40,8 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
     user?.phoneNumber || ""
   );
 
-  console.log(user);
-
   function handleSubmit() {
     updateUserEmail(auth, userEmail);
-
-    // updateUserPhoneNumber(auth, userPhoneNumber);
-    console.log("submit clicked");
   }
 
   function handleUploadImage(e: React.ChangeEvent<HTMLInputElement>) {
@@ -51,10 +49,13 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
       uploadImage(e.target.files[0], user)
         .then((res) => {
           if (res?.data?.ref) {
+            enqueueSnackbar("Foto terunggah!", {
+              variant: "success",
+            });
             getDownloadURL(res?.data?.ref).then((url) => setUserPhotoURL(url));
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => enqueueSnackbar(err, { variant: "error" }));
     }
   }
 
@@ -96,7 +97,15 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
                     user?.displayName !== userName ||
                     user.photoURL !== userPhotoURL
                   )
-                    updateUserProfile(auth, userName, userPhotoURL);
+                    updateUserProfile(auth, userName, userPhotoURL)
+                      .then(() =>
+                        enqueueSnackbar("Profil berhasil diperbarui!", {
+                          variant: "success",
+                        })
+                      )
+                      .catch((error) =>
+                        enqueueSnackbar(error, { variant: "error" })
+                      );
                 }}
               >
                 <MdOutlineCheck />

@@ -10,8 +10,6 @@ import { useContext, useEffect } from "react";
 export default function Home() {
   const user = useContext(AuthContext);
 
-  console.log("user", user);
-
   return (
     <MainLayout>
       <Hero />

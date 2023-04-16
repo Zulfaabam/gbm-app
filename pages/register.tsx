@@ -9,9 +9,12 @@ import { Values } from "./login";
 import Link from "next/link";
 import { RiEyeCloseLine, RiEyeLine } from "react-icons/ri";
 import { BsArrowLeft } from "react-icons/bs";
+import { useSnackbar } from "notistack";
 
 const register = () => {
   const router = useRouter();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const [passwordType, setPasswordType] = useState("password");
 
@@ -19,10 +22,10 @@ const register = () => {
     const { result, error } = await signUp(email, password);
 
     if (error) {
-      return console.log(error);
+      return enqueueSnackbar(error, { variant: "error" });
     }
 
-    console.log(result);
+    enqueueSnackbar("Register berhasil!", { variant: "success" });
     return router.push("/login");
   }
 
@@ -50,7 +53,6 @@ const register = () => {
             { setSubmitting }: FormikHelpers<Values>
           ) => {
             handleRegister(values.email, values.password);
-            console.log(values);
             setSubmitting(false);
           }}
         >

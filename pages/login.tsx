@@ -9,6 +9,8 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { RiEyeCloseLine, RiEyeLine } from "react-icons/ri";
 import { BsArrowLeft } from "react-icons/bs";
+import ForgetPasswordModal from "@/components/ForgetPasswordModal";
+import { useSnackbar } from "notistack";
 
 export interface Values {
   email: string;
@@ -18,16 +20,19 @@ export interface Values {
 const login = () => {
   const router = useRouter();
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const [passwordType, setPasswordType] = useState("password");
+  const [forgetPassword, setForgetPassword] = useState(false);
 
   async function handleLogin(email: string, password: string) {
     const { result, error } = await signIn(email, password);
 
     if (error) {
-      return console.log(error);
+      return enqueueSnackbar(error, { variant: "error" });
     }
 
-    console.log(result);
+    enqueueSnackbar("Login berhasil!", { variant: "success" });
     return router.push("/");
   }
 
@@ -35,10 +40,10 @@ const login = () => {
     const { result, error } = await signInWithGoogle();
 
     if (error) {
-      return console.log(error);
+      return enqueueSnackbar(error, { variant: "error" });
     }
 
-    console.log(result);
+    enqueueSnackbar("Login berhasil!", { variant: "success" });
     return router.push("/");
   }
 
@@ -104,9 +109,14 @@ const login = () => {
                 }}
               />
             </div>
-            <a href="" className="underline">
-              Lupa Password?
-            </a>
+            <MyButton
+              content="Lupa Password?"
+              className="underline w-max"
+              onClick={(e) => {
+                e.preventDefault();
+                setForgetPassword(true);
+              }}
+            />
             <MyButton type="submit" content="Masuk" className="btn-cream" />
           </Form>
         </Formik>
@@ -126,6 +136,12 @@ const login = () => {
       <div className="relative w-1/3 h-full bg-gbm-green-dark hidden lg:flex items-center">
         <Image src="/images/bro.svg" alt="bro" fill />
       </div>
+      {forgetPassword ? (
+        <ForgetPasswordModal
+          open={forgetPassword}
+          onClose={() => setForgetPassword(false)}
+        />
+      ) : null}
     </div>
   );
 };

@@ -96,7 +96,7 @@ export const Navbar = ({ user }: NavbarProps) => {
               <a>Artikel</a>
             </li>
             <li>
-              <a>Tentang Kami</a>
+              <Link href="/company-profile">Tentang kami</Link>
             </li>
             {user ? (
               <li tabIndex={0}>
@@ -183,7 +183,9 @@ export const Navbar = ({ user }: NavbarProps) => {
             <a className="text-white">Artikel</a>
           </li>
           <li>
-            <a className="text-white">Tentang Kami</a>
+            <Link href="/company-profile" className="text-white">
+              Tentang kami
+            </Link>
           </li>
         </ul>
       </div>

@@ -8,7 +8,7 @@ const uploadImage = async (image: File, user: User) => {
   let data,
     error = null;
 
-  const imageRef = ref(storage, `user-photo/${image.name + user.uid}`);
+  const imageRef = ref(storage, `user-photo/${image.name + "-" + user.uid}`);
 
   try {
     data = await uploadBytes(imageRef, image);

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "common/utils/fetcher";
 import { BarLoader } from "react-spinners";
@@ -6,6 +6,9 @@ import MainLayout from "components/layouts/MainLayout";
 import ActionAreaCard from "components/ActionAreaCard";
 import { AuthContext } from "context/AuthContext";
 import RequiredLogin from "@/components/RequiredLogin";
+import { numberFormatter } from "@/common/utils/formatter";
+import MyButton from "@/components/MyButton";
+import PreOrderModal from "@/components/PreOrderModal";
 export interface PreOrder {
   id: string;
   data: PreOrderData;
@@ -21,10 +24,20 @@ export interface PreOrderData {
 const preOrder = () => {
   const user = useContext(AuthContext);
 
+  const [openModal, setOpenModal] = useState(false);
+
   const { data, error, isLoading } = useSWR<PreOrder[], Error>(
     "/api/pre-order",
     fetcher
   );
+
+  function handleOpenModal() {
+    setOpenModal(true);
+  }
+
+  function handleCloseModal() {
+    setOpenModal(false);
+  }
 
   if (error) return <div>failed to load</div>;
 
@@ -73,17 +86,29 @@ const preOrder = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-4">
-          {data?.map((d) => (
-            <ActionAreaCard
-              key={d.id}
-              maxWidth={300}
-              img={d.data.iconURL}
-              title={d.data.desc}
-              desc={d.data.longDesc}
-            />
-          ))}
+        <div className="flex justify-center">
+          <div className="grid grid-cols-5 gap-4">
+            {data?.map((d) => (
+              <ActionAreaCard
+                key={d.id}
+                maxWidth={250}
+                img={d.data.iconURL}
+                title={d.data.desc}
+                desc={`Rp. ${numberFormatter.format(d.data.price)}`}
+              />
+            ))}
+          </div>
         </div>
+        <div className="mt-5 w-full">
+          <MyButton
+            content="Pesan"
+            className="btn-purple block ml-auto w-60"
+            onClick={handleOpenModal}
+          />
+        </div>
+        {openModal ? (
+          <PreOrderModal open={openModal} onClose={handleCloseModal} />
+        ) : null}
       </div>
     </MainLayout>
   );

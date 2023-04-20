@@ -6,36 +6,29 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
 export interface CardProps {
+  imgHeight?: string | number | undefined;
   maxWidth?: number;
   img: string;
   title: string;
-  desc: string;
+  desc: string | number;
 }
 
 export default function ActionAreaCard({
-  maxWidth,
+  imgHeight = 150,
+  maxWidth = 300,
   img,
   title,
   desc,
 }: CardProps) {
   return (
-    <Card sx={{ maxWidth: maxWidth || 345 }}>
+    <Card sx={{ maxWidth: maxWidth }}>
       <CardActionArea>
-        <CardMedia component="img" height="140" image={img} alt={title} />
+        <CardMedia sx={{ height: imgHeight }} image={img} title={title} />
         <CardContent>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            className="font-sans font-semibold"
-          >
+          <Typography gutterBottom className="font-sans font-semibold">
             {title}
           </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            className="font-sans"
-          >
+          <Typography color="text.secondary" className="font-sans">
             {desc}
           </Typography>
         </CardContent>

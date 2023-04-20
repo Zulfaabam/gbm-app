@@ -72,16 +72,18 @@ const sewa = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-4">
-          {data?.map((d) => (
-            <ActionAreaCard
-              key={d.id}
-              maxWidth={300}
-              img={d.data.iconURL}
-              title={d.data.desc}
-              desc={d.data.longDesc}
-            />
-          ))}
+        <div className="flex justify-center">
+          <div className="grid grid-cols-5 gap-4">
+            {data?.map((d) => (
+              <ActionAreaCard
+                key={d.id}
+                maxWidth={250}
+                img={d.data.iconURL}
+                title={d.data.desc}
+                desc={d.data.longDesc}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </MainLayout>

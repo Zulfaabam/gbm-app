@@ -6,7 +6,6 @@ import {
   Avatar,
   Typography,
   Stack,
-  TextField,
   IconButton,
 } from "@mui/material";
 import { AuthContext } from "context/AuthContext";
@@ -18,7 +17,7 @@ import InputField from "./InputField";
 import updateUserPhoneNumber from "@/common/utils/updateUserPhoneNumber";
 import { MdModeEdit, MdOutlineCheck, MdPhotoCamera } from "react-icons/md";
 import updateUserEmail from "@/common/utils/updateUserEmail";
-import uploadImage from "@/common/utils/uploadImage";
+import uploadUserPhoto from "@/common/utils/uploadUserPhoto";
 import { getDownloadURL } from "firebase/storage";
 import { useSnackbar } from "notistack";
 
@@ -46,7 +45,7 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
 
   function handleUploadImage(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files && user) {
-      uploadImage(e.target.files[0], user)
+      uploadUserPhoto(e.target.files[0], user)
         .then((res) => {
           if (res?.data?.ref) {
             enqueueSnackbar("Foto terunggah!", {

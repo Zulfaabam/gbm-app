@@ -2,7 +2,7 @@ import { storage } from "@/firebase/clientApp";
 import { User } from "firebase/auth";
 import { ref, uploadBytes } from "firebase/storage";
 
-const uploadImage = async (image: File, user: User) => {
+const uploadUserPhoto = async (image: File, user: User) => {
   if (image == null) return;
 
   let data,
@@ -19,4 +19,4 @@ const uploadImage = async (image: File, user: User) => {
   return { data, error };
 };
 
-export default uploadImage;
+export default uploadUserPhoto;

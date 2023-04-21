@@ -1,4 +1,4 @@
-import { Auth, getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { Auth, sendPasswordResetEmail } from "firebase/auth";
 
 const sendResetPasswordReq = (auth: Auth, email: string) => {
   if (!auth.currentUser) return;

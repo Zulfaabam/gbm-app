@@ -3,9 +3,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { CardActionArea, CardProps } from "@mui/material";
 
-export interface CardProps {
+export interface ActionAreaCardProps extends CardProps {
   imgHeight?: string | number | undefined;
   maxWidth?: number;
   img: string;
@@ -19,9 +19,10 @@ export default function ActionAreaCard({
   img,
   title,
   desc,
-}: CardProps) {
+  ...props
+}: ActionAreaCardProps) {
   return (
-    <Card sx={{ maxWidth: maxWidth }}>
+    <Card sx={{ maxWidth: maxWidth }} {...props}>
       <CardActionArea>
         <CardMedia sx={{ height: imgHeight }} image={img} title={title} />
         <CardContent>

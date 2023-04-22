@@ -1,10 +1,10 @@
 import { Typography } from "@mui/material";
-import Link from "next/link";
 import React from "react";
 import MyButton from "./MyButton";
 import Image from "next/image";
+import Link from "next/link";
 
-const RequiredLogin = () => {
+const ErrorPage = () => {
   return (
     <div className="flex flex-col justify-center items-center gap-2">
       <Image
@@ -17,13 +17,23 @@ const RequiredLogin = () => {
         MAAF!
       </Typography>
       <Typography className="mb-5 font-sans font-medium text-sm md:text-base text-center">
-        Untuk langkah selanjutnya harap login atau lengkapi data terlebih dahulu
+        Terjadi kesalahan saat mengakses halaman ini
       </Typography>
-      <Link href="/login">
-        <MyButton content="Log In" className="btn-light-green w-32 md:w-40" />
-      </Link>
+      <div className="flex gap-4">
+        <MyButton
+          content="Reload"
+          className="btn-light-green w-32 md:w-40"
+          onClick={() => location.reload()}
+        />
+        <Link href="/">
+          <MyButton
+            content="Kembali ke beranda"
+            className="btn-light-green w-32 md:w-40"
+          />
+        </Link>
+      </div>
     </div>
   );
 };
 
-export default RequiredLogin;
+export default ErrorPage;

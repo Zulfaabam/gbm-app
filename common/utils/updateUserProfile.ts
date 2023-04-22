@@ -8,8 +8,8 @@ const updateUserProfile = async (
   if (!auth.currentUser) return;
 
   await updateProfile(auth.currentUser, {
-    displayName: displayName,
-    photoURL: photoURL,
+    displayName,
+    photoURL,
   });
 };
 

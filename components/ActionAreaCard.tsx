@@ -25,10 +25,16 @@ export default function ActionAreaCard({
       <CardActionArea>
         <CardMedia sx={{ height: imgHeight }} image={img} title={title} />
         <CardContent>
-          <Typography gutterBottom className="font-sans font-semibold">
+          <Typography
+            gutterBottom
+            className="font-sans font-semibold text-sm sm:text-base"
+          >
             {title}
           </Typography>
-          <Typography color="text.secondary" className="font-sans">
+          <Typography
+            color="text.secondary"
+            className="font-sans text-xs sm:text-sm"
+          >
             {desc}
           </Typography>
         </CardContent>

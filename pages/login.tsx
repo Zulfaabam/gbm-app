@@ -29,7 +29,7 @@ const login = () => {
     const { result, error } = await signIn(email, password);
 
     if (error) {
-      return enqueueSnackbar(error, { variant: "error" });
+      return enqueueSnackbar("Login gagal!", { variant: "error" });
     }
 
     enqueueSnackbar("Login berhasil!", { variant: "success" });
@@ -40,7 +40,7 @@ const login = () => {
     const { result, error } = await signInWithGoogle();
 
     if (error) {
-      return enqueueSnackbar(error, { variant: "error" });
+      return enqueueSnackbar("Login gagal!", { variant: "error" });
     }
 
     enqueueSnackbar("Login berhasil!", { variant: "success" });

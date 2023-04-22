@@ -18,7 +18,7 @@ const PreOrderModal = ({ open, onClose }: ModalProps) => {
         <InputField label="Angkatan" />
         <InputField label="No WhatsApp" />
       </DialogContent>
-      <DialogActions>
+      <DialogActions className="px-6">
         <MyButton content="Batal" onClick={onClose} />
         <MyButton content="Kirim" className="btn-purple" />
       </DialogActions>

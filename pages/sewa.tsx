@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "common/utils/fetcher";
 import { BarLoader } from "react-spinners";
@@ -6,6 +6,8 @@ import MainLayout from "components/layouts/MainLayout";
 import ActionAreaCard from "components/ActionAreaCard";
 import { AuthContext } from "context/AuthContext";
 import RequiredLogin from "@/components/RequiredLogin";
+import MyButton from "@/components/MyButton";
+import SewaModal from "@/components/SewaModal";
 export interface Sewa {
   id: string;
   data: SewaData;
@@ -22,10 +24,20 @@ export interface SewaData {
 const sewa = () => {
   const user = useContext(AuthContext);
 
+  const [openModal, setOpenModal] = useState(false);
+
   const { data, error, isLoading } = useSWR<Sewa[], Error>(
     "/api/sewa",
     fetcher
   );
+
+  function handleOpenModal() {
+    setOpenModal(true);
+  }
+
+  function handleCloseModal() {
+    setOpenModal(false);
+  }
 
   if (error) return <div>failed to load</div>;
 
@@ -85,6 +97,16 @@ const sewa = () => {
             ))}
           </div>
         </div>
+        <div className="mt-5 w-full">
+          <MyButton
+            content="Pesan"
+            className="btn-purple block ml-auto w-60"
+            onClick={handleOpenModal}
+          />
+        </div>
+        {openModal ? (
+          <SewaModal open={openModal} onClose={handleCloseModal} />
+        ) : null}
       </div>
     </MainLayout>
   );

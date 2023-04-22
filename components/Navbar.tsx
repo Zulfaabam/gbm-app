@@ -40,7 +40,7 @@ export const Navbar = ({ user }: NavbarProps) => {
     const { res, error } = await logOut();
 
     if (error) {
-      enqueueSnackbar(error, { variant: "error" });
+      enqueueSnackbar("Gagal keluar", { variant: "error" });
     }
 
     enqueueSnackbar("Anda telah keluar", { variant: "info" });

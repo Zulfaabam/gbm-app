@@ -49,7 +49,7 @@ const Layanan = () => {
           </div>
           <div className="flex flex-col items-start max-w-2xl px-4 lg:px-12 xl:px-24">
             <h3 className="text-paragraph-dark font-semibold mb-4">
-              Layanan gbm
+              Layanan GBM
             </h3>
             <Subtitle
               content="Pre-Order Alat Kesehatan"
@@ -78,7 +78,7 @@ const Layanan = () => {
           </div>
           <div className="flex flex-col items-start max-w-2xl px-4 lg:px-12 xl:px-24">
             <h3 className="text-paragraph-dark font-semibold mb-4">
-              Layanan gbm
+              Layanan GBM
             </h3>
             <Subtitle
               content="Sewa Alat Kesehatan"
@@ -107,7 +107,7 @@ const Layanan = () => {
           </div>
           <div className="flex flex-col items-start max-w-2xl px-4 lg:px-12 xl:px-24">
             <h3 className="text-paragraph-dark font-semibold mb-4">
-              Layanan gbm
+              Layanan GBM
             </h3>
             <Subtitle
               content="Konsultasi Online Gizi dan Kesehatan"

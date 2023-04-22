@@ -1,6 +1,6 @@
 {
-  "name": "Next.JS Progressive Web App",
-  "short_name": "Next PWA",
+  "name": "Gizi Bakti Masyarakat Universitas Diponegoro App",
+  "short_name": "GBM UNDIP APP",
   "theme_color": "#ffffff",
   "background_color": "#004740",
   "display": "fullscreen",
@@ -26,11 +26,6 @@
     {
       "src": "icons/gbm-logo-144.png",
       "sizes": "144x121",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/gbm-logo-152.png",
-      "sizes": "152x152",
       "type": "image/png"
     },
     {

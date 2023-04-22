@@ -1,5 +1,5 @@
 import ActionAreaCard from "@/components/ActionAreaCard";
-import React, { Fragment } from "react";
+import React from "react";
 
 const dummyData = [1, 2, 3, 4, 5, 6, 7];
 

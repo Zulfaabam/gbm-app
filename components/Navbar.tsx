@@ -48,7 +48,7 @@ export const Navbar = ({ user }: NavbarProps) => {
   }
 
   return (
-    <div className="navbar bg-dark px-8">
+    <div className="navbar bg-dark px-2 sm:px-4 lg:px-8">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden text-white">
@@ -56,7 +56,7 @@ export const Navbar = ({ user }: NavbarProps) => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-56"
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-44 sm:w-56"
           >
             <li tabIndex={0}>
               <a className="justify-between">
@@ -124,7 +124,7 @@ export const Navbar = ({ user }: NavbarProps) => {
             ) : (
               <li tabIndex={0}>
                 <a className="justify-between">
-                  Sign up/Log in
+                  Bergabung
                   <MdOutlineKeyboardArrowRight className="fill-current h-6 w-6" />
                 </a>
                 <DropdownMenu>

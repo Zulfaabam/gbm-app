@@ -40,29 +40,20 @@ const preOrder = () => {
     setOpenModal(false);
   }
 
-  if (error)
-    return (
-      <MainLayout>
-        <div className="py-7 max-w-8xl min-h-screen mx-auto flex flex-col justify-center items-center gap-4 flex-wrap">
-          <ErrorPage />
-        </div>
-      </MainLayout>
-    );
-
   if (user == null)
     return (
       <MainLayout>
-        <div className="py-7 max-w-8xl min-h-screen mx-auto flex flex-col justify-center items-center gap-4 flex-wrap">
+        <div className="py-7 max-w-8xl min-h-screen mx-auto flex flex-col justify-center items-center">
           <RequiredLogin />
         </div>
       </MainLayout>
     );
 
-  if (isLoading)
+  if (error)
     return (
       <MainLayout>
-        <div className="py-7 max-w-8xl min-h-screen mx-auto flex justify-center items-center gap-4 flex-wrap">
-          <BarLoader />
+        <div className="py-7 max-w-8xl min-h-screen mx-auto flex flex-col justify-center items-center">
+          <ErrorPage />
         </div>
       </MainLayout>
     );
@@ -94,26 +85,34 @@ const preOrder = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center">
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-            {data?.map((d) => (
-              <ActionAreaCard
-                key={d.id}
-                maxWidth={250}
-                img={d.data.iconURL}
-                title={d.data.desc}
-                desc={`Rp. ${numberFormatter.format(d.data.price)}`}
-              />
-            ))}
+        {isLoading ? (
+          <div className="flex justify-center items-center">
+            <BarLoader />
           </div>
-        </div>
-        <div className="mt-5 w-full">
-          <MyButton
-            content="Pesan"
-            className="btn-purple block mx-auto 2xl:mx-0 2xl:ml-auto w-60"
-            onClick={handleOpenModal}
-          />
-        </div>
+        ) : (
+          <>
+            <div className="flex justify-center">
+              <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+                {data?.map((d) => (
+                  <ActionAreaCard
+                    key={d.id}
+                    maxWidth={250}
+                    img={d.data.iconURL}
+                    title={d.data.desc}
+                    desc={`Rp. ${numberFormatter.format(d.data.price)}`}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="mt-5 w-full">
+              <MyButton
+                content="Pesan"
+                className="btn-purple block mx-auto 2xl:mx-0 2xl:ml-auto w-60"
+                onClick={handleOpenModal}
+              />
+            </div>
+          </>
+        )}
         {openModal ? (
           <PreOrderModal open={openModal} onClose={handleCloseModal} />
         ) : null}

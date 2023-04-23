@@ -10,7 +10,7 @@ const Artikel = () => {
         <h2 className="font-heading text-gbm-green-light text-3xl md:text-4xl lg:text-5xl">
           Artikel
         </h2>
-        <div className="carousel carousel-center w-full p-4 space-x-4 bg-cream">
+        <div className="carousel-scrollbar carousel-center w-full p-4 space-x-4 bg-cream rounded-lg">
           {dummyData.map((d) => (
             <div className="carousel-item" key={d}>
               <ActionAreaCard

@@ -197,6 +197,7 @@ export const Navbar = ({ user }: NavbarProps) => {
                 <Avatar
                   src={user.photoURL || ""}
                   alt={`${user.displayName} photo`}
+                  className="w-10 h-10"
                 />
                 <p>{user.displayName || user.email}</p>
               </a>

@@ -6,7 +6,7 @@ import { TfiLocationPin } from "react-icons/tfi";
 
 export interface ContactProps {
   icon: React.ReactNode;
-  link: string;
+  link?: string;
   content: string;
 }
 
@@ -16,9 +16,13 @@ export const Footer = () => {
   const Contact = ({ icon, link, content }: ContactProps) => (
     <div className="flex items-center gap-2">
       {icon}
-      <a href={link} className="underline">
-        {content}
-      </a>
+      {link ? (
+        <a href={link} className="underline" target="_blank">
+          {content}
+        </a>
+      ) : (
+        <p>{content}</p>
+      )}
     </div>
   );
 
@@ -70,29 +74,27 @@ export const Footer = () => {
             <div className="flex flex-col gap-2">
               <Contact
                 icon={<RiLineLine size={iconSize} />}
-                link=""
                 content="@ntp5446u"
               />
               <Contact
                 icon={<FiInstagram size={iconSize} />}
-                link=""
+                link="https://www.instagram.com/gbm_undip/"
                 content="@gbm_undip"
               />
               <Contact
                 icon={<FiTwitter size={iconSize} />}
-                link=""
+                link="https://twitter.com/gbm_undip"
                 content="@gbm_undip"
               />
             </div>
             <div className="flex flex-col gap-2">
               <Contact
                 icon={<FiPhone size={iconSize} />}
-                link=""
+                link="https://wa.me/6283838734981"
                 content="+62 838-3873-4981"
               />
               <Contact
                 icon={<FiMail size={iconSize} />}
-                link=""
                 content="gbmundip@gmail.com"
               />
             </div>
@@ -103,14 +105,23 @@ export const Footer = () => {
             Gizi Bakti Masyarakat (GBM) dibentuk pada tanggal 21 Februari 2008
             dimana merupakan sebuah mandat dari ILMAGI (Ikatan Lembaga Mahasiswa
             Gizi Indonesia).
-            <a href="" className="underline lg:hidden">
+            <a
+              href="https://goo.gl/maps/cPXB9jcNCvJ2DPwZ6"
+              className="underline lg:hidden"
+              target="_bla
+            "
+            >
               Jalan Prof. H. Soedarto, S.H., Tembalang, Semarang, Jawa Tengah.
               50275
             </a>
           </p>
           <div className="hidden lg:flex items-center gap-2 text-white">
             <TfiLocationPin size={iconSize} />
-            <a href="" className="underline max-w-md lg:max-w-sm">
+            <a
+              href="https://goo.gl/maps/cPXB9jcNCvJ2DPwZ6"
+              className="underline max-w-md lg:max-w-sm"
+              target="_blank"
+            >
               Jalan Prof. H. Soedarto, S.H., Tembalang, Semarang, Jawa Tengah.
               50275
             </a>

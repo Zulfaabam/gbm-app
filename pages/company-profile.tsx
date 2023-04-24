@@ -1,3 +1,4 @@
+import MyButton from "@/components/MyButton";
 import MainLayout from "@/components/layouts/MainLayout";
 import { Avatar, Paper, Typography } from "@mui/material";
 import Image from "next/image";
@@ -100,7 +101,7 @@ const companyProfile = () => {
               </div>
             </div>
           </div>
-          <div className="space-y-16 px-4">
+          <div className="space-y-16 px-4 mb-14">
             <div className="flex flex-col items-center gap-4">
               <h2 className="font-heading text-3xl xl:text-4xl text-center xl:text-left text-dark">
                 Anggota Gizi Bakti Masyarakat 2022
@@ -119,6 +120,38 @@ const companyProfile = () => {
                 </div>
               </Paper>
             </div>
+          </div>
+          <div className="space-y-16 px-4 text-center mb-14">
+            <h2 className="font-heading text-3xl xl:text-4xl text-dark">
+              Program Kerja
+            </h2>
+            <div className="py-28">
+              <div className="flex items-center gap-4">
+                <Paper className="w-[534px] h-[310px] rounded-2xl">dsads</Paper>
+                <div className="space-y-4">
+                  <h3 className="text-dark font-bold text-4xl text-left">
+                    OPEN RECRUITMENT & PELATIHAN 1
+                  </h3>
+                  <p className="max-w-3xl text-2xl text-justify">
+                    Anggota GBM dalam kepengurusannya memiliki masa jabatan
+                    selama 2 tahun sehingga diperlukan pergantian/pengaderan
+                    pengurus untuk melanjutkan kegiatan GBM ke depannya. Para
+                    anggota baru yang telah terpilih nantinya akan dibekali
+                    dengan materi pengetahuan gizi serta tata cara konseling dan
+                    penyuluhan agar siap terjun ke masyarakat.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="space-y-16 px-4 text-center">
+            <h2 className="font-heading text-3xl xl:text-4xl text-dark">
+              Bentuk Kerjasama
+            </h2>
+            <MyButton
+              content="Mulai Kerjasama"
+              className="btn-light-green block mx-auto"
+            />
           </div>
         </div>
       </div>

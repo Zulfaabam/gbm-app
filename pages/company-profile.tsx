@@ -1,10 +1,14 @@
 import MyButton from "@/components/MyButton";
 import MainLayout from "@/components/layouts/MainLayout";
-import { Avatar, Paper, Typography } from "@mui/material";
+import { Avatar, Paper } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
+const dummyArr = new Array(10).fill("nama");
+
 const companyProfile = () => {
+  console.log(dummyArr);
+
   return (
     <MainLayout>
       <div className="py-7 min-h-screen">
@@ -111,14 +115,25 @@ const companyProfile = () => {
                 pengorganisasian untuk mencapai target yang sudah ditetapkan.
               </p>
             </div>
-            <div>
-              <Paper className="w-64 h-80 flex flex-col items-center gap-5 py-9 px-9">
-                <Avatar src="" alt="" className="w-44 h-44" />
-                <div className="text-center">
-                  <h3 className="font-bold text-2xl">nama</h3>
-                  <p className="text-lg">role</p>
-                </div>
-              </Paper>
+            <div className="flex flex-wrap justify-center gap-4">
+              {dummyArr.map((d, idx) => (
+                <Paper
+                  className="w-32 md:w-48 xl:w-64 h-40 md:h-60 xl:h-80 flex flex-col items-center gap-2 md:gap-5 p-3 lg:p-9"
+                  key={idx}
+                >
+                  <Avatar
+                    src=""
+                    alt=""
+                    className="w-16 md:w-28 xl:w-44 h-16 md:h-28 xl:h-44"
+                  />
+                  <div className="text-center">
+                    <h3 className="font-bold text-lg md:text-xl xl:text-2xl">
+                      {d}
+                    </h3>
+                    <p className="text-base xl:text-lg">role</p>
+                  </div>
+                </Paper>
+              ))}
             </div>
           </div>
           <div className="space-y-16 px-4 text-center mb-14">

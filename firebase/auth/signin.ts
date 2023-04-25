@@ -1,7 +1,6 @@
-import { firebaseApp, auth } from "../clientApp";
+import { auth } from "../clientApp";
 import {
   signInWithEmailAndPassword,
-  getAuth,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";

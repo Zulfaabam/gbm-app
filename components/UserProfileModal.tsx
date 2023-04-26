@@ -140,7 +140,7 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
         />
       </DialogContent>
       <DialogActions className="px-6">
-        <MyButton content="Batal" onClick={onClose} />
+        <MyButton content="Tutup" onClick={onClose} />
         <MyButton
           content="Simpan"
           onClick={handleSubmit}

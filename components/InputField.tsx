@@ -9,15 +9,16 @@ export interface InputFieldProps
 function InputField({
   label,
   type = "text",
-  placeholder = "Type here",
+  placeholder = "Ketik di sini",
   className,
+  required,
   ...props
 }: InputFieldProps) {
   return (
     <div className="form-control w-full">
       {label ? (
         <label className="label">
-          <span className="label-text">{label}</span>
+          <span className="label-text">{required ? `${label} *` : label}</span>
         </label>
       ) : null}
       <input

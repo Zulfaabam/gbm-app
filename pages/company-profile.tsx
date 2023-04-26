@@ -1,13 +1,22 @@
+import KerjasamaModal from "@/components/KerjasamaModal";
 import MyButton from "@/components/MyButton";
 import MainLayout from "@/components/layouts/MainLayout";
 import { Avatar, Paper } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 const dummyArr = new Array(10).fill("nama");
 
 const companyProfile = () => {
-  console.log(dummyArr);
+  const [openModal, setOpenModal] = useState(false);
+
+  function handleOpenModal() {
+    setOpenModal(true);
+  }
+
+  function handleCloseModal() {
+    setOpenModal(false);
+  }
 
   return (
     <MainLayout>
@@ -166,9 +175,13 @@ const companyProfile = () => {
             <MyButton
               content="Mulai Kerjasama"
               className="btn-light-green block mx-auto"
+              onClick={handleOpenModal}
             />
           </div>
         </div>
+        {openModal ? (
+          <KerjasamaModal open={openModal} onClose={handleCloseModal} />
+        ) : null}
       </div>
     </MainLayout>
   );

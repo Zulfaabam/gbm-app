@@ -10,7 +10,7 @@ export interface ActionAreaCardProps extends CardProps {
   maxWidth?: number;
   img: string;
   title: string;
-  desc: string | number;
+  desc?: string | number;
 }
 
 export default function ActionAreaCard({

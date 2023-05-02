@@ -1,6 +1,6 @@
 {
-  "name": "Next.JS Progressive Web App",
-  "short_name": "Next PWA",
+  "name": "Gizi Bakti Masyarakat Universitas Diponegoro App",
+  "short_name": "GBM UNDIP APP",
   "theme_color": "#ffffff",
   "background_color": "#004740",
   "display": "fullscreen",
@@ -10,17 +10,17 @@
   "icons": [
     {
       "src": "icons/gbm-logo-72.png",
-      "sizes": "72x72",
+      "sizes": "72x60",
       "type": "image/png"
     },
     {
       "src": "icons/gbm-logo-96.png",
-      "sizes": "96x96",
+      "sizes": "96x80",
       "type": "image/png"
     },
     {
       "src": "icons/gbm-logo-128.png",
-      "sizes": "128x128",
+      "sizes": "128x107",
       "type": "image/png"
     },
     {
@@ -29,23 +29,18 @@
       "type": "image/png"
     },
     {
-      "src": "icons/gbm-logo-152.png",
-      "sizes": "152x152",
-      "type": "image/png"
-    },
-    {
       "src": "icons/gbm-logo-192.png",
-      "sizes": "192x192",
+      "sizes": "192x161",
       "type": "image/png"
     },
     {
       "src": "icons/gbm-logo-384.png",
-      "sizes": "384x384",
+      "sizes": "384x322",
       "type": "image/png"
     },
     {
       "src": "icons/gbm-logo-512.png",
-      "sizes": "512x512",
+      "sizes": "512x429",
       "type": "image/png"
     }
   ],

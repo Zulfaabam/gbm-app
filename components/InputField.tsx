@@ -1,42 +1,34 @@
-import React from "react";
 import classNames from "classnames";
-import { FieldConfig, useField } from "formik";
+import React from "react";
 
-export interface InputFieldProps extends FieldConfig {
+export interface InputFieldProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  type?: React.HTMLInputTypeAttribute;
-  placeholder?: string;
-  className?: string;
 }
 
-const InputField = ({
+function InputField({
   label,
   type = "text",
-  placeholder = "Type here",
+  placeholder = "Ketik di sini",
   className,
+  required,
   ...props
-}: InputFieldProps) => {
-  const [field, meta, helpers] = useField(props);
-
+}: InputFieldProps) {
   return (
     <div className="form-control w-full">
       {label ? (
-        <label htmlFor={props.name} className="label">
-          <span className="label-text">{label}</span>
+        <label className="label">
+          <span className="label-text">{required ? `${label} *` : label}</span>
         </label>
       ) : null}
       <input
         type={type}
         placeholder={placeholder}
         className={classNames("input input-bordered w-full", className)}
-        {...field}
         {...props}
       />
-      {meta.touched && meta.error ? (
-        <div className="text-error">{meta.error}</div>
-      ) : null}
     </div>
   );
-};
+}
 
 export default InputField;

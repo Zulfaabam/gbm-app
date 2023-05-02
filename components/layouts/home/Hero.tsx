@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Button } from "../../Button";
+import MyButton from "../../MyButton";
 
 const Hero = () => {
   return (
@@ -16,17 +16,17 @@ const Hero = () => {
             priority
           />
         </div>
-        <div>
+        <div className="text-center lg:text-left">
           <h1 className="text-5xl text-gbm-green-dark font-bold font-heading">
             Gizi Bakti Masyarakat
           </h1>
-          <p className="py-6 font-semibold pr-40">
+          <p className="py-6 font-semibold md:px-12 lg:pl-0 lg:pr-40">
             Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
             excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
             a id nisi.
           </p>
           <Link href="/company-profile">
-            <Button content="Selengkapnya" className="btn-dark-green" />
+            <MyButton content="Selengkapnya" className="btn-dark-green" />
           </Link>
         </div>
       </div>

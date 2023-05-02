@@ -3,38 +3,38 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { CardActionArea, CardProps } from "@mui/material";
 
-export interface CardProps {
+export interface ActionAreaCardProps extends CardProps {
+  imgHeight?: string | number | undefined;
   maxWidth?: number;
   img: string;
   title: string;
-  desc: string;
+  desc?: string | number;
 }
 
 export default function ActionAreaCard({
-  maxWidth,
+  imgHeight = 150,
+  maxWidth = 300,
   img,
   title,
   desc,
-}: CardProps) {
+  ...props
+}: ActionAreaCardProps) {
   return (
-    <Card sx={{ maxWidth: maxWidth || 345 }}>
+    <Card sx={{ maxWidth: maxWidth }} {...props}>
       <CardActionArea>
-        <CardMedia component="img" height="140" image={img} alt={title} />
+        <CardMedia sx={{ height: imgHeight }} image={img} title={title} />
         <CardContent>
           <Typography
             gutterBottom
-            variant="h5"
-            component="div"
-            className="font-sans font-semibold"
+            className="font-sans font-semibold text-sm sm:text-base"
           >
             {title}
           </Typography>
           <Typography
-            variant="body2"
             color="text.secondary"
-            className="font-sans"
+            className="font-sans text-xs sm:text-sm"
           >
             {desc}
           </Typography>

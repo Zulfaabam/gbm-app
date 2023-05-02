@@ -2,16 +2,19 @@ import { Form, Formik, FormikHelpers } from "formik";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { Button } from "components/Button";
-import InputField from "components/InputField";
+import MyButton from "@/components/MyButton";
+import FormikInputField from "@/components/FormikInputField";
 import signUp from "@/firebase/auth/signup";
 import { Values } from "./login";
 import Link from "next/link";
 import { RiEyeCloseLine, RiEyeLine } from "react-icons/ri";
 import { BsArrowLeft } from "react-icons/bs";
+import { useSnackbar } from "notistack";
 
 const register = () => {
   const router = useRouter();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const [passwordType, setPasswordType] = useState("password");
 
@@ -19,10 +22,10 @@ const register = () => {
     const { result, error } = await signUp(email, password);
 
     if (error) {
-      return console.log(error);
+      return enqueueSnackbar("Register gagal!", { variant: "error" });
     }
 
-    console.log(result);
+    enqueueSnackbar("Register berhasil!", { variant: "success" });
     return router.push("/login");
   }
 
@@ -50,7 +53,6 @@ const register = () => {
             { setSubmitting }: FormikHelpers<Values>
           ) => {
             handleRegister(values.email, values.password);
-            console.log(values);
             setSubmitting(false);
           }}
         >
@@ -59,7 +61,7 @@ const register = () => {
               <BsArrowLeft size="1.25rem" /> Beranda
             </Link>
             <h1 className="font-heading text-4xl text-matcha">Register</h1>
-            <InputField
+            <FormikInputField
               name="email"
               type="email"
               label="Email:"
@@ -67,14 +69,14 @@ const register = () => {
               className="border-matcha"
             />
             <div className="relative">
-              <InputField
+              <FormikInputField
                 name="password"
                 type={passwordType}
                 label="Password:"
                 placeholder="******"
                 className="border-matcha"
               />
-              <Button
+              <MyButton
                 content={
                   passwordType === "password" ? (
                     <RiEyeCloseLine size="24px" />
@@ -86,7 +88,11 @@ const register = () => {
                 onClick={(e) => handleShowPassword(e)}
               />
             </div>
-            <Button type="submit" content="Daftar" className="btn-cream mt-4" />
+            <MyButton
+              type="submit"
+              content="Daftar"
+              className="btn-cream mt-4"
+            />
           </Form>
         </Formik>
         <p className="font-medium mt-12">

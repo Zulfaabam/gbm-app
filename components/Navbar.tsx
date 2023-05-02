@@ -1,16 +1,17 @@
 import Link from "next/link";
 import React, { useState } from "react";
-import { Button } from "./Button";
+import MyButton from "./MyButton";
 import { HiMenuAlt1 } from "react-icons/hi";
 import {
   MdOutlineKeyboardArrowRight,
   MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
 import { User } from "firebase/auth";
-import Modal from "./Modal";
+import UserProfileModal from "./UserProfileModal";
 import logOut from "@/firebase/auth/signout";
 import { useRouter } from "next/router";
 import { Avatar } from "@mui/material";
+import { useSnackbar } from "notistack";
 
 const DropdownMenu: React.FC = ({ children }) => (
   <ul className="p-2 bg-white z-10">{children}</ul>
@@ -22,6 +23,8 @@ interface NavbarProps {
 
 export const Navbar = ({ user }: NavbarProps) => {
   const router = useRouter();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -37,15 +40,15 @@ export const Navbar = ({ user }: NavbarProps) => {
     const { res, error } = await logOut();
 
     if (error) {
-      console.log(error);
+      enqueueSnackbar("Gagal keluar", { variant: "error" });
     }
 
-    console.log(res);
+    enqueueSnackbar("Anda telah keluar", { variant: "info" });
     router.push("/login");
   }
 
   return (
-    <div className="navbar bg-dark px-8">
+    <div className="navbar bg-dark px-2 sm:px-4 lg:px-8">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden text-white">
@@ -53,7 +56,7 @@ export const Navbar = ({ user }: NavbarProps) => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-56"
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-44 sm:w-56"
           >
             <li tabIndex={0}>
               <a className="justify-between">
@@ -93,7 +96,7 @@ export const Navbar = ({ user }: NavbarProps) => {
               <a>Artikel</a>
             </li>
             <li>
-              <a>Tentang Kami</a>
+              <Link href="/company-profile">Tentang kami</Link>
             </li>
             {user ? (
               <li tabIndex={0}>
@@ -103,14 +106,14 @@ export const Navbar = ({ user }: NavbarProps) => {
                 </a>
                 <DropdownMenu>
                   <li>
-                    <Button
+                    <MyButton
                       content="Profil saya"
                       className="capitalize"
                       onClick={handleOpenModal}
                     />
                   </li>
                   <li>
-                    <Button
+                    <MyButton
                       content="Sign out"
                       className="capitalize"
                       onClick={handleSignOut}
@@ -121,7 +124,7 @@ export const Navbar = ({ user }: NavbarProps) => {
             ) : (
               <li tabIndex={0}>
                 <a className="justify-between">
-                  Sign up/Log in
+                  Bergabung
                   <MdOutlineKeyboardArrowRight className="fill-current h-6 w-6" />
                 </a>
                 <DropdownMenu>
@@ -180,7 +183,9 @@ export const Navbar = ({ user }: NavbarProps) => {
             <a className="text-white">Artikel</a>
           </li>
           <li>
-            <a className="text-white">Tentang Kami</a>
+            <Link href="/company-profile" className="text-white">
+              Tentang kami
+            </Link>
           </li>
         </ul>
       </div>
@@ -190,21 +195,22 @@ export const Navbar = ({ user }: NavbarProps) => {
             <li tabIndex={0}>
               <a className="text-white flex gap-2">
                 <Avatar
-                  src={user.photoURL || "/icons/gbm-logo-32.png"}
-                  alt={user.displayName || "Foto profil"}
+                  src={user.photoURL || ""}
+                  alt={`${user.displayName} photo`}
+                  className="w-10 h-10"
                 />
                 <p>{user.displayName || user.email}</p>
               </a>
               <DropdownMenu>
                 <li>
-                  <Button
+                  <MyButton
                     content="Profil saya"
                     className="capitalize"
                     onClick={handleOpenModal}
                   />
                 </li>
                 <li>
-                  <Button
+                  <MyButton
                     content="Sign out"
                     className="capitalize"
                     onClick={handleSignOut}
@@ -217,14 +223,16 @@ export const Navbar = ({ user }: NavbarProps) => {
       ) : (
         <div className="navbar-end hidden lg:flex lg:gap-2">
           <Link href="/register">
-            <Button content="Sign up" className="btn-secondary" />
+            <MyButton content="Sign up" className="btn-secondary" />
           </Link>
           <Link href="/login">
-            <Button content="Log in" />
+            <MyButton content="Log in" />
           </Link>
         </div>
       )}
-      {openModal ? <Modal open={openModal} onClose={handleCloseModal} /> : null}
+      {openModal ? (
+        <UserProfileModal open={openModal} onClose={handleCloseModal} />
+      ) : null}
     </div>
   );
 };

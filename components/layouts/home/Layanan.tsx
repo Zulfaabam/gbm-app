@@ -1,7 +1,33 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Button } from "../../Button";
+import MyButton from "../../MyButton";
+import classNames from "classnames";
+
+interface SubtitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
+  content: React.ReactNode;
+}
+interface ParagraphProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  content: React.ReactNode;
+}
+
+const Subtitle = ({ content, className, ...props }: SubtitleProps) => (
+  <h2
+    className={classNames(
+      "font-heading text-3xl md:text-4xl lg:text-5xl mb-6",
+      className
+    )}
+    {...props}
+  >
+    {content}
+  </h2>
+);
+
+const Paragraph = ({ content }: ParagraphProps) => (
+  <p className="text-paragraph-gray text-base lg:text-lg mb-7 lg:mb-14">
+    {content}
+  </p>
+);
 
 const Layanan = () => {
   let imgWidth = 540;
@@ -23,18 +49,19 @@ const Layanan = () => {
           </div>
           <div className="flex flex-col items-start max-w-2xl px-4 lg:px-12 xl:px-24">
             <h3 className="text-paragraph-dark font-semibold mb-4">
-              Layanan gbm
+              Layanan GBM
             </h3>
-            <h2 className="font-heading text-maroon text-5xl mb-6">
-              Pre-order Alat Kesehatan
-            </h2>
-            <p className="text-paragraph-gray text-lg mb-14">
-              Lorem ipsum dolor sit amet consectetur. Egestas lorem semper ac
+            <Subtitle
+              content="Pre-Order Alat Kesehatan"
+              className="text-maroon"
+            />
+            <Paragraph
+              content="Lorem ipsum dolor sit amet consectetur. Egestas lorem semper ac
               tristique imperdiet sodales amet donec. Orci tellus et auctor
-              adipiscing ultrices integer id. Enim diam.
-            </p>
+              adipiscing ultrices integer id. Enim diam."
+            />
             <Link href="/pre-order">
-              <Button content="Selengkapnya" className="btn-maroon" />
+              <MyButton content="Selengkapnya" className="btn-maroon" />
             </Link>
           </div>
         </div>
@@ -51,18 +78,19 @@ const Layanan = () => {
           </div>
           <div className="flex flex-col items-start max-w-2xl px-4 lg:px-12 xl:px-24">
             <h3 className="text-paragraph-dark font-semibold mb-4">
-              Layanan gbm
+              Layanan GBM
             </h3>
-            <h2 className="font-heading text-gbm-purple text-5xl mb-6">
-              Sewa Alat Kesehatan
-            </h2>
-            <p className="text-paragraph-gray text-lg mb-14">
-              Lorem ipsum dolor sit amet consectetur. Egestas lorem semper ac
+            <Subtitle
+              content="Sewa Alat Kesehatan"
+              className="text-gbm-purple"
+            />
+            <Paragraph
+              content="Lorem ipsum dolor sit amet consectetur. Egestas lorem semper ac
               tristique imperdiet sodales amet donec. Orci tellus et auctor
-              adipiscing ultrices integer id. Enim diam.
-            </p>
+              adipiscing ultrices integer id. Enim diam."
+            />
             <Link href="/sewa">
-              <Button content="Selengkapnya" className="btn-purple" />
+              <MyButton content="Selengkapnya" className="btn-purple" />
             </Link>
           </div>
         </div>
@@ -79,18 +107,19 @@ const Layanan = () => {
           </div>
           <div className="flex flex-col items-start max-w-2xl px-4 lg:px-12 xl:px-24">
             <h3 className="text-paragraph-dark font-semibold mb-4">
-              Layanan gbm
+              Layanan GBM
             </h3>
-            <h2 className="font-heading text-gbm-green-light text-5xl mb-6">
-              Konsultasi Online Gizi dan Kesehatan
-            </h2>
-            <p className="text-paragraph-gray text-lg mb-14">
-              Lorem ipsum dolor sit amet consectetur. Egestas lorem semper ac
+            <Subtitle
+              content="Konsultasi Online Gizi dan Kesehatan"
+              className="text-gbm-green-light"
+            />
+            <Paragraph
+              content="Lorem ipsum dolor sit amet consectetur. Egestas lorem semper ac
               tristique imperdiet sodales amet donec. Orci tellus et auctor
-              adipiscing ultrices integer id. Enim diam.
-            </p>
+              adipiscing ultrices integer id. Enim diam."
+            />
             <Link href="/konsultasi">
-              <Button content="Selengkapnya" className="btn-light-green" />
+              <MyButton content="Selengkapnya" className="btn-light-green" />
             </Link>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "common/utils/fetcher";
 import { BarLoader } from "react-spinners";
@@ -6,6 +6,9 @@ import MainLayout from "components/layouts/MainLayout";
 import ActionAreaCard from "components/ActionAreaCard";
 import { AuthContext } from "context/AuthContext";
 import RequiredLogin from "@/components/RequiredLogin";
+import MyButton from "@/components/MyButton";
+import SewaModal from "@/components/SewaModal";
+import ErrorPage from "@/components/ErrorPage";
 export interface Sewa {
   id: string;
   data: SewaData;
@@ -22,29 +25,35 @@ export interface SewaData {
 const sewa = () => {
   const user = useContext(AuthContext);
 
+  const [openModal, setOpenModal] = useState(false);
+
   const { data, error, isLoading } = useSWR<Sewa[], Error>(
     "/api/sewa",
     fetcher
   );
 
-  console.log(data);
+  function handleOpenModal() {
+    setOpenModal(true);
+  }
 
-  if (error) return <div>failed to load</div>;
+  function handleCloseModal() {
+    setOpenModal(false);
+  }
 
   if (user == null)
     return (
       <MainLayout>
-        <div className="py-7 max-w-8xl min-h-screen mx-auto flex flex-col justify-center items-center gap-4 flex-wrap">
+        <div className="py-7 max-w-8xl min-h-screen mx-auto flex flex-col justify-center items-center">
           <RequiredLogin />
         </div>
       </MainLayout>
     );
 
-  if (isLoading)
+  if (error)
     return (
       <MainLayout>
-        <div className="py-7 max-w-8xl min-h-screen mx-auto flex justify-center items-center gap-4 flex-wrap">
-          <BarLoader />
+        <div className="py-7 max-w-8xl min-h-screen mx-auto flex flex-col justify-center items-center">
+          <ErrorPage />
         </div>
       </MainLayout>
     );
@@ -54,11 +63,11 @@ const sewa = () => {
       <div className="py-7 max-w-8xl mx-auto min-h-screen">
         <div className="mb-5">
           <div className="h-5 w-full bg-maroon rounded-t-lg"></div>
-          <div className="bg-cream space-y-4 pb-5 pt-8">
-            <h1 className="font-heading text-5xl text-center">
+          <div className="bg-cream space-y-4 pb-5 pt-8 px-4 lg:px-0">
+            <h1 className="font-heading text-xl lg:text-3xl xl:text-5xl text-center">
               Sewa Alat Kesehatan GBM UNDIP
             </h1>
-            <div className="text-xl max-w-[970px] mx-auto font-medium text-center space-y-4">
+            <div className="text-sm lg:text-xl max-w-[970px] mx-auto font-medium text-center space-y-4">
               <p>Halo! Selamat datang di sewa alat kesehatan oleh GBM Undip</p>
               <p>
                 Penyewaan adalah proses, cara, pembuatan menyewa atau
@@ -74,17 +83,37 @@ const sewa = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-4">
-          {data?.map((d) => (
-            <ActionAreaCard
-              key={d.id}
-              maxWidth={300}
-              img={d.data.iconURL}
-              title={d.data.desc}
-              desc={d.data.longDesc}
-            />
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="py-7 max-w-8xl min-h-screen mx-auto flex justify-center items-center">
+            <BarLoader />
+          </div>
+        ) : (
+          <>
+            <div className="flex justify-center">
+              <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+                {data?.map((d) => (
+                  <ActionAreaCard
+                    key={d.id}
+                    maxWidth={250}
+                    img={d.data.iconURL}
+                    title={d.data.desc}
+                    desc={d.data.longDesc}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="mt-5 w-full">
+              <MyButton
+                content="Pesan"
+                className="btn-purple block mx-auto 2xl:mx-0 2xl:ml-auto w-60"
+                onClick={handleOpenModal}
+              />
+            </div>
+          </>
+        )}
+        {openModal ? (
+          <SewaModal open={openModal} onClose={handleCloseModal} />
+        ) : null}
       </div>
     </MainLayout>
   );

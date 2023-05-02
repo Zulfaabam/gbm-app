@@ -1,7 +1,5 @@
-import { getAuth, signOut } from "firebase/auth";
-import { firebaseApp } from "../clientApp";
-
-const auth = getAuth(firebaseApp);
+import { signOut } from "firebase/auth";
+import { auth } from "../clientApp";
 
 export default async function logOut() {
   let result = null,

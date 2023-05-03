@@ -4,11 +4,14 @@ import MainLayout from "@/components/layouts/MainLayout";
 import { Avatar, Paper } from "@mui/material";
 import Image from "next/image";
 import React, { useState } from "react";
+import { PDFViewer } from "@react-pdf/renderer";
+import Receipt from "@/components/Receipt";
 
 const dummyArr = new Array(10).fill("nama");
 
 const companyProfile = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [openPdf, setOpenPdf] = useState(false);
 
   function handleOpenModal() {
     setOpenModal(true);
@@ -83,6 +86,15 @@ const companyProfile = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="flex justify-center">
+            <button onClick={() => setOpenPdf(true)}>open pdf</button>
+            {openPdf ? (
+              <PDFViewer width={500} height={500}>
+                <Receipt />
+              </PDFViewer>
+            ) : null}
           </div>
           <div className="space-y-12 mb-24 px-4">
             <div className="flex flex-col gap-4 items-center text-center">

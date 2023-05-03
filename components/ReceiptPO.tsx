@@ -23,12 +23,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const Receipt = () => {
+const ReceiptPO = () => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={{ marginBottom: "8px" }}>
-          <Text style={styles.title}>DATA SEWA ALAT KESEHATAN</Text>
+          <Text style={styles.title}>DATA PRE-ORDER ALAT KESEHATAN</Text>
         </View>
         <View style={styles.row}>
           <Text
@@ -85,34 +85,6 @@ const Receipt = () => {
               padding: "10px 0",
             }}
           >
-            4.
-          </Text>
-          <Text
-            style={{
-              width: "30%",
-              borderRight: "1px solid black",
-              padding: "10px",
-            }}
-          >
-            Alamat
-          </Text>
-          <View
-            style={{
-              width: "63%",
-            }}
-          >
-            <Text style={{ width: "100%", padding: "10px" }}>alamat</Text>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <Text
-            style={{
-              width: "7%",
-              borderRight: "1px solid black",
-              textAlign: "center",
-              padding: "10px 0",
-            }}
-          >
             3.
           </Text>
           <Text
@@ -141,7 +113,7 @@ const Receipt = () => {
               padding: "10px 0",
             }}
           >
-            5.
+            4.
           </Text>
           <Text
             style={{
@@ -194,7 +166,7 @@ const Receipt = () => {
               padding: "10px 0",
             }}
           >
-            6.
+            5.
           </Text>
           <Text
             style={{
@@ -203,66 +175,13 @@ const Receipt = () => {
               padding: "10px",
             }}
           >
-            Tanggal & Lama Peminjaman
+            Pengiriman
           </Text>
-          <View style={{ width: "63%", flexDirection: "row" }}>
-            <View style={{ width: "50%" }}>
-              <Text
-                style={{
-                  padding: "10px",
-                  borderRight: "1px solid black",
-                  textAlign: "center",
-                }}
-              >
-                Tanggal
-              </Text>
-              <Text
-                style={{
-                  padding: "0 10px 10px 10px",
-                  borderRight: "1px solid black",
-                  textAlign: "center",
-                }}
-              >
-                value
-              </Text>
-            </View>
-            <View style={{ width: "50%" }}>
-              <Text style={{ padding: "10px", textAlign: "center" }}>
-                Lama (hari)
-              </Text>
-              <Text
-                style={{ padding: "0 10px 10px 10px", textAlign: "center" }}
-              >
-                value
-              </Text>
-            </View>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <Text
-            style={{
-              width: "7%",
-              borderRight: "1px solid black",
-              textAlign: "center",
-              padding: "10px 0",
-            }}
-          >
-            7.
-          </Text>
-          <Text
-            style={{
-              width: "30%",
-              borderRight: "1px solid black",
-              padding: "10px",
-            }}
-          >
-            Jaminan
-          </Text>
-          <Text style={{ width: "63%", padding: "10px" }}>Jaminan</Text>
+          <Text style={{ width: "63%", padding: "10px" }}>pengiriman</Text>
         </View>
       </Page>
     </Document>
   );
 };
 
-export default Receipt;
+export default ReceiptPO;

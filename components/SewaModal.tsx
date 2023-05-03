@@ -10,12 +10,27 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import { ModalProps } from "./UserProfileModal";
 import MyButton from "./MyButton";
 import InputField from "./InputField";
+import addData from "@/common/utils/addData";
+import { AuthContext } from "context/AuthContext";
+import { enqueueSnackbar } from "notistack";
 
 const SewaModal = ({ open, onClose }: ModalProps) => {
+  const user = useContext(AuthContext);
+
+  function handleSubmit() {
+    if (user?.uid) {
+      addData("rent", user?.uid, { name: "maba", item: "banyak" })
+        .then(() =>
+          enqueueSnackbar("Pesanan telah dibuat", { variant: "success" })
+        )
+        .catch((error) => enqueueSnackbar(error, { variant: "error" }));
+    }
+  }
+
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>Sewa Alat Kesehatan</DialogTitle>
@@ -48,7 +63,11 @@ const SewaModal = ({ open, onClose }: ModalProps) => {
       </DialogContent>
       <DialogActions className="px-6">
         <MyButton content="Batal" onClick={onClose} />
-        <MyButton content="Kirim" className="btn-purple" />
+        <MyButton
+          content="Kirim"
+          className="btn-purple"
+          onClick={handleSubmit}
+        />
       </DialogActions>
     </Dialog>
   );

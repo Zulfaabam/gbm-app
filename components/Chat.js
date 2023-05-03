@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {db} from "@firebase/clientApp"
+import {db, auth} from "@/firebase/clientApp"
 import {
   collection,
   addDoc,
@@ -14,6 +14,8 @@ export const Chat = ({ room }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const messagesRef = collection(db, "messages");
+
+  console.log("db", db)
 
   useEffect(() => {
     const queryMessages = query(
@@ -40,7 +42,7 @@ export const Chat = ({ room }) => {
     await addDoc(messagesRef, {
       text: newMessage,
       createdAt: serverTimestamp(),
-      user: auth.currentUser.displayName,
+      // user: auth.currentUser.displayName,
       room,
     });
 

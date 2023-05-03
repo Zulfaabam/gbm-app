@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {db, auth} from "@/firebase/clientApp"
+import {db, auth} from "../firebase/clientApp"
 import {
   collection,
   addDoc,
@@ -42,7 +42,7 @@ export const Chat = ({ room }) => {
     await addDoc(messagesRef, {
       text: newMessage,
       createdAt: serverTimestamp(),
-      // user: auth.currentUser.displayName,
+      user: auth.currentUser.displayName,
       room,
     });
 
@@ -50,7 +50,7 @@ export const Chat = ({ room }) => {
   };
 
   return (
-    <div className="chat-app">
+    <div className="chat">
       <div className="header">
         <h1>Welcome to: {room.toUpperCase()}</h1>
       </div>

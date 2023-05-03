@@ -24,7 +24,11 @@ export default function ActionAreaCard({
   return (
     <Card sx={{ maxWidth: maxWidth }} {...props}>
       <CardActionArea>
-        <CardMedia sx={{ height: imgHeight }} image={img} title={title} />
+        <CardMedia
+          sx={{ height: imgHeight }}
+          image={img ? img : "/images/bro.svg"}
+          title={title}
+        />
         <CardContent>
           <Typography
             gutterBottom

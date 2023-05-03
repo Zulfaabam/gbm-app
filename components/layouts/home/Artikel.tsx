@@ -29,7 +29,7 @@ const Artikel = () => {
           {data?.map((d, idx) => (
             <div className="carousel-item" key={d.id}>
               <ActionAreaCard
-                img={d.data.iconURL || "/images/bro.svg"}
+                img={d.data.iconURL}
                 title={d.data.desc}
                 // desc={d.data.longDesc}
                 className="w-[250px] md:w-[400px]"

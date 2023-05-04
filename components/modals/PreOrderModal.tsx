@@ -11,7 +11,7 @@ import {
   RadioGroup,
   Checkbox,
 } from "@mui/material";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ModalProps } from "./UserProfileModal";
 import MyButton from "../MyButton";
 import InputField from "../InputField";
@@ -19,23 +19,34 @@ import { AuthContext } from "context/AuthContext";
 import addData from "@/common/utils/addData";
 import { enqueueSnackbar } from "notistack";
 import ReceiptPO from "../ReceiptPO";
+import { PreOrder } from "@/pages/pre-order";
+import { Items } from "./SewaModal";
+
+interface PreOrderModalProps extends ModalProps {
+  items: PreOrder[] | undefined;
+}
 
 export interface PreOrderFormData {
   name: string;
   year: string;
   phoneNumber: string;
-  items: [];
+  items: Items[] | undefined;
   delivery: string;
 }
 
-const PreOrderModal = ({ open, onClose }: ModalProps) => {
+const PreOrderModal = ({ open, onClose, items }: PreOrderModalProps) => {
   const user = useContext(AuthContext);
 
   const [preOrder, setPreOrder] = useState<PreOrderFormData>({
     name: "",
     year: "",
     phoneNumber: "",
-    items: [],
+    items: [
+      {
+        value: "",
+        total: 0,
+      },
+    ],
     delivery: "",
   });
 
@@ -52,18 +63,33 @@ const PreOrderModal = ({ open, onClose }: ModalProps) => {
   }
 
   function handleSubmit() {
+    const body = {
+      ...preOrder,
+      items: preOrder.items?.filter((item) => item.total > 0),
+    };
+
     if (user?.uid) {
-      addData("preOrder", user?.uid, preOrder)
+      addData("preOrder", user?.uid, body)
         .then(() =>
           enqueueSnackbar("Pesanan telah dibuat", {
             variant: "orderMade",
             persist: true,
-            pdf: <ReceiptPO preOrder={preOrder} />,
+            pdf: <ReceiptPO preOrder={body} />,
           })
         )
         .catch((error) => enqueueSnackbar(error, { variant: "error" }));
     }
   }
+
+  useEffect(() => {
+    setPreOrder({
+      ...preOrder,
+      items: items?.map((item) => ({
+        value: item.data.desc,
+        total: 0,
+      })),
+    });
+  }, [items]);
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
@@ -91,13 +117,31 @@ const PreOrderModal = ({ open, onClose }: ModalProps) => {
           onChange={(e) => handleChange(e)}
           required
         />
-        <InputField
-          name="items"
-          label="Jumlah barang"
-          value={preOrder.items}
-          onChange={(e) => handleChange(e)}
-          required
-        />
+        <label className="label">
+          <span className="label-text">Jumlah barang yang dipesan *</span>
+        </label>
+        {preOrder.items?.map((item, idx) => (
+          <div key={idx} className="flex items-center gap-2 mb-1">
+            <label className="label w-1/2">
+              <span className="label-text">{item.value}</span>
+            </label>
+            <InputField
+              type="number"
+              placeholder="Jumlah"
+              className="w-28"
+              min={0}
+              value={item.total}
+              onChange={(e) => {
+                let arr = preOrder.items;
+
+                if (arr) {
+                  arr[idx]["total"] = parseInt(e.target.value);
+                  setPreOrder({ ...preOrder, items: arr });
+                }
+              }}
+            />
+          </div>
+        ))}
         <FormControl required>
           <FormLabel className="mt-2">
             <span className="label-text font-sans">Opsi Pengiriman</span>

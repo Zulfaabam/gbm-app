@@ -127,10 +127,10 @@ const ReceiptPO = ({ preOrder }: ReceiptPOProps) => {
               padding: "10px",
             }}
           >
-            Barang
+            Alat Kesehatan
           </Text>
           <View style={{ width: "63%", flexDirection: "row" }}>
-            <View style={{ width: "50%" }}>
+            <View style={{ width: "50%", flexDirection: "column" }}>
               <Text
                 style={{
                   padding: "10px",
@@ -138,27 +138,38 @@ const ReceiptPO = ({ preOrder }: ReceiptPOProps) => {
                   textAlign: "center",
                 }}
               >
-                Terpasang (ton)
+                Nama Barang
               </Text>
-              <Text
-                style={{
-                  padding: "0 10px 10px 10px",
-                  borderRight: "1px solid black",
-                  textAlign: "center",
-                }}
-              >
-                value
-              </Text>
+              {preOrder.items?.map((item, idx) => (
+                <View style={{ width: "100%" }} key={idx}>
+                  <Text
+                    style={{
+                      padding: "0 10px 10px 10px",
+                      borderRight: "1px solid black",
+                      textAlign: "center",
+                    }}
+                  >
+                    {item.value}
+                  </Text>
+                </View>
+              ))}
             </View>
-            <View style={{ width: "50%" }}>
+            <View style={{ width: "50%", flexDirection: "column" }}>
               <Text style={{ padding: "10px", textAlign: "center" }}>
-                Realisasi (ton/hari)
+                Jumlah
               </Text>
-              <Text
-                style={{ padding: "0 10px 10px 10px", textAlign: "center" }}
-              >
-                value
-              </Text>
+              {preOrder.items?.map((item, idx) => (
+                <View style={{ width: "100%" }} key={idx}>
+                  <Text
+                    style={{
+                      padding: "0 10px 10px 10px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {item.total}
+                  </Text>
+                </View>
+              ))}
             </View>
           </View>
         </View>

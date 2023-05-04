@@ -11,7 +11,7 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ModalProps } from "./UserProfileModal";
 import MyButton from "../MyButton";
 import InputField from "../InputField";
@@ -19,20 +19,30 @@ import addData from "@/common/utils/addData";
 import { AuthContext } from "context/AuthContext";
 import { enqueueSnackbar } from "notistack";
 import ReceiptSewa from "../ReceiptSewa";
+import { Sewa } from "@/pages/sewa";
+
+interface SewaModalProps extends ModalProps {
+  items: Sewa[] | undefined;
+}
+
+export interface Items {
+  value: string;
+  total: number;
+}
 
 export interface SewaFormData {
   name: string;
   school: string;
   phoneNumber: string;
   address: string;
-  items: [];
+  items: Items[] | undefined;
   date: string;
   duration: string;
   guarantee: string;
   status: string;
 }
 
-const SewaModal = ({ open, onClose }: ModalProps) => {
+const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
   const user = useContext(AuthContext);
 
   const [sewa, setSewa] = useState<SewaFormData>({
@@ -40,11 +50,16 @@ const SewaModal = ({ open, onClose }: ModalProps) => {
     school: "",
     phoneNumber: "",
     address: "",
-    items: [],
+    items: [
+      {
+        value: "",
+        total: 0,
+      },
+    ],
     date: "",
     duration: "",
     guarantee: "",
-    status: "New",
+    status: "Baru",
   });
 
   const [checked, setChecked] = useState(false);
@@ -60,17 +75,33 @@ const SewaModal = ({ open, onClose }: ModalProps) => {
   }
 
   function handleSubmit() {
+    const body = {
+      ...sewa,
+      items: sewa.items?.filter((item) => item.total > 0),
+    };
+
     if (user?.uid) {
-      addData("rent", user?.uid, sewa)
+      addData("rent", user?.uid, body)
         .then(() => {
           enqueueSnackbar("Pesanan telah dibuat", {
             variant: "orderMade",
-            pdf: <ReceiptSewa sewa={sewa} />,
+            persist: true,
+            pdf: <ReceiptSewa sewa={body} />,
           });
         })
         .catch((error) => enqueueSnackbar(error, { variant: "error" }));
     }
   }
+
+  useEffect(() => {
+    setSewa({
+      ...sewa,
+      items: items?.map((item) => ({
+        value: item.data.desc,
+        total: 0,
+      })),
+    });
+  }, [items]);
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
@@ -106,13 +137,31 @@ const SewaModal = ({ open, onClose }: ModalProps) => {
           onChange={(e) => handleChange(e)}
           required
         />
-        <InputField
-          name="items"
-          label="Jumlah barang"
-          value={sewa.items}
-          onChange={(e) => handleChange(e)}
-          required
-        />
+        <label className="label">
+          <span className="label-text">Jumlah barang yang dipesan *</span>
+        </label>
+        {sewa.items?.map((item, idx) => (
+          <div key={idx} className="flex items-center gap-2 mb-1">
+            <label className="label w-1/2">
+              <span className="label-text">{item.value}</span>
+            </label>
+            <InputField
+              type="number"
+              placeholder="Jumlah"
+              className="w-28"
+              min={0}
+              value={item.total}
+              onChange={(e) => {
+                let arr = sewa.items;
+
+                if (arr) {
+                  arr[idx]["total"] = parseInt(e.target.value);
+                  setSewa({ ...sewa, items: arr });
+                }
+              }}
+            />
+          </div>
+        ))}
         <div className="flex gap-4">
           <InputField
             name="date"

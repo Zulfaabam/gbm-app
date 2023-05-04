@@ -112,7 +112,7 @@ const sewa = () => {
           </>
         )}
         {openModal ? (
-          <SewaModal open={openModal} onClose={handleCloseModal} />
+          <SewaModal open={openModal} onClose={handleCloseModal} items={data} />
         ) : null}
       </div>
     </MainLayout>

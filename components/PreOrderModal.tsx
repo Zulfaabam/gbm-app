@@ -18,11 +18,20 @@ import InputField from "./InputField";
 import { AuthContext } from "context/AuthContext";
 import addData from "@/common/utils/addData";
 import { enqueueSnackbar } from "notistack";
+import ReceiptPO from "./ReceiptPO";
+
+export interface PreOrderFormData {
+  name: string;
+  year: string;
+  phoneNumber: string;
+  items: [];
+  delivery: string;
+}
 
 const PreOrderModal = ({ open, onClose }: ModalProps) => {
   const user = useContext(AuthContext);
 
-  const [preOrder, setPreOrder] = useState({
+  const [preOrder, setPreOrder] = useState<PreOrderFormData>({
     name: "",
     year: "",
     phoneNumber: "",
@@ -46,7 +55,11 @@ const PreOrderModal = ({ open, onClose }: ModalProps) => {
     if (user?.uid) {
       addData("preOrder", user?.uid, preOrder)
         .then(() =>
-          enqueueSnackbar("Pesanan telah dibuat", { variant: "success" })
+          enqueueSnackbar("Pesanan telah dibuat", {
+            variant: "orderMade",
+            persist: true,
+            pdf: <ReceiptPO preOrder={preOrder} />,
+          })
         )
         .catch((error) => enqueueSnackbar(error, { variant: "error" }));
     }

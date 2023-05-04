@@ -1,5 +1,6 @@
 import React from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import { SewaFormData } from "./SewaModal";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -17,13 +18,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: "-1px",
   },
-  signature: {
-    height: "50px",
-    width: "50px",
-  },
 });
 
-const ReceiptSewa = () => {
+interface ReceiptSewaProps {
+  sewa: SewaFormData;
+}
+
+function ReceiptSewa({ sewa }: ReceiptSewaProps) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -50,7 +51,7 @@ const ReceiptSewa = () => {
           >
             Nama Penyewa
           </Text>
-          <Text style={{ width: "63%", padding: "10px" }}>sup name</Text>
+          <Text style={{ width: "63%", padding: "10px" }}>{sewa.name}</Text>
         </View>
         <View style={styles.row}>
           <Text
@@ -73,7 +74,9 @@ const ReceiptSewa = () => {
             Instansi
           </Text>
           <View style={{ width: "63%" }}>
-            <Text style={{ width: "100%", padding: "10px" }}>instansi</Text>
+            <Text style={{ width: "100%", padding: "10px" }}>
+              {sewa.school}
+            </Text>
           </View>
         </View>
         <View style={styles.row}>
@@ -101,7 +104,9 @@ const ReceiptSewa = () => {
               width: "63%",
             }}
           >
-            <Text style={{ width: "100%", padding: "10px" }}>alamat</Text>
+            <Text style={{ width: "100%", padding: "10px" }}>
+              {sewa.address}
+            </Text>
           </View>
         </View>
         <View style={styles.row}>
@@ -129,7 +134,9 @@ const ReceiptSewa = () => {
               width: "63%",
             }}
           >
-            <Text style={{ width: "100%", padding: "10px" }}>nomer wa</Text>
+            <Text style={{ width: "100%", padding: "10px" }}>
+              {sewa.phoneNumber}
+            </Text>
           </View>
         </View>
         <View style={styles.row}>
@@ -150,7 +157,7 @@ const ReceiptSewa = () => {
               padding: "10px",
             }}
           >
-            Barang
+            Alat Kesehatan
           </Text>
           <View style={{ width: "63%", flexDirection: "row" }}>
             <View style={{ width: "50%" }}>
@@ -161,7 +168,7 @@ const ReceiptSewa = () => {
                   textAlign: "center",
                 }}
               >
-                Terpasang (ton)
+                Nama Barang
               </Text>
               <Text
                 style={{
@@ -175,7 +182,7 @@ const ReceiptSewa = () => {
             </View>
             <View style={{ width: "50%" }}>
               <Text style={{ padding: "10px", textAlign: "center" }}>
-                Realisasi (ton/hari)
+                Jumlah
               </Text>
               <Text
                 style={{ padding: "0 10px 10px 10px", textAlign: "center" }}
@@ -223,7 +230,7 @@ const ReceiptSewa = () => {
                   textAlign: "center",
                 }}
               >
-                value
+                {sewa.date}
               </Text>
             </View>
             <View style={{ width: "50%" }}>
@@ -233,7 +240,7 @@ const ReceiptSewa = () => {
               <Text
                 style={{ padding: "0 10px 10px 10px", textAlign: "center" }}
               >
-                value
+                {sewa.duration}
               </Text>
             </View>
           </View>
@@ -258,11 +265,13 @@ const ReceiptSewa = () => {
           >
             Jaminan
           </Text>
-          <Text style={{ width: "63%", padding: "10px" }}>Jaminan</Text>
+          <Text style={{ width: "63%", padding: "10px" }}>
+            {sewa.guarantee}
+          </Text>
         </View>
       </Page>
     </Document>
   );
-};
+}
 
 export default ReceiptSewa;

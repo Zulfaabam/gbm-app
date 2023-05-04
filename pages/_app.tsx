@@ -3,6 +3,20 @@ import "../styles/globals.css";
 import { AppProps } from "next/app";
 import { AuthContextProvider } from "context/AuthContext";
 import { SnackbarProvider } from "notistack";
+import OrderMadeSnackbar from "@/components/OrderMadeSnackbar";
+import { JSXElementConstructor, ReactElement } from "react";
+import ReactPDF from "@react-pdf/renderer";
+
+declare module "notistack" {
+  interface VariantOverrides {
+    orderMade: {
+      pdf: ReactElement<
+        ReactPDF.DocumentProps,
+        string | JSXElementConstructor<any>
+      >;
+    };
+  }
+}
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -39,6 +53,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           anchorOrigin={{ horizontal: "center", vertical: "top" }}
           preventDuplicate
           autoHideDuration={3000}
+          Components={{
+            orderMade: OrderMadeSnackbar,
+          }}
         >
           <Component {...pageProps} />
         </SnackbarProvider>

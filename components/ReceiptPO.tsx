@@ -1,5 +1,6 @@
 import React from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import { PreOrderFormData } from "./PreOrderModal";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -17,13 +18,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: "-1px",
   },
-  signature: {
-    height: "50px",
-    width: "50px",
-  },
 });
 
-const ReceiptPO = () => {
+interface ReceiptPOProps {
+  preOrder: PreOrderFormData;
+}
+
+const ReceiptPO = ({ preOrder }: ReceiptPOProps) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -50,7 +51,7 @@ const ReceiptPO = () => {
           >
             Nama Penyewa
           </Text>
-          <Text style={{ width: "63%", padding: "10px" }}>sup name</Text>
+          <Text style={{ width: "63%", padding: "10px" }}>{preOrder.name}</Text>
         </View>
         <View style={styles.row}>
           <Text
@@ -70,10 +71,12 @@ const ReceiptPO = () => {
               padding: "10px",
             }}
           >
-            Instansi
+            Angkatan
           </Text>
           <View style={{ width: "63%" }}>
-            <Text style={{ width: "100%", padding: "10px" }}>instansi</Text>
+            <Text style={{ width: "100%", padding: "10px" }}>
+              {preOrder.year}
+            </Text>
           </View>
         </View>
         <View style={styles.row}>
@@ -101,7 +104,9 @@ const ReceiptPO = () => {
               width: "63%",
             }}
           >
-            <Text style={{ width: "100%", padding: "10px" }}>nomer wa</Text>
+            <Text style={{ width: "100%", padding: "10px" }}>
+              {preOrder.phoneNumber}
+            </Text>
           </View>
         </View>
         <View style={styles.row}>
@@ -177,7 +182,9 @@ const ReceiptPO = () => {
           >
             Pengiriman
           </Text>
-          <Text style={{ width: "63%", padding: "10px" }}>pengiriman</Text>
+          <Text style={{ width: "63%", padding: "10px" }}>
+            {preOrder.delivery}
+          </Text>
         </View>
       </Page>
     </Document>

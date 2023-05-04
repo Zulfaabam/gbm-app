@@ -18,8 +18,9 @@ import InputField from "./InputField";
 import addData from "@/common/utils/addData";
 import { AuthContext } from "context/AuthContext";
 import { enqueueSnackbar } from "notistack";
+import ReceiptSewa from "./ReceiptSewa";
 
-interface SewaFormData {
+export interface SewaFormData {
   name: string;
   school: string;
   phoneNumber: string;
@@ -61,9 +62,12 @@ const SewaModal = ({ open, onClose }: ModalProps) => {
   function handleSubmit() {
     if (user?.uid) {
       addData("rent", user?.uid, sewa)
-        .then(() =>
-          enqueueSnackbar("Pesanan telah dibuat", { variant: "success" })
-        )
+        .then(() => {
+          enqueueSnackbar("Pesanan telah dibuat", {
+            variant: "orderMade",
+            pdf: <ReceiptSewa sewa={sewa} />,
+          });
+        })
         .catch((error) => enqueueSnackbar(error, { variant: "error" }));
     }
   }

@@ -1,4 +1,5 @@
 import {
+  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
@@ -9,34 +10,41 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
-  Checkbox,
 } from "@mui/material";
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ModalProps } from "./UserProfileModal";
-import MyButton from "./MyButton";
-import InputField from "./InputField";
-import { AuthContext } from "context/AuthContext";
+import MyButton from "../MyButton";
+import InputField from "../InputField";
 import addData from "@/common/utils/addData";
+import { AuthContext } from "context/AuthContext";
 import { enqueueSnackbar } from "notistack";
-import ReceiptPO from "./ReceiptPO";
+import ReceiptSewa from "../ReceiptSewa";
 
-export interface PreOrderFormData {
+export interface SewaFormData {
   name: string;
-  year: string;
+  school: string;
   phoneNumber: string;
+  address: string;
   items: [];
-  delivery: string;
+  date: string;
+  duration: string;
+  guarantee: string;
+  status: string;
 }
 
-const PreOrderModal = ({ open, onClose }: ModalProps) => {
+const SewaModal = ({ open, onClose }: ModalProps) => {
   const user = useContext(AuthContext);
 
-  const [preOrder, setPreOrder] = useState<PreOrderFormData>({
+  const [sewa, setSewa] = useState<SewaFormData>({
     name: "",
-    year: "",
+    school: "",
     phoneNumber: "",
+    address: "",
     items: [],
-    delivery: "",
+    date: "",
+    duration: "",
+    guarantee: "",
+    status: "New",
   });
 
   const [checked, setChecked] = useState(false);
@@ -45,99 +53,125 @@ const PreOrderModal = ({ open, onClose }: ModalProps) => {
     setChecked(event.target.checked);
   };
 
-  console.log(preOrder);
+  console.log(sewa);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setPreOrder({ ...preOrder, [e.target.name]: e.target.value });
+    setSewa({ ...sewa, [e.target.name]: e.target.value });
   }
 
   function handleSubmit() {
     if (user?.uid) {
-      addData("preOrder", user?.uid, preOrder)
-        .then(() =>
+      addData("rent", user?.uid, sewa)
+        .then(() => {
           enqueueSnackbar("Pesanan telah dibuat", {
             variant: "orderMade",
-            persist: true,
-            pdf: <ReceiptPO preOrder={preOrder} />,
-          })
-        )
+            pdf: <ReceiptSewa sewa={sewa} />,
+          });
+        })
         .catch((error) => enqueueSnackbar(error, { variant: "error" }));
     }
   }
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Pre-order Alat Kesehatan</DialogTitle>
+      <DialogTitle className="font-sans">Sewa Alat Kesehatan</DialogTitle>
       <DialogContent>
         <InputField
           name="name"
           label="Nama lengkap"
-          value={preOrder.name}
+          value={sewa.name}
           onChange={(e) => handleChange(e)}
           required
         />
         <InputField
-          name="year"
-          label="Angkatan"
-          placeholder="ex: 2019"
-          value={preOrder.year}
+          name="school"
+          label="Instansi"
+          placeholder="Jurusan, Universitas"
+          value={sewa.school}
           onChange={(e) => handleChange(e)}
           required
         />
         <InputField
           name="phoneNumber"
           label="No WhatsApp"
-          value={preOrder.phoneNumber}
+          value={sewa.phoneNumber}
+          onChange={(e) => handleChange(e)}
+          required
+        />
+        <InputField
+          name="address"
+          label="Alamat"
+          placeholder="Alamat peminjam di Semarang"
+          value={sewa.address}
           onChange={(e) => handleChange(e)}
           required
         />
         <InputField
           name="items"
           label="Jumlah barang"
-          value={preOrder.items}
+          value={sewa.items}
           onChange={(e) => handleChange(e)}
           required
         />
+        <div className="flex gap-4">
+          <InputField
+            name="date"
+            label="Tanggal peminjaman"
+            type="date"
+            value={sewa.date}
+            onChange={(e) => handleChange(e)}
+            required
+          />
+          <InputField
+            name="duration"
+            label="Lama peminjaman"
+            placeholder="1 hari"
+            value={sewa.duration}
+            onChange={(e) => handleChange(e)}
+            required
+          />
+        </div>
         <FormControl required>
           <FormLabel className="mt-2">
-            <span className="label-text font-sans">Opsi Pengiriman</span>
+            <span className="label-text font-sans">Jaminan</span>
           </FormLabel>
+          <FormHelperText sx={{ margin: 0 }}>
+            <label className="m-0">
+              <span className="label-text font-sans text-xs">
+                Jaminan akan diberikan kepada pemegang inventaris dan akan
+                diambil kembali setelah mengembalikan alat yang dipinjam.
+              </span>
+            </label>
+          </FormHelperText>
           <RadioGroup
-            name="delivery"
-            value={preOrder.delivery}
+            name="guarantee"
+            value={sewa.guarantee}
             onChange={(e) => handleChange(e)}
             sx={{ margin: 0 }}
+            className="px-1"
+            row
           >
             <FormControlLabel
-              value="cod"
+              value="ktm"
               control={<Radio size="small" />}
               label={
-                <label className="label">
-                  <span className="label-text font-sans">COD (Di kampus)</span>
+                <label className="label pl-0">
+                  <span className="label-text font-sans">KTM</span>
                 </label>
               }
             />
             <FormControlLabel
-              value="shopee"
+              value="ktp"
               control={<Radio size="small" />}
               label={
-                <label className="label">
-                  <span className="label-text font-sans">Shopee</span>
+                <label className="label pl-0">
+                  <span className="label-text font-sans">KTP</span>
                 </label>
               }
             />
           </RadioGroup>
-          <FormHelperText sx={{ margin: 0 }}>
-            <label className="m-0">
-              <span className="label-text font-sans">
-                Untuk kemudahan, pemesanan hanya dapat dilakukan di Shopee. Jika
-                Anda kesulitan dalam menggunakan marketplace tersebut, harap
-                hubungi CP. Terima kasih
-              </span>
-            </label>
-          </FormHelperText>
         </FormControl>
-        <div className="flex gap-2 mt-4">
+        <div className="flex gap-2 mt-6">
           <Checkbox
             size="small"
             checked={checked}
@@ -163,4 +197,4 @@ const PreOrderModal = ({ open, onClose }: ModalProps) => {
   );
 };
 
-export default PreOrderModal;
+export default SewaModal;

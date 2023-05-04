@@ -8,7 +8,7 @@ import { AuthContext } from "context/AuthContext";
 import RequiredLogin from "@/components/RequiredLogin";
 import { numberFormatter } from "@/common/utils/formatter";
 import MyButton from "@/components/MyButton";
-import PreOrderModal from "@/components/PreOrderModal";
+import PreOrderModal from "@/components/modals/PreOrderModal";
 import ErrorPage from "@/components/ErrorPage";
 export interface PreOrder {
   id: string;

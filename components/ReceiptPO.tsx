@@ -1,6 +1,6 @@
 import React from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
-import { PreOrderFormData } from "./PreOrderModal";
+import { PreOrderFormData } from "./modals/PreOrderModal";
 
 // Create styles
 const styles = StyleSheet.create({

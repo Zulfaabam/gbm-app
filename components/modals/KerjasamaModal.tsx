@@ -6,8 +6,8 @@ import {
 } from "@mui/material";
 import React from "react";
 import { ModalProps } from "./UserProfileModal";
-import MyButton from "./MyButton";
-import InputField from "./InputField";
+import MyButton from "../MyButton";
+import InputField from "../InputField";
 
 const KerjasamaModal = ({ open, onClose }: ModalProps) => {
   return (

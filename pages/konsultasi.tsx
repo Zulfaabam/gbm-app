@@ -1,10 +1,62 @@
+import MyButton from "@/components/MyButton";
 import RequiredLogin from "@/components/RequiredLogin";
 import MainLayout from "@/components/layouts/MainLayout";
+import KonsultasiOnlineModal from "@/components/modals/KonsultasiOnlineModal";
+import { Box, Tab, Tabs, Typography } from "@mui/material";
 import { AuthContext } from "context/AuthContext";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
 
 const konsultasi = () => {
   const user = useContext(AuthContext);
+
+  const [value, setValue] = useState(0);
+
+  const [openModal, setOpenModal] = useState(false);
+
+  function handleOpenModal() {
+    setOpenModal(true);
+  }
+
+  function handleCloseModal() {
+    setOpenModal(false);
+  }
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
 
   if (user == null)
     return (
@@ -42,6 +94,34 @@ const konsultasi = () => {
             </div>
           </div>
         </div>
+        <div className="my-5 w-full">
+          <MyButton
+            content="Buat Janji"
+            className="btn-purple block ml-auto w-60"
+            onClick={handleOpenModal}
+          />
+        </div>
+        <div className="w-full">
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+            >
+              <Tab label="Berlangsung" {...a11yProps(0)} />
+              <Tab label="Selesai" {...a11yProps(1)} />
+            </Tabs>
+          </Box>
+          <TabPanel value={value} index={0}>
+            Item One
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            Item Two
+          </TabPanel>
+        </div>
+        {openModal ? (
+          <KonsultasiOnlineModal open={openModal} onClose={handleCloseModal} />
+        ) : null}
       </div>
     </MainLayout>
   );

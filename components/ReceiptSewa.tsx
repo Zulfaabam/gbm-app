@@ -1,6 +1,6 @@
 import React from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
-import { SewaFormData } from "./SewaModal";
+import { SewaFormData } from "./modals/SewaModal";
 
 // Create styles
 const styles = StyleSheet.create({

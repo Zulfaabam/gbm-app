@@ -7,7 +7,7 @@ import {
   MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
 import { User } from "firebase/auth";
-import UserProfileModal from "./UserProfileModal";
+import UserProfileModal from "./modals/UserProfileModal";
 import logOut from "@/firebase/auth/signout";
 import { useRouter } from "next/router";
 import { Avatar } from "@mui/material";

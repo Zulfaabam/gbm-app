@@ -1,4 +1,4 @@
-import KerjasamaModal from "@/components/KerjasamaModal";
+import KerjasamaModal from "@/components/modals/KerjasamaModal";
 import MyButton from "@/components/MyButton";
 import MainLayout from "@/components/layouts/MainLayout";
 import { Avatar, Paper } from "@mui/material";

@@ -114,7 +114,11 @@ const preOrder = () => {
           </>
         )}
         {openModal ? (
-          <PreOrderModal open={openModal} onClose={handleCloseModal} />
+          <PreOrderModal
+            open={openModal}
+            onClose={handleCloseModal}
+            items={data}
+          />
         ) : null}
       </div>
     </MainLayout>

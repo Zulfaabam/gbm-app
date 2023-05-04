@@ -5,9 +5,9 @@ import {
   DialogTitle,
 } from "@mui/material";
 import React, { useState } from "react";
-import MyButton from "./MyButton";
+import MyButton from "../MyButton";
 import { ModalProps } from "./UserProfileModal";
-import InputField from "./InputField";
+import InputField from "../InputField";
 import sendResetPasswordReq from "@/common/utils/sendResetPasswordReq";
 import { auth } from "@/firebase/clientApp";
 

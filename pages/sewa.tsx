@@ -7,7 +7,7 @@ import ActionAreaCard from "components/ActionAreaCard";
 import { AuthContext } from "context/AuthContext";
 import RequiredLogin from "@/components/RequiredLogin";
 import MyButton from "@/components/MyButton";
-import SewaModal from "@/components/SewaModal";
+import SewaModal from "@/components/modals/SewaModal";
 import ErrorPage from "@/components/ErrorPage";
 export interface Sewa {
   id: string;

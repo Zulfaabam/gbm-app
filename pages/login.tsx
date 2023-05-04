@@ -9,7 +9,7 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { RiEyeCloseLine, RiEyeLine } from "react-icons/ri";
 import { BsArrowLeft } from "react-icons/bs";
-import ForgetPasswordModal from "@/components/ForgetPasswordModal";
+import ForgetPasswordModal from "@/components/modals/ForgetPasswordModal";
 import { useSnackbar } from "notistack";
 
 export interface Values {

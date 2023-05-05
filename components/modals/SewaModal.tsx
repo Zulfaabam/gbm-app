@@ -18,7 +18,7 @@ import InputField from "../InputField";
 import addData from "@/common/utils/addData";
 import { AuthContext } from "context/AuthContext";
 import { enqueueSnackbar } from "notistack";
-import ReceiptSewa from "../ReceiptSewa";
+import ReceiptSewa from "../receipt/ReceiptSewa";
 import { Sewa } from "@/pages/sewa";
 
 interface SewaModalProps extends ModalProps {
@@ -39,6 +39,7 @@ export interface SewaFormData {
   date: string;
   duration: string;
   guarantee: string;
+  paymentInvoice: File | null | undefined;
   status: string;
 }
 
@@ -59,6 +60,7 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
     date: "",
     duration: "",
     guarantee: "",
+    paymentInvoice: null,
     status: "Baru",
   });
 
@@ -75,16 +77,18 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
   }
 
   function handleSubmit() {
-    const body = {
-      ...sewa,
-      items: sewa.items?.filter((item) => item.total > 0),
-    };
-
     if (user?.uid) {
-      addData("rent", user?.uid, body)
+      const body = {
+        ...sewa,
+        userId: user?.uid,
+        items: sewa.items?.filter((item) => item.total > 0),
+      };
+
+      addData("rentTransaction", body)
         .then(() => {
           enqueueSnackbar("Pesanan telah dibuat", {
             variant: "orderMade",
+            anchorOrigin: { horizontal: "right", vertical: "top" },
             persist: true,
             pdf: <ReceiptSewa sewa={body} />,
           });

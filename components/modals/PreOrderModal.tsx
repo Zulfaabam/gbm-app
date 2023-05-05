@@ -18,7 +18,7 @@ import InputField from "../InputField";
 import { AuthContext } from "context/AuthContext";
 import addData from "@/common/utils/addData";
 import { enqueueSnackbar } from "notistack";
-import ReceiptPO from "../ReceiptPO";
+import ReceiptPO from "../receipt/ReceiptPO";
 import { PreOrder } from "@/pages/pre-order";
 import { Items } from "./SewaModal";
 
@@ -32,6 +32,7 @@ export interface PreOrderFormData {
   phoneNumber: string;
   items: Items[] | undefined;
   delivery: string;
+  paymentInvoice: File | null | undefined;
 }
 
 const PreOrderModal = ({ open, onClose, items }: PreOrderModalProps) => {
@@ -48,6 +49,7 @@ const PreOrderModal = ({ open, onClose, items }: PreOrderModalProps) => {
       },
     ],
     delivery: "",
+    paymentInvoice: null,
   });
 
   const [checked, setChecked] = useState(false);
@@ -63,16 +65,18 @@ const PreOrderModal = ({ open, onClose, items }: PreOrderModalProps) => {
   }
 
   function handleSubmit() {
-    const body = {
-      ...preOrder,
-      items: preOrder.items?.filter((item) => item.total > 0),
-    };
-
     if (user?.uid) {
-      addData("preOrder", user?.uid, body)
+      const body = {
+        ...preOrder,
+        userId: user?.uid,
+        items: preOrder.items?.filter((item) => item.total > 0),
+      };
+
+      addData("preOrderTransaction", body)
         .then(() =>
           enqueueSnackbar("Pesanan telah dibuat", {
             variant: "orderMade",
+            anchorOrigin: { horizontal: "right", vertical: "top" },
             persist: true,
             pdf: <ReceiptPO preOrder={body} />,
           })

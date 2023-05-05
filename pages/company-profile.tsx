@@ -9,7 +9,6 @@ const dummyArr = new Array(10).fill("nama");
 
 const companyProfile = () => {
   const [openModal, setOpenModal] = useState(false);
-  const [openPdf, setOpenPdf] = useState(false);
 
   function handleOpenModal() {
     setOpenModal(true);
@@ -131,11 +130,13 @@ const companyProfile = () => {
                   className="w-32 md:w-48 xl:w-64 h-40 md:h-60 xl:h-80 flex flex-col items-center gap-2 md:gap-5 p-3 lg:p-9"
                   key={idx}
                 >
-                  <Avatar
-                    src=""
-                    alt=""
-                    className="w-16 md:w-28 xl:w-44 h-16 md:h-28 xl:h-44"
-                  />
+                  <div className="w-16 md:w-28 xl:w-44 h-16 md:h-28 xl:h-44">
+                    <Avatar
+                      src=""
+                      alt=""
+                      sx={{ width: "100%", height: "100%" }}
+                    />
+                  </div>
                   <div className="text-center">
                     <h3 className="font-bold text-lg md:text-xl xl:text-2xl">
                       {d}

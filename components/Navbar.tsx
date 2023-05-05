@@ -114,6 +114,13 @@ export const Navbar = ({ user }: NavbarProps) => {
                   </li>
                   <li>
                     <MyButton
+                      content="Pesanan saya"
+                      className="capitalize"
+                      onClick={handleOpenModal}
+                    />
+                  </li>
+                  <li>
+                    <MyButton
                       content="Sign out"
                       className="capitalize"
                       onClick={handleSignOut}
@@ -205,6 +212,13 @@ export const Navbar = ({ user }: NavbarProps) => {
                 <li>
                   <MyButton
                     content="Profil saya"
+                    className="capitalize"
+                    onClick={handleOpenModal}
+                  />
+                </li>
+                <li>
+                  <MyButton
+                    content="Pesanan saya"
                     className="capitalize"
                     onClick={handleOpenModal}
                   />

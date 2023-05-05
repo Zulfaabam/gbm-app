@@ -5,13 +5,14 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ModalProps } from "./UserProfileModal";
 import MyButton from "../MyButton";
 import InputField from "../InputField";
 import addData from "@/common/utils/addData";
 import { AuthContext } from "context/AuthContext";
 import { enqueueSnackbar } from "notistack";
+import ReceiptKonsul from "../receipt/ReceiptKonsul";
 
 export interface KonsulFormData {
   name: string;
@@ -19,7 +20,7 @@ export interface KonsulFormData {
   phoneNumber: string;
   date: string;
   session: string;
-  invoice: string;
+  paymentInvoice: File | null | undefined;
   status: string;
 }
 
@@ -32,7 +33,7 @@ const KonsultasiOnlineModal = ({ open, onClose }: ModalProps) => {
     phoneNumber: "",
     date: "",
     session: "",
-    invoice: "",
+    paymentInvoice: null,
     status: "New",
   });
 
@@ -50,15 +51,29 @@ const KonsultasiOnlineModal = ({ open, onClose }: ModalProps) => {
 
   function handleSubmit() {
     if (user?.uid) {
-      addData("consult", user?.uid, konsul)
+      const body = {
+        ...konsul,
+        userId: user?.uid,
+      };
+
+      addData("consult", body)
         .then(() => {
           enqueueSnackbar("Janji telah dibuat", {
-            variant: "success",
+            variant: "orderMade",
+            anchorOrigin: { vertical: "top", horizontal: "right" },
+            persist: true,
+            pdf: <ReceiptKonsul konsul={konsul} />,
           });
         })
         .catch((error) => enqueueSnackbar(error, { variant: "error" }));
     }
   }
+
+  useEffect(() => {
+    if (user?.email) {
+      setKonsul({ ...konsul, email: user.email });
+    }
+  }, [user]);
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
@@ -79,8 +94,7 @@ const KonsultasiOnlineModal = ({ open, onClose }: ModalProps) => {
           label="Email"
           placeholder="example@mail.com"
           value={konsul.email}
-          onChange={(e) => handleChange(e)}
-          required
+          disabled
         />
         <InputField
           name="phoneNumber"

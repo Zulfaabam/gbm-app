@@ -27,7 +27,7 @@ interface OrderMadeSnackbarProps extends CustomContentProps {
 const OrderMadeSnackbar = forwardRef<HTMLDivElement, OrderMadeSnackbarProps>(
   ({ id, pdf, ...props }, ref) => {
     const { closeSnackbar } = useSnackbar();
-    const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(true);
 
     const handleExpandClick = useCallback(() => {
       setExpanded((oldExpanded) => !oldExpanded);
@@ -46,7 +46,7 @@ const OrderMadeSnackbar = forwardRef<HTMLDivElement, OrderMadeSnackbarProps>(
               justifyContent: "space-between",
             }}
           >
-            <Typography variant="body2" className="text-white">
+            <Typography variant="body2" className="text-white font-sans">
               {props.message}
             </Typography>
             <div className="ml-auto">
@@ -82,14 +82,15 @@ const OrderMadeSnackbar = forwardRef<HTMLDivElement, OrderMadeSnackbarProps>(
               <Typography
                 gutterBottom
                 variant="caption"
-                style={{ color: "#000", display: "block" }}
+                style={{ color: "#000000", display: "block" }}
+                className="font-sans"
               >
                 Receipt ready
               </Typography>
               <Button
                 size="small"
                 color="primary"
-                className="p-0 normal-case space-x-1"
+                className="p-0 normal-case space-x-1 font-sans"
               >
                 <MdDownload size="18px" />
                 <PDFDownloadLink document={pdf} fileName="receipt.pdf">

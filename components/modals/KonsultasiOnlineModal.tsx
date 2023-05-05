@@ -4,6 +4,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useContext, useState, useEffect } from "react";
 import { ModalProps } from "./UserProfileModal";
@@ -26,6 +27,8 @@ export interface KonsulFormData {
 
 const KonsultasiOnlineModal = ({ open, onClose }: ModalProps) => {
   const user = useContext(AuthContext);
+
+  const fullScreen = useMediaQuery("(max-width: 500px)");
 
   const [konsul, setKonsul] = useState<KonsulFormData>({
     name: "",
@@ -76,7 +79,13 @@ const KonsultasiOnlineModal = ({ open, onClose }: ModalProps) => {
   }, [user]);
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+      fullScreen={fullScreen}
+    >
       <DialogTitle className="font-sans">
         Buat Janji Konsultasi Gizi Online
       </DialogTitle>
@@ -103,7 +112,7 @@ const KonsultasiOnlineModal = ({ open, onClose }: ModalProps) => {
           onChange={(e) => handleChange(e)}
           required
         />
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-1 sm:gap-4">
           <InputField
             name="date"
             label="Tanggal konsultasi"

@@ -10,6 +10,7 @@ import {
   Radio,
   RadioGroup,
   Checkbox,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useState, useContext, useEffect } from "react";
 import { ModalProps } from "./UserProfileModal";
@@ -37,6 +38,8 @@ export interface PreOrderFormData {
 
 const PreOrderModal = ({ open, onClose, items }: PreOrderModalProps) => {
   const user = useContext(AuthContext);
+
+  const fullScreen = useMediaQuery("(max-width: 500px)");
 
   const [preOrder, setPreOrder] = useState<PreOrderFormData>({
     name: "",
@@ -96,7 +99,13 @@ const PreOrderModal = ({ open, onClose, items }: PreOrderModalProps) => {
   }, [items]);
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+      fullScreen={fullScreen}
+    >
       <DialogTitle className="font-sans">Pre-order Alat Kesehatan</DialogTitle>
       <DialogContent>
         <InputField

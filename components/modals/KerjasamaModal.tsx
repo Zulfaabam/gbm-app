@@ -3,6 +3,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  useMediaQuery,
 } from "@mui/material";
 import React from "react";
 import { ModalProps } from "./UserProfileModal";
@@ -10,8 +11,16 @@ import MyButton from "../MyButton";
 import InputField from "../InputField";
 
 const KerjasamaModal = ({ open, onClose }: ModalProps) => {
+  const fullScreen = useMediaQuery("(max-width: 500px)");
+
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+      fullScreen={fullScreen}
+    >
       <DialogTitle>Form Kerjasama</DialogTitle>
       <DialogContent className="space-y-3">
         <InputField
@@ -34,7 +43,7 @@ const KerjasamaModal = ({ open, onClose }: ModalProps) => {
         />
         <InputField label="Institusi atau Organisasi" />
         <InputField label="Bentuk Kerjasama" />
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-1 sm:gap-4">
           <InputField label="Tanggal Kegiatan" type="date" />
           <InputField label="Waktu Kegiatan" placeholder="Contoh: 2 jam" />
         </div>

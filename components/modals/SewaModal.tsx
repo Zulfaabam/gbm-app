@@ -10,6 +10,7 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useContext, useState, useEffect } from "react";
 import { ModalProps } from "./UserProfileModal";
@@ -45,6 +46,8 @@ export interface SewaFormData {
 
 const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
   const user = useContext(AuthContext);
+
+  const fullScreen = useMediaQuery("(max-width: 500px)");
 
   const [sewa, setSewa] = useState<SewaFormData>({
     name: "",
@@ -108,7 +111,13 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
   }, [items]);
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+      fullScreen={fullScreen}
+    >
       <DialogTitle className="font-sans">Sewa Alat Kesehatan</DialogTitle>
       <DialogContent>
         <InputField
@@ -166,7 +175,7 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
             />
           </div>
         ))}
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-1 sm:gap-4">
           <InputField
             name="date"
             label="Tanggal peminjaman"

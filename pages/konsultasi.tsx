@@ -1,5 +1,6 @@
 import MyButton from "@/components/MyButton";
 import RequiredLogin from "@/components/RequiredLogin";
+import Chat from "@/components/chat";
 import MainLayout from "@/components/layouts/MainLayout";
 import KonsultasiOnlineModal from "@/components/modals/KonsultasiOnlineModal";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
@@ -113,7 +114,7 @@ const konsultasi = () => {
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
-            Item One
+            <Chat room="1231" />
           </TabPanel>
           <TabPanel value={value} index={1}>
             Item Two

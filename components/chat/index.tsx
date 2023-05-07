@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { db, auth } from "@/firebase/clientApp";
 import {
   collection,
@@ -9,6 +9,7 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
+import { AuthContext } from "context/AuthContext";
 
 export interface Message {
   id: string;
@@ -22,8 +23,11 @@ export interface ChatProps {
 }
 
 const Chat = ({ room }: ChatProps) => {
+  const user = useContext(AuthContext);
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
+
   const messagesRef = collection(db, "messages");
 
   useEffect(() => {
@@ -45,7 +49,6 @@ const Chat = ({ room }: ChatProps) => {
         });
       });
 
-      console.log(messages);
       setMessages(messages);
     });
 
@@ -70,14 +73,29 @@ const Chat = ({ room }: ChatProps) => {
   };
 
   return (
-    <div className="chat">
+    <div>
       <div className="header">
         <h1>Welcome to: {room.toUpperCase()}</h1>
       </div>
       <div className="messages">
         {messages.map((message) => (
-          <div key={message.id} className="message">
-            <span className="user">{message.user}:</span> {message.text}
+          <div
+            key={message.id}
+            className={`chat ${
+              message.user === user?.displayName ? "chat-end" : "chat-start"
+            }`}
+          >
+            <div className="chat-image avatar">
+              <div className="w-10 rounded-full">
+                <img alt="" src="/images/bro.svg" />
+              </div>
+            </div>
+            <div className="chat-header">
+              {message.user}
+              <time className="text-xs opacity-50">12:45</time>
+            </div>
+            <div className="chat-bubble">{message.text}</div>
+            {/* <div className="chat-footer opacity-50">Delivered</div> */}
           </div>
         ))}
       </div>

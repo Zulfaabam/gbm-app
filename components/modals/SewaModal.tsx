@@ -73,8 +73,6 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
     setChecked(event.target.checked);
   };
 
-  console.log(sewa);
-
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSewa({ ...sewa, [e.target.name]: e.target.value });
   }

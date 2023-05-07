@@ -20,12 +20,11 @@ export interface Message {
 export interface ChatProps {
   room: string;
 }
-export const Chat = ({ room }: ChatProps) => {
+
+const Chat = ({ room }: ChatProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const messagesRef = collection(db, "messages");
-
-  console.log("db", db);
 
   useEffect(() => {
     const queryMessages = query(
@@ -97,3 +96,5 @@ export const Chat = ({ room }: ChatProps) => {
     </div>
   );
 };
+
+export default Chat;

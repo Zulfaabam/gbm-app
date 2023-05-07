@@ -61,8 +61,6 @@ const PreOrderModal = ({ open, onClose, items }: PreOrderModalProps) => {
     setChecked(event.target.checked);
   };
 
-  console.log(preOrder);
-
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setPreOrder({ ...preOrder, [e.target.name]: e.target.value });
   }

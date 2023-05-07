@@ -46,8 +46,6 @@ const KonsultasiOnlineModal = ({ open, onClose }: ModalProps) => {
     setChecked(event.target.checked);
   };
 
-  console.log(konsul);
-
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setKonsul({ ...konsul, [e.target.name]: e.target.value });
   }

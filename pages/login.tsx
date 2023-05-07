@@ -32,7 +32,10 @@ const login = () => {
     const { result, error } = await signIn(email, password);
 
     if (error) {
-      return enqueueSnackbar(error.toString(), { variant: "error" });
+      return enqueueSnackbar(
+        error instanceof Error ? error.toString() : "Login gagal!",
+        { variant: "error" }
+      );
     }
 
     cookies.set("auth-token", result?.user.refreshToken);
@@ -45,7 +48,10 @@ const login = () => {
     const { result, error } = await signInWithGoogle();
 
     if (error) {
-      return enqueueSnackbar(error.toString(), { variant: "error" });
+      return enqueueSnackbar(
+        error instanceof Error ? error.toString() : "Login gagal!",
+        { variant: "error" }
+      );
     }
 
     cookies.set("auth-token", result?.user.refreshToken);

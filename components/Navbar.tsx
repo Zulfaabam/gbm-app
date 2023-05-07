@@ -53,7 +53,10 @@ export const Navbar = ({ user }: NavbarProps) => {
     const { res, error } = await logOut();
 
     if (error) {
-      enqueueSnackbar(error.toString(), { variant: "error" });
+      return enqueueSnackbar(
+        error instanceof Error ? error.toString() : "Sign Out gagal!",
+        { variant: "error" }
+      );
     }
 
     cookies.remove("auth-token");

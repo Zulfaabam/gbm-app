@@ -22,7 +22,10 @@ const register = () => {
     const { result, error } = await signUp(email, password);
 
     if (error) {
-      return enqueueSnackbar(error.toString(), { variant: "error" });
+      return enqueueSnackbar(
+        error instanceof Error ? error.toString() : "Register gagal!",
+        { variant: "error" }
+      );
     }
 
     enqueueSnackbar("Register berhasil!", { variant: "success" });

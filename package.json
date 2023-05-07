@@ -23,7 +23,8 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-spinners": "^0.13.8",
-    "swr": "^2.1.1"
+    "swr": "^2.1.1",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "@types/node": "17.0.4",

@@ -13,6 +13,9 @@ import { useRouter } from "next/router";
 import { Avatar } from "@mui/material";
 import { useSnackbar } from "notistack";
 import MyOrderModal from "./modals/MyOrderModal";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 const DropdownMenu: React.FC = ({ children }) => (
   <ul className="p-2 bg-white z-10">{children}</ul>
@@ -50,8 +53,10 @@ export const Navbar = ({ user }: NavbarProps) => {
     const { res, error } = await logOut();
 
     if (error) {
-      enqueueSnackbar("Gagal keluar", { variant: "error" });
+      enqueueSnackbar(error.toString(), { variant: "error" });
     }
+
+    cookies.remove("auth-token");
 
     enqueueSnackbar("Anda telah keluar", { variant: "info" });
     router.push("/login");

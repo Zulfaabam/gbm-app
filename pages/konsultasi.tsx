@@ -3,7 +3,7 @@ import RequiredLogin from "@/components/RequiredLogin";
 import Chat from "@/components/chat";
 import MainLayout from "@/components/layouts/MainLayout";
 import KonsultasiOnlineModal from "@/components/modals/KonsultasiOnlineModal";
-import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Tab, Tabs } from "@mui/material";
 import { AuthContext } from "context/AuthContext";
 import React, { useContext, useState } from "react";
 
@@ -20,23 +20,19 @@ function TabPanel(props: TabPanelProps) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box>{children}</Box>}
     </div>
   );
 }
 
 function a11yProps(index: number) {
   return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    id: `tab-${index}`,
+    "aria-controls": `tabpanel-${index}`,
   };
 }
 
@@ -117,7 +113,7 @@ const konsultasi = () => {
             <Chat room="1231" />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Item Two
+            History Konsultasi Online
           </TabPanel>
         </div>
         {openModal ? (

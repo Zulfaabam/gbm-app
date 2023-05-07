@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { db, auth } from "@/firebase/clientApp";
 import {
   collection,
@@ -8,14 +8,19 @@ import {
   onSnapshot,
   query,
   orderBy,
+  Timestamp,
 } from "firebase/firestore";
 import { AuthContext } from "context/AuthContext";
+import InputField from "../InputField";
+import MyButton from "../MyButton";
 
 export interface Message {
   id: string;
-  user: string;
+  userName: string;
   text: string;
   room: string;
+  createdAt: Timestamp;
+  userId: string;
 }
 
 export interface ChatProps {
@@ -28,6 +33,8 @@ const Chat = ({ room }: ChatProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
 
+  const messageEndRef = useRef<HTMLDivElement>(null);
+
   const messagesRef = collection(db, "messages");
 
   useEffect(() => {
@@ -38,24 +45,28 @@ const Chat = ({ room }: ChatProps) => {
     );
 
     const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
-      let messages: Message[] = [];
+      let newMessages: Message[] = [];
 
       snapshot.forEach((doc) => {
-        messages.push({
+        newMessages.push({
           id: doc.id,
           text: doc.data().text,
-          user: doc.data().user,
+          userName: doc.data().userName,
           room: doc.data().room,
+          createdAt: doc.data().createdAt,
+          userId: doc.data().userId,
         });
       });
 
-      setMessages(messages);
+      setMessages(newMessages);
     });
 
     return () => unsubscribe();
   }, []);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     event.preventDefault();
 
     if (newMessage === "") return;
@@ -64,7 +75,8 @@ const Chat = ({ room }: ChatProps) => {
       await addDoc(messagesRef, {
         text: newMessage,
         createdAt: serverTimestamp(),
-        user: auth.currentUser.displayName,
+        userName: user?.displayName,
+        userId: user?.uid,
         room,
       });
     }
@@ -72,17 +84,25 @@ const Chat = ({ room }: ChatProps) => {
     setNewMessage("");
   };
 
+  const scrollToBottom = () => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
     <div>
-      <div className="header">
+      <div className="bg-dark w-full text-white text-center py-3">
         <h1>Welcome to: {room.toUpperCase()}</h1>
       </div>
-      <div className="messages">
+      <div className="px-4 max-h-[500px] overflow-y-auto overflow-x-hidden hide-scrollbar">
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`chat ${
-              message.user === user?.displayName ? "chat-end" : "chat-start"
+            className={`chat space-y-1 ${
+              message.userId === user?.uid ? "chat-end" : "chat-start"
             }`}
           >
             <div className="chat-image avatar">
@@ -90,26 +110,47 @@ const Chat = ({ room }: ChatProps) => {
                 <img alt="" src="/images/bro.svg" />
               </div>
             </div>
-            <div className="chat-header">
-              {message.user}
-              <time className="text-xs opacity-50">12:45</time>
+            <p className="chat-header font-semibold">
+              {message.userId === user?.uid
+                ? user?.displayName
+                : message.userName}
+            </p>
+            <div
+              className={`chat-bubble break-words ${
+                message.userId === user?.uid
+                  ? "bg-gbm-green"
+                  : "bg-gray-200 text-black"
+              }`}
+            >
+              {message.text}
             </div>
-            <div className="chat-bubble">{message.text}</div>
-            {/* <div className="chat-footer opacity-50">Delivered</div> */}
+            <div className="chat-footer opacity-50 text-xs">
+              {message.createdAt?.toDate()?.toLocaleString("en-US", {
+                dateStyle: "medium",
+                timeStyle: "short",
+                hour12: false,
+              })}
+            </div>
           </div>
         ))}
+        <div ref={messageEndRef}></div>
       </div>
-      <form onSubmit={(e) => handleSubmit(e)} className="new-message-form">
-        <input
-          type="text"
+      <form
+        // onSubmit={(e) => handleSubmit(e)}
+        className="w-full px-4 mt-6 flex gap-4"
+      >
+        <InputField
           value={newMessage}
           onChange={(event) => setNewMessage(event.target.value)}
-          className="new-message-input"
           placeholder="Type your message here..."
         />
-        <button type="submit" className="send-button">
-          Send
-        </button>
+        <div>
+          <MyButton
+            content="Kirim"
+            onClick={(e) => handleSubmit(e)}
+            className="btn-purple"
+          />
+        </div>
       </form>
     </div>
   );

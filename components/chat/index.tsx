@@ -135,10 +135,7 @@ const Chat = ({ room }: ChatProps) => {
         ))}
         <div ref={messageEndRef}></div>
       </div>
-      <form
-        // onSubmit={(e) => handleSubmit(e)}
-        className="w-full px-4 mt-6 flex gap-4"
-      >
+      <form className="w-full px-4 mt-6 flex gap-4">
         <InputField
           value={newMessage}
           onChange={(event) => setNewMessage(event.target.value)}

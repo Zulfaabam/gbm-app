@@ -97,7 +97,7 @@ const Chat = ({ room }: ChatProps) => {
       <div className="bg-dark w-full text-white text-center py-3">
         <h1>Welcome to: {room.toUpperCase()}</h1>
       </div>
-      <div className="px-4 max-h-[500px] overflow-y-auto overflow-x-hidden hide-scrollbar">
+      <div className="px-4 min-h-[300px] max-h-[500px] overflow-y-auto overflow-x-hidden hide-scrollbar">
         {messages.map((message) => (
           <div
             key={message.id}

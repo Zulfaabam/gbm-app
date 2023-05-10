@@ -11,6 +11,9 @@ import { RiEyeCloseLine, RiEyeLine } from "react-icons/ri";
 import { BsArrowLeft } from "react-icons/bs";
 import ForgetPasswordModal from "@/components/modals/ForgetPasswordModal";
 import { useSnackbar } from "notistack";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 export interface Values {
   email: string;
@@ -29,8 +32,13 @@ const login = () => {
     const { result, error } = await signIn(email, password);
 
     if (error) {
-      return enqueueSnackbar("Login gagal!", { variant: "error" });
+      return enqueueSnackbar(
+        error instanceof Error ? error.toString() : "Login gagal!",
+        { variant: "error" }
+      );
     }
+
+    cookies.set("auth-token", result?.user.refreshToken);
 
     enqueueSnackbar("Login berhasil!", { variant: "success" });
     return router.push("/");
@@ -40,8 +48,13 @@ const login = () => {
     const { result, error } = await signInWithGoogle();
 
     if (error) {
-      return enqueueSnackbar("Login gagal!", { variant: "error" });
+      return enqueueSnackbar(
+        error instanceof Error ? error.toString() : "Login gagal!",
+        { variant: "error" }
+      );
     }
+
+    cookies.set("auth-token", result?.user.refreshToken);
 
     enqueueSnackbar("Login berhasil!", { variant: "success" });
     return router.push("/");
@@ -104,9 +117,6 @@ const login = () => {
                 }
                 className="absolute top-[50px] right-[15px]"
                 onClick={(e) => handleShowPassword(e)}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") return;
-                }}
               />
             </div>
             <MyButton

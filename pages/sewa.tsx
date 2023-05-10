@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "common/utils/fetcher";
 import { BarLoader } from "react-spinners";
@@ -9,17 +9,18 @@ import RequiredLogin from "@/components/RequiredLogin";
 import MyButton from "@/components/MyButton";
 import SewaModal from "@/components/modals/SewaModal";
 import ErrorPage from "@/components/ErrorPage";
+import { collection, getDoc, getDocs } from "firebase/firestore";
+import { db } from "@/firebase/clientApp";
 export interface Sewa {
   id: string;
   data: SewaData;
 }
 export interface SewaData {
-  avail: boolean;
   desc: string;
   iconURL: string;
-  longDesc: string;
   price: number;
   seqNo: number;
+  stock: boolean;
 }
 
 const sewa = () => {
@@ -97,7 +98,6 @@ const sewa = () => {
                     maxWidth={250}
                     img={d.data.iconURL}
                     title={d.data.desc}
-                    desc={d.data.longDesc}
                   />
                 ))}
               </div>

@@ -1,10 +1,12 @@
+import InputField from "@/components/InputField";
 import MyButton from "@/components/MyButton";
 import RequiredLogin from "@/components/RequiredLogin";
+import Chat from "@/components/chat";
 import MainLayout from "@/components/layouts/MainLayout";
 import KonsultasiOnlineModal from "@/components/modals/KonsultasiOnlineModal";
-import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Tab, Tabs } from "@mui/material";
 import { AuthContext } from "context/AuthContext";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -19,31 +21,29 @@ function TabPanel(props: TabPanelProps) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box>{children}</Box>}
     </div>
   );
 }
 
 function a11yProps(index: number) {
   return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    id: `tab-${index}`,
+    "aria-controls": `tabpanel-${index}`,
   };
 }
 
 const konsultasi = () => {
   const user = useContext(AuthContext);
 
-  const [value, setValue] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
 
+  const [value, setValue] = useState(0);
+  const [room, setRoom] = useState<string | null>("");
   const [openModal, setOpenModal] = useState(false);
 
   function handleOpenModal() {
@@ -57,6 +57,12 @@ const konsultasi = () => {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("chat-room")) {
+      setRoom(sessionStorage.getItem("chat-room"));
+    }
+  }, []);
 
   if (user == null)
     return (
@@ -113,10 +119,34 @@ const konsultasi = () => {
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
-            Item One
+            {room ? (
+              <Chat room={room} />
+            ) : (
+              <div className="flex flex-col justify-center items-center gap-4 pt-16">
+                <input
+                  type="text"
+                  placeholder="Masukkan kode chat room di sini"
+                  ref={inputRef}
+                  className="input input-bordered w-full max-w-xs mx-auto"
+                />
+                <MyButton
+                  content="Kirim"
+                  className="btn-purple"
+                  onClick={() => {
+                    if (inputRef.current?.value) {
+                      sessionStorage.setItem(
+                        "chat-room",
+                        inputRef.current.value
+                      );
+                      setRoom(inputRef.current.value);
+                    }
+                  }}
+                />
+              </div>
+            )}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Item Two
+            History Konsultasi Online
           </TabPanel>
         </div>
         {openModal ? (

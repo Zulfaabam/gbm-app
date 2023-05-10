@@ -40,7 +40,11 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
   );
 
   function handleSubmit() {
-    updateUserEmail(auth, userEmail);
+    if (userEmail !== user?.email) {
+      updateUserEmail(auth, userEmail)
+        .then((res) => console.log(res))
+        .catch((error) => console.log(error));
+    }
   }
 
   function handleUploadImage(e: React.ChangeEvent<HTMLInputElement>) {

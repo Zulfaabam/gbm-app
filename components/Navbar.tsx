@@ -12,6 +12,10 @@ import logOut from "@/firebase/auth/signout";
 import { useRouter } from "next/router";
 import { Avatar } from "@mui/material";
 import { useSnackbar } from "notistack";
+import MyOrderModal from "./modals/MyOrderModal";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 const DropdownMenu: React.FC = ({ children }) => (
   <ul className="p-2 bg-white z-10">{children}</ul>
@@ -26,22 +30,36 @@ export const Navbar = ({ user }: NavbarProps) => {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const [openModal, setOpenModal] = useState(false);
+  const [openProfileModal, setOpenProfileModal] = useState(false);
+  const [openOrderModal, setOpenOrderModal] = useState(false);
 
-  function handleOpenModal() {
-    setOpenModal(true);
+  function handleOpenProfileModal() {
+    setOpenProfileModal(true);
   }
 
-  function handleCloseModal() {
-    setOpenModal(false);
+  function handleCloseProfileModal() {
+    setOpenProfileModal(false);
+  }
+
+  function handleOpenOrderModal() {
+    setOpenOrderModal(true);
+  }
+
+  function handleCloseOrderModal() {
+    setOpenOrderModal(false);
   }
 
   async function handleSignOut() {
     const { res, error } = await logOut();
 
     if (error) {
-      enqueueSnackbar("Gagal keluar", { variant: "error" });
+      return enqueueSnackbar(
+        error instanceof Error ? error.toString() : "Sign Out gagal!",
+        { variant: "error" }
+      );
     }
+
+    cookies.remove("auth-token");
 
     enqueueSnackbar("Anda telah keluar", { variant: "info" });
     router.push("/login");
@@ -109,7 +127,14 @@ export const Navbar = ({ user }: NavbarProps) => {
                     <MyButton
                       content="Profil saya"
                       className="capitalize"
-                      onClick={handleOpenModal}
+                      onClick={handleOpenProfileModal}
+                    />
+                  </li>
+                  <li>
+                    <MyButton
+                      content="Pesanan saya"
+                      className="capitalize"
+                      onClick={handleOpenOrderModal}
                     />
                   </li>
                   <li>
@@ -206,7 +231,14 @@ export const Navbar = ({ user }: NavbarProps) => {
                   <MyButton
                     content="Profil saya"
                     className="capitalize"
-                    onClick={handleOpenModal}
+                    onClick={handleOpenProfileModal}
+                  />
+                </li>
+                <li>
+                  <MyButton
+                    content="Pesanan saya"
+                    className="capitalize"
+                    onClick={handleOpenOrderModal}
                   />
                 </li>
                 <li>
@@ -230,8 +262,14 @@ export const Navbar = ({ user }: NavbarProps) => {
           </Link>
         </div>
       )}
-      {openModal ? (
-        <UserProfileModal open={openModal} onClose={handleCloseModal} />
+      {openProfileModal ? (
+        <UserProfileModal
+          open={openProfileModal}
+          onClose={handleCloseProfileModal}
+        />
+      ) : null}
+      {openOrderModal ? (
+        <MyOrderModal open={openOrderModal} onClose={handleCloseOrderModal} />
       ) : null}
     </div>
   );

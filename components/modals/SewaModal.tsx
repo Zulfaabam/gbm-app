@@ -10,6 +10,7 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useContext, useState, useEffect } from "react";
 import { ModalProps } from "./UserProfileModal";
@@ -18,7 +19,7 @@ import InputField from "../InputField";
 import addData from "@/common/utils/addData";
 import { AuthContext } from "context/AuthContext";
 import { enqueueSnackbar } from "notistack";
-import ReceiptSewa from "../ReceiptSewa";
+import ReceiptSewa from "../receipt/ReceiptSewa";
 import { Sewa } from "@/pages/sewa";
 
 interface SewaModalProps extends ModalProps {
@@ -39,11 +40,14 @@ export interface SewaFormData {
   date: string;
   duration: string;
   guarantee: string;
+  paymentInvoice: File | null | undefined;
   status: string;
 }
 
 const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
   const user = useContext(AuthContext);
+
+  const fullScreen = useMediaQuery("(max-width: 500px)");
 
   const [sewa, setSewa] = useState<SewaFormData>({
     name: "",
@@ -59,6 +63,7 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
     date: "",
     duration: "",
     guarantee: "",
+    paymentInvoice: null,
     status: "Baru",
   });
 
@@ -68,23 +73,23 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
     setChecked(event.target.checked);
   };
 
-  console.log(sewa);
-
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSewa({ ...sewa, [e.target.name]: e.target.value });
   }
 
   function handleSubmit() {
-    const body = {
-      ...sewa,
-      items: sewa.items?.filter((item) => item.total > 0),
-    };
-
     if (user?.uid) {
-      addData("rent", user?.uid, body)
+      const body = {
+        ...sewa,
+        userId: user?.uid,
+        items: sewa.items?.filter((item) => item.total > 0),
+      };
+
+      addData("rentTransaction", body)
         .then(() => {
           enqueueSnackbar("Pesanan telah dibuat", {
             variant: "orderMade",
+            anchorOrigin: { horizontal: "right", vertical: "top" },
             persist: true,
             pdf: <ReceiptSewa sewa={body} />,
           });
@@ -104,7 +109,13 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
   }, [items]);
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+      fullScreen={fullScreen}
+    >
       <DialogTitle className="font-sans">Sewa Alat Kesehatan</DialogTitle>
       <DialogContent>
         <InputField
@@ -162,7 +173,7 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
             />
           </div>
         ))}
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-1 sm:gap-4">
           <InputField
             name="date"
             label="Tanggal peminjaman"

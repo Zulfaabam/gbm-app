@@ -1,13 +1,13 @@
 import { db } from "@/firebase/clientApp";
 import { setDoc, doc } from "firebase/firestore";
 
-const addData = async (folder: string, userId: string, body: any) => {
+const addData = async (folder: string, body: any) => {
   let data,
     error = null;
 
   const timestamp: string = Date.now().toString();
 
-  const docRef = doc(db, `${folder}-${userId}/${timestamp}`);
+  const docRef = doc(db, `${folder}/${timestamp}`);
 
   try {
     data = await setDoc(docRef, body);

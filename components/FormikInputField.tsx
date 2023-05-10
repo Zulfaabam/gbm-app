@@ -29,6 +29,12 @@ const FormikInputField = ({
         type={type}
         placeholder={placeholder}
         className={classNames("input input-bordered w-full", className)}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }}
         {...field}
         {...props}
       />

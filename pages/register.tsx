@@ -10,6 +10,8 @@ import Link from "next/link";
 import { RiEyeCloseLine, RiEyeLine } from "react-icons/ri";
 import { BsArrowLeft } from "react-icons/bs";
 import { useSnackbar } from "notistack";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { db } from "@/firebase/clientApp";
 
 const register = () => {
   const router = useRouter();
@@ -27,6 +29,16 @@ const register = () => {
         { variant: "error" }
       );
     }
+
+    setDoc(doc(db, `users/${result?.user.uid}`), {
+      createdAt: serverTimestamp(),
+      email: email,
+      phoneNumber: "",
+      userId: result?.user.uid,
+      userName: "",
+    })
+      .then()
+      .catch((error) => enqueueSnackbar(error, { variant: "error" }));
 
     enqueueSnackbar("Register berhasil!", { variant: "success" });
     return router.push("/login");

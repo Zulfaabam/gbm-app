@@ -9,17 +9,17 @@ import {
   IconButton,
 } from "@mui/material";
 import { AuthContext } from "context/AuthContext";
-import React, { useContext, useState } from "react";
-import { auth } from "@/firebase/clientApp";
+import React, { useContext, useEffect, useState } from "react";
+import { auth, db } from "@/firebase/clientApp";
 import updateUserProfile from "@/common/utils/updateUserProfile";
 import MyButton from "../MyButton";
 import InputField from "../InputField";
-import updateUserPhoneNumber from "@/common/utils/updateUserPhoneNumber";
 import { MdModeEdit, MdOutlineCheck, MdPhotoCamera } from "react-icons/md";
-import updateUserEmail from "@/common/utils/updateUserEmail";
 import uploadUserPhoto from "@/common/utils/uploadUserPhoto";
 import { getDownloadURL } from "firebase/storage";
 import { useSnackbar } from "notistack";
+import { updateData } from "@/common/utils/updateData";
+import { doc, getDoc } from "firebase/firestore";
 
 export interface ModalProps {
   open: boolean;
@@ -35,15 +35,16 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
   const [userPhotoURL, setUserPhotoURL] = useState(user?.photoURL || "");
   const [userName, setUserName] = useState(user?.displayName || "");
   const [userEmail, setUserEmail] = useState(user?.email || "");
-  const [userPhoneNumber, setUserPhoneNumber] = useState(
-    user?.phoneNumber || ""
-  );
+  const [userPhoneNumber, setUserPhoneNumber] = useState("");
 
   function handleSubmit() {
-    if (userEmail !== user?.email) {
-      updateUserEmail(auth, userEmail)
-        .then((res) => console.log(res))
-        .catch((error) => console.log(error));
+    if (userPhoneNumber && user?.uid) {
+      updateData("users", user?.uid, { phoneNumber: userPhoneNumber })
+        .then(() => {
+          enqueueSnackbar("Profil berhasil diperbarui", { variant: "success" });
+          onClose();
+        })
+        .catch((error) => enqueueSnackbar(error, { variant: "error" }));
     }
   }
 
@@ -61,6 +62,12 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
         .catch((err) => enqueueSnackbar(err, { variant: "error" }));
     }
   }
+
+  useEffect(() => {
+    getDoc(doc(db, `users/${user?.uid}`)).then((res) => {
+      setUserPhoneNumber(res.data()?.phoneNumber);
+    });
+  }, []);
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
@@ -101,11 +108,19 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
                     user.photoURL !== userPhotoURL
                   )
                     updateUserProfile(auth, userName, userPhotoURL)
-                      .then(() =>
+                      .then(() => {
+                        if (user?.uid) {
+                          updateData("users", user?.uid, { userName: userName })
+                            .then()
+                            .catch((error) =>
+                              enqueueSnackbar(error, { variant: "error" })
+                            );
+                        }
+
                         enqueueSnackbar("Profil berhasil diperbarui!", {
                           variant: "success",
-                        })
-                      )
+                        });
+                      })
                       .catch((error) =>
                         enqueueSnackbar(error, { variant: "error" })
                       );
@@ -134,6 +149,7 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
           placeholder="example@mail.com"
           value={userEmail}
           onChange={(e) => setUserEmail(e.target.value)}
+          disabled
         />
         <InputField
           label="Nomor WhatsApp"

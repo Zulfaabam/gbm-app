@@ -9,38 +9,29 @@
   "start_url": "/",
   "icons": [
     {
-      "src": "icons/gbm-logo-72.png",
-      "sizes": "72x60",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/gbm-logo-96.png",
-      "sizes": "96x80",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/gbm-logo-128.png",
-      "sizes": "128x107",
-      "type": "image/png"
+      "src": "icons/gbm-logo-64.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon",
+      "purpose": "any"
     },
     {
       "src": "icons/gbm-logo-144.png",
-      "sizes": "144x121",
+      "sizes": "144x144",
       "type": "image/png"
     },
     {
       "src": "icons/gbm-logo-192.png",
-      "sizes": "192x161",
+      "sizes": "192x192",
       "type": "image/png"
     },
     {
       "src": "icons/gbm-logo-384.png",
-      "sizes": "384x322",
+      "sizes": "384x384",
       "type": "image/png"
     },
     {
       "src": "icons/gbm-logo-512.png",
-      "sizes": "512x429",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ],

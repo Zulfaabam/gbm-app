@@ -34,6 +34,9 @@ export interface PreOrderFormData {
   items: Items[] | undefined;
   delivery: string;
   paymentInvoice: File | null | undefined;
+  totalPrice: number | undefined;
+  status: string;
+  id?: string;
 }
 
 const PreOrderModal = ({ open, onClose, items }: PreOrderModalProps) => {
@@ -49,10 +52,13 @@ const PreOrderModal = ({ open, onClose, items }: PreOrderModalProps) => {
       {
         value: "",
         total: 0,
+        price: 0,
       },
     ],
     delivery: "",
     paymentInvoice: null,
+    totalPrice: 0,
+    status: "Baru",
   });
 
   const [checked, setChecked] = useState(false);
@@ -71,6 +77,10 @@ const PreOrderModal = ({ open, onClose, items }: PreOrderModalProps) => {
         ...preOrder,
         userId: user?.uid,
         items: preOrder.items?.filter((item) => item.total > 0),
+        totalPrice: preOrder.items
+          ?.filter((item) => item.total > 0)
+          ?.map((item) => item.price)
+          ?.reduce((a, b) => a + b, 0),
       };
 
       addData("preOrderTransaction", body)
@@ -91,6 +101,7 @@ const PreOrderModal = ({ open, onClose, items }: PreOrderModalProps) => {
       ...preOrder,
       items: items?.map((item) => ({
         value: item.data.desc,
+        price: item.data.price,
         total: 0,
       })),
     });

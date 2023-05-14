@@ -37,7 +37,7 @@ const KonsultasiOnlineModal = ({ open, onClose }: ModalProps) => {
     date: "",
     session: "",
     paymentInvoice: null,
-    status: "New",
+    status: "Baru",
   });
 
   const [checked, setChecked] = useState(false);

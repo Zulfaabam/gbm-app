@@ -17,9 +17,7 @@ export interface PreOrder {
 export interface PreOrderData {
   desc: string;
   iconURL: string;
-  longDesc: string;
   price: number;
-  seqNo: number;
 }
 
 const preOrder = () => {

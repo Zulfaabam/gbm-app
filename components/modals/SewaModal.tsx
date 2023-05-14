@@ -29,6 +29,7 @@ interface SewaModalProps extends ModalProps {
 export interface Items {
   value: string;
   total: number;
+  price: number;
 }
 
 export interface SewaFormData {
@@ -41,7 +42,9 @@ export interface SewaFormData {
   duration: string;
   guarantee: string;
   paymentInvoice: File | null | undefined;
+  totalPrice: number | undefined;
   status: string;
+  id?: string;
 }
 
 const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
@@ -58,12 +61,14 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
       {
         value: "",
         total: 0,
+        price: 0,
       },
     ],
     date: "",
     duration: "",
     guarantee: "",
     paymentInvoice: null,
+    totalPrice: 0,
     status: "Baru",
   });
 
@@ -83,6 +88,10 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
         ...sewa,
         userId: user?.uid,
         items: sewa.items?.filter((item) => item.total > 0),
+        totalPrice: sewa.items
+          ?.filter((item) => item.total > 0)
+          ?.map((item) => item.price)
+          ?.reduce((a, b) => a + b, 0),
       };
 
       addData("rentTransaction", body)
@@ -103,6 +112,7 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
       ...sewa,
       items: items?.map((item) => ({
         value: item.data.desc,
+        price: item.data.price,
         total: 0,
       })),
     });

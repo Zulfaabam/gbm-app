@@ -8,7 +8,7 @@ import { Box, Tab, Tabs } from "@mui/material";
 import { AuthContext } from "context/AuthContext";
 import React, { useContext, useEffect, useRef, useState } from "react";
 
-interface TabPanelProps {
+export interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;

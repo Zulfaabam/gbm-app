@@ -1,6 +1,7 @@
 import React from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 import { PreOrderFormData } from "../modals/PreOrderModal";
+import { numberFormatter } from "@/common/utils/formatter";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -49,7 +50,7 @@ const ReceiptPO = ({ preOrder }: ReceiptPOProps) => {
               padding: "10px",
             }}
           >
-            Nama Penyewa
+            Nama Pemesan
           </Text>
           <Text style={{ width: "63%", padding: "10px" }}>{preOrder.name}</Text>
         </View>
@@ -194,7 +195,32 @@ const ReceiptPO = ({ preOrder }: ReceiptPOProps) => {
             Pengiriman
           </Text>
           <Text style={{ width: "63%", padding: "10px" }}>
-            {preOrder.delivery}
+            {preOrder.delivery.toUpperCase()}
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <Text
+            style={{
+              width: "7%",
+              borderRight: "1px solid black",
+              textAlign: "center",
+              padding: "10px 0",
+            }}
+          >
+            6.
+          </Text>
+          <Text
+            style={{
+              width: "30%",
+              borderRight: "1px solid black",
+              padding: "10px",
+            }}
+          >
+            Total Harga
+          </Text>
+          <Text style={{ width: "63%", padding: "10px" }}>
+            Rp.{" "}
+            {preOrder.totalPrice && numberFormatter.format(preOrder.totalPrice)}
           </Text>
         </View>
       </Page>

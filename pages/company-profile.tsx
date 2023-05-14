@@ -174,6 +174,20 @@ const companyProfile = () => {
             <h2 className="font-heading text-3xl xl:text-4xl text-dark">
               Bentuk Kerjasama
             </h2>
+            <div>
+              <div className="flex flex-col items-center gap-4">
+                <Paper className="w-[534px] h-[310px] rounded-2xl">dsads</Paper>
+                <h3 className="text-dark font-bold text-4xl text-left">
+                  PENYULUHAN
+                </h3>
+                <p className="max-w-3xl text-2xl text-justify">
+                  Kegiatan menyampaikan materi seputar Gizi dan Kesehatan sesuai
+                  dengan kompetensi yang dimiliki oleh anggota GBM, dibantu
+                  dengan beberapa jenis media yang menarik dan praktis seperti
+                  PPT, leaflet, ataupun booklet.
+                </p>
+              </div>
+            </div>
             <MyButton
               content="Mulai Kerjasama"
               className="btn-light-green block mx-auto"

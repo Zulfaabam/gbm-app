@@ -108,9 +108,6 @@ export const Navbar = ({ user }: NavbarProps) => {
               </DropdownMenu>
             </li>
             <li>
-              <a>Informasi</a>
-            </li>
-            <li>
               <a>Artikel</a>
             </li>
             <li>
@@ -200,9 +197,6 @@ export const Navbar = ({ user }: NavbarProps) => {
                 <a>Event Partnership</a>
               </li>
             </DropdownMenu>
-          </li>
-          <li>
-            <a className="text-white">Informasi</a>
           </li>
           <li>
             <a className="text-white">Artikel</a>

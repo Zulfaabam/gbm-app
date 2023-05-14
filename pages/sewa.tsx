@@ -19,8 +19,7 @@ export interface SewaData {
   desc: string;
   iconURL: string;
   price: number;
-  seqNo: number;
-  stock: boolean;
+  stock: number;
 }
 
 const sewa = () => {

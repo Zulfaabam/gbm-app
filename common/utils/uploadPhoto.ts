@@ -2,13 +2,13 @@ import { storage } from "@/firebase/clientApp";
 import { User } from "firebase/auth";
 import { ref, uploadBytes } from "firebase/storage";
 
-const uploadUserPhoto = async (image: File, user: User) => {
+const uploadPhoto = async (folder: string, image: File, user: User) => {
   if (image == null) return;
 
   let data,
     error = null;
 
-  const imageRef = ref(storage, `user-photo/${image.name + "-" + user.uid}`);
+  const imageRef = ref(storage, `${folder}/${image.name + "-" + user.uid}`);
 
   try {
     data = await uploadBytes(imageRef, image);
@@ -19,4 +19,4 @@ const uploadUserPhoto = async (image: File, user: User) => {
   return { data, error };
 };
 
-export default uploadUserPhoto;
+export default uploadPhoto;

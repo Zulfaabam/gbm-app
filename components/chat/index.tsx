@@ -13,6 +13,8 @@ import {
 import { AuthContext } from "context/AuthContext";
 import InputField from "../InputField";
 import MyButton from "../MyButton";
+import { IconButton } from "@mui/material";
+import { IoArrowBack } from "react-icons/io5";
 
 export interface Message {
   id: string;
@@ -25,9 +27,10 @@ export interface Message {
 
 export interface ChatProps {
   room: string;
+  onLeaveChat: () => void;
 }
 
-const Chat = ({ room }: ChatProps) => {
+const Chat = ({ room, onLeaveChat }: ChatProps) => {
   const user = useContext(AuthContext);
 
   const [messages, setMessages] = useState<Message[]>([]);
@@ -94,8 +97,11 @@ const Chat = ({ room }: ChatProps) => {
 
   return (
     <div>
-      <div className="bg-dark w-full text-white text-center py-3">
-        <h1>Welcome to: {room.toUpperCase()}</h1>
+      <div className="bg-dark w-full text-white flex gap-2 items-center px-4 py-3">
+        <IconButton onClick={onLeaveChat}>
+          <IoArrowBack color="#ffffff" />
+        </IconButton>
+        <h2>Kode Room: {room.toUpperCase()}</h2>
       </div>
       <div className="px-4 min-h-[300px] max-h-[500px] overflow-y-auto overflow-x-hidden hide-scrollbar">
         {messages.map((message) => (

@@ -148,6 +148,13 @@ const konsultasi = () => {
     }
   }
 
+  function handleLeaveChat() {
+    if (room === "") return;
+
+    sessionStorage.removeItem("chat-room");
+    setRoom("");
+  }
+
   useEffect(() => {
     if (sessionStorage.getItem("chat-room")) {
       setRoom(sessionStorage.getItem("chat-room"));
@@ -210,74 +217,78 @@ const konsultasi = () => {
               onChange={handleChange}
               aria-label="basic tabs example"
             >
-              <Tab label="Diproses" {...a11yProps(0)} />
+              <Tab label="proses" {...a11yProps(0)} />
               <Tab label="Berlangsung" {...a11yProps(1)} />
               <Tab label="Selesai" {...a11yProps(2)} />
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
             <div className="flex gap-4 flex-wrap">
-              {consultItems?.map((item, idx) => (
-                <div className="card w-96 bg-base-100 shadow-xl" key={idx}>
-                  <div className="card-body">
-                    <div className="flex gap-2 items-center">
-                      <h2 className="card-title">{item.name}</h2>
-                      <div className="badge badge-primary">{item.status}</div>
-                    </div>
-                    <div>
-                      <p>
-                        Tanggal: {moment(item.date).format("DD-MM-YYYY")} (
-                        {item.session} sesi)
-                      </p>
-                      <p>
-                        Total Pembayaran: Rp.{" "}
-                        {numberFormatter.format(item.totalPrice)}
-                      </p>
-                      {item.status === "Dikonfirmasi" ? (
-                        <p>Kode Ruangan Chat: {item.roomCode}</p>
-                      ) : null}
-                    </div>
-                    <div className="card-actions">
-                      {item.status === "Baru" ? (
-                        <div className="flex flex-row-reverse items-center gap-2">
-                          {selectedItem && selectedItem === item.id ? (
-                            <Tooltip title="Simpan">
-                              <IconButton
-                                onClick={() =>
-                                  handleSave("consult", getConsult)
-                                }
-                              >
-                                <BiSave />
-                              </IconButton>
-                            </Tooltip>
-                          ) : (
-                            <Tooltip title="Upload Bukti Bayar">
-                              <IconButton
-                                onClick={() => setSelectedItem(item.id)}
-                              >
-                                <BiUpload />
-                              </IconButton>
-                            </Tooltip>
-                          )}
-                          {selectedItem && selectedItem === item.id && (
-                            <input
-                              type="file"
-                              id="buktiBayar"
-                              className="file-input file-input-sm w-full max-w-xs"
-                              onChange={(e) => handleUploadImage(e)}
-                            />
-                          )}
-                        </div>
-                      ) : null}
+              {consultItems
+                ?.filter((item) => item.status !== "Selesai")
+                ?.map((item, idx) => (
+                  <div className="card w-96 bg-base-100 shadow-xl" key={idx}>
+                    <div className="card-body">
+                      <div className="flex gap-2 items-center">
+                        <h2 className="card-title">{item.name}</h2>
+                        <div className="badge badge-primary">{item.status}</div>
+                      </div>
+                      <div>
+                        <p>
+                          Tanggal: {moment(item.date).format("DD-MM-YYYY")} (
+                          {item.session} sesi)
+                        </p>
+                        <p>
+                          Total Pembayaran: Rp.{" "}
+                          {numberFormatter.format(item.totalPrice)}
+                        </p>
+                        {item.status === "Dikonfirmasi" ||
+                        item.status === "Berlangsung" ||
+                        item.status === "Selesai" ? (
+                          <p>Kode Ruangan Chat: {item.roomCode}</p>
+                        ) : null}
+                      </div>
+                      <div className="card-actions">
+                        {item.status === "Baru" ? (
+                          <div className="flex flex-row-reverse items-center gap-2">
+                            {selectedItem && selectedItem === item.id ? (
+                              <Tooltip title="Simpan">
+                                <IconButton
+                                  onClick={() =>
+                                    handleSave("consult", getConsult)
+                                  }
+                                >
+                                  <BiSave />
+                                </IconButton>
+                              </Tooltip>
+                            ) : (
+                              <Tooltip title="Upload Bukti Bayar">
+                                <IconButton
+                                  onClick={() => setSelectedItem(item.id)}
+                                >
+                                  <BiUpload />
+                                </IconButton>
+                              </Tooltip>
+                            )}
+                            {selectedItem && selectedItem === item.id && (
+                              <input
+                                type="file"
+                                id="buktiBayar"
+                                className="file-input file-input-sm w-full max-w-xs"
+                                onChange={(e) => handleUploadImage(e)}
+                              />
+                            )}
+                          </div>
+                        ) : null}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </TabPanel>
           <TabPanel value={value} index={1}>
             {room ? (
-              <Chat room={room} />
+              <Chat room={room} onLeaveChat={handleLeaveChat} />
             ) : (
               <div className="flex flex-col justify-center items-center gap-4 pt-16">
                 <input
@@ -287,7 +298,7 @@ const konsultasi = () => {
                   className="input input-bordered w-full max-w-xs mx-auto"
                 />
                 <MyButton
-                  content="Kirim"
+                  content="Masuk"
                   className="btn-purple"
                   onClick={() => {
                     if (inputRef.current?.value) {
@@ -304,7 +315,68 @@ const konsultasi = () => {
             )}
           </TabPanel>
           <TabPanel value={value} index={2}>
-            History Konsultasi Online
+            <div className="flex gap-4 flex-wrap">
+              {consultItems
+                ?.filter((item) => item.status === "Selesai")
+                ?.map((item, idx) => (
+                  <div className="card w-96 bg-base-100 shadow-xl" key={idx}>
+                    <div className="card-body">
+                      <div className="flex gap-2 items-center">
+                        <h2 className="card-title">{item.name}</h2>
+                        <div className="badge badge-primary">{item.status}</div>
+                      </div>
+                      <div>
+                        <p>
+                          Tanggal: {moment(item.date).format("DD-MM-YYYY")} (
+                          {item.session} sesi)
+                        </p>
+                        <p>
+                          Total Pembayaran: Rp.{" "}
+                          {numberFormatter.format(item.totalPrice)}
+                        </p>
+                        {item.status === "Dikonfirmasi" ||
+                        item.status === "Berlangsung" ||
+                        item.status === "Selesai" ? (
+                          <p>Kode Ruangan Chat: {item.roomCode}</p>
+                        ) : null}
+                      </div>
+                      <div className="card-actions">
+                        {item.status === "Baru" ? (
+                          <div className="flex flex-row-reverse items-center gap-2">
+                            {selectedItem && selectedItem === item.id ? (
+                              <Tooltip title="Simpan">
+                                <IconButton
+                                  onClick={() =>
+                                    handleSave("consult", getConsult)
+                                  }
+                                >
+                                  <BiSave />
+                                </IconButton>
+                              </Tooltip>
+                            ) : (
+                              <Tooltip title="Upload Bukti Bayar">
+                                <IconButton
+                                  onClick={() => setSelectedItem(item.id)}
+                                >
+                                  <BiUpload />
+                                </IconButton>
+                              </Tooltip>
+                            )}
+                            {selectedItem && selectedItem === item.id && (
+                              <input
+                                type="file"
+                                id="buktiBayar"
+                                className="file-input file-input-sm w-full max-w-xs"
+                                onChange={(e) => handleUploadImage(e)}
+                              />
+                            )}
+                          </div>
+                        ) : null}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
           </TabPanel>
         </div>
         {openModal ? (

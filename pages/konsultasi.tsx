@@ -1,12 +1,31 @@
+import { numberFormatter } from "@/common/utils/formatter";
+import { updateData } from "@/common/utils/updateData";
+import uploadPhoto from "@/common/utils/uploadPhoto";
 import InputField from "@/components/InputField";
 import MyButton from "@/components/MyButton";
 import RequiredLogin from "@/components/RequiredLogin";
 import Chat from "@/components/chat";
 import MainLayout from "@/components/layouts/MainLayout";
-import KonsultasiOnlineModal from "@/components/modals/KonsultasiOnlineModal";
-import { Box, Tab, Tabs } from "@mui/material";
+import KonsultasiOnlineModal, {
+  KonsulFormData,
+} from "@/components/modals/KonsultasiOnlineModal";
+import { db } from "@/firebase/clientApp";
+import { Box, IconButton, Tab, Tabs, Tooltip } from "@mui/material";
 import { AuthContext } from "context/AuthContext";
+import {
+  DocumentData,
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
+import { getDownloadURL } from "firebase/storage";
+import moment from "moment";
+import { enqueueSnackbar } from "notistack";
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { BiSave, BiUpload } from "react-icons/bi";
 
 export interface TabPanelProps {
   children?: React.ReactNode;
@@ -45,6 +64,13 @@ const konsultasi = () => {
   const [value, setValue] = useState(0);
   const [room, setRoom] = useState<string | null>("");
   const [openModal, setOpenModal] = useState(false);
+  const [consultItems, setConsultItems] = useState<
+    KonsulFormData[] | DocumentData[] | null
+  >(null);
+  const [selectedItem, setSelectedItem] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+
+  const messagesRef = collection(db, "messages");
 
   function handleOpenModal() {
     setOpenModal(true);
@@ -58,11 +84,81 @@ const konsultasi = () => {
     setValue(newValue);
   };
 
+  function getConsult() {
+    const queryConsult = query(
+      collection(db, "consult"),
+      where("userId", "==", user?.uid)
+    );
+
+    getDocs(queryConsult)
+      .then((res) =>
+        setConsultItems(
+          res.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }))
+        )
+      )
+      .catch((error) => enqueueSnackbar(error, { variant: "error" }));
+  }
+
+  function handleUploadImage(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.files && user) {
+      uploadPhoto("bukti-pembayaran", e.target.files[0], user)
+        .then((res) => {
+          if (res?.data?.ref) {
+            enqueueSnackbar("Foto terunggah!", {
+              variant: "success",
+            });
+            getDownloadURL(res?.data?.ref).then((url) => setImageUrl(url));
+          }
+        })
+        .catch((err) => enqueueSnackbar(err, { variant: "error" }));
+    }
+  }
+
+  function handleSave(folder: string, revalidate: () => void) {
+    if (imageUrl) {
+      updateData(folder, selectedItem, {
+        paymentInvoice: imageUrl,
+        status: "Menunggu konfirmasi",
+      })
+        .then(() => {
+          enqueueSnackbar("Bukti pembayaran berhasil terunggah!", {
+            variant: "success",
+          });
+          setSelectedItem("");
+          revalidate();
+        })
+        .catch((error) => enqueueSnackbar(error, { variant: "error" }));
+    }
+  }
+
+  async function handleEnterRoom(room: string) {
+    if (room === "") return;
+
+    if (user) {
+      await addDoc(messagesRef, {
+        text: "Mulai Konsultasi",
+        createdAt: serverTimestamp(),
+        userName: user.displayName,
+        userId: user.uid,
+        room: room,
+      });
+    }
+  }
+
   useEffect(() => {
     if (sessionStorage.getItem("chat-room")) {
       setRoom(sessionStorage.getItem("chat-room"));
     }
   }, []);
+
+  useEffect(() => {
+    if (value === 0 && user?.uid) {
+      getConsult();
+    }
+  }, [value, user]);
 
   if (user == null)
     return (
@@ -114,11 +210,72 @@ const konsultasi = () => {
               onChange={handleChange}
               aria-label="basic tabs example"
             >
-              <Tab label="Berlangsung" {...a11yProps(0)} />
-              <Tab label="Selesai" {...a11yProps(1)} />
+              <Tab label="Diproses" {...a11yProps(0)} />
+              <Tab label="Berlangsung" {...a11yProps(1)} />
+              <Tab label="Selesai" {...a11yProps(2)} />
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
+            <div className="flex gap-4 flex-wrap">
+              {consultItems?.map((item, idx) => (
+                <div className="card w-96 bg-base-100 shadow-xl" key={idx}>
+                  <div className="card-body">
+                    <div className="flex gap-2 items-center">
+                      <h2 className="card-title">{item.name}</h2>
+                      <div className="badge badge-primary">{item.status}</div>
+                    </div>
+                    <div>
+                      <p>
+                        Tanggal: {moment(item.date).format("DD-MM-YYYY")} (
+                        {item.session} sesi)
+                      </p>
+                      <p>
+                        Total Pembayaran: Rp.{" "}
+                        {numberFormatter.format(item.totalPrice)}
+                      </p>
+                      {item.status === "Dikonfirmasi" ? (
+                        <p>Kode Ruangan Chat: {item.roomCode}</p>
+                      ) : null}
+                    </div>
+                    <div className="card-actions">
+                      {item.status === "Baru" ? (
+                        <div className="flex flex-row-reverse items-center gap-2">
+                          {selectedItem && selectedItem === item.id ? (
+                            <Tooltip title="Simpan">
+                              <IconButton
+                                onClick={() =>
+                                  handleSave("consult", getConsult)
+                                }
+                              >
+                                <BiSave />
+                              </IconButton>
+                            </Tooltip>
+                          ) : (
+                            <Tooltip title="Upload Bukti Bayar">
+                              <IconButton
+                                onClick={() => setSelectedItem(item.id)}
+                              >
+                                <BiUpload />
+                              </IconButton>
+                            </Tooltip>
+                          )}
+                          {selectedItem && selectedItem === item.id && (
+                            <input
+                              type="file"
+                              id="buktiBayar"
+                              className="file-input file-input-sm w-full max-w-xs"
+                              onChange={(e) => handleUploadImage(e)}
+                            />
+                          )}
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </TabPanel>
+          <TabPanel value={value} index={1}>
             {room ? (
               <Chat room={room} />
             ) : (
@@ -139,13 +296,14 @@ const konsultasi = () => {
                         inputRef.current.value
                       );
                       setRoom(inputRef.current.value);
+                      handleEnterRoom(inputRef.current.value);
                     }
                   }}
                 />
               </div>
             )}
           </TabPanel>
-          <TabPanel value={value} index={1}>
+          <TabPanel value={value} index={2}>
             History Konsultasi Online
           </TabPanel>
         </div>

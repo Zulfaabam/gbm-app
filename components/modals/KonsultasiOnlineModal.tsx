@@ -20,9 +20,12 @@ export interface KonsulFormData {
   email: string;
   phoneNumber: string;
   date: string;
-  session: string;
+  session: number;
   paymentInvoice: File | null | undefined;
+  totalPrice: number;
   status: string;
+  id?: string;
+  roomCode: string;
 }
 
 const KonsultasiOnlineModal = ({ open, onClose }: ModalProps) => {
@@ -35,9 +38,11 @@ const KonsultasiOnlineModal = ({ open, onClose }: ModalProps) => {
     email: "",
     phoneNumber: "",
     date: "",
-    session: "",
+    session: 0,
     paymentInvoice: null,
+    totalPrice: 0,
     status: "Baru",
+    roomCode: "",
   });
 
   const [checked, setChecked] = useState(false);
@@ -55,6 +60,7 @@ const KonsultasiOnlineModal = ({ open, onClose }: ModalProps) => {
       const body = {
         ...konsul,
         userId: user?.uid,
+        totalPrice: 5000 * konsul.session,
       };
 
       addData("consult", body)
@@ -63,7 +69,7 @@ const KonsultasiOnlineModal = ({ open, onClose }: ModalProps) => {
             variant: "orderMade",
             anchorOrigin: { vertical: "top", horizontal: "right" },
             persist: true,
-            pdf: <ReceiptKonsul konsul={konsul} />,
+            pdf: <ReceiptKonsul konsul={body} />,
           });
         })
         .catch((error) => enqueueSnackbar(error, { variant: "error" }));
@@ -121,7 +127,8 @@ const KonsultasiOnlineModal = ({ open, onClose }: ModalProps) => {
           />
           <InputField
             name="session"
-            label="Lama durasi konsultasi"
+            type="number"
+            label="Lama durasi konsultasi (sesi)"
             placeholder="1 sesi"
             value={konsul.session}
             onChange={(e) => handleChange(e)}

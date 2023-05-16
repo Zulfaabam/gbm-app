@@ -162,6 +162,36 @@ function ReceiptKonsul({ konsul }: ReceiptKonsulProps) {
             </View>
           </View>
         </View>
+        <View style={styles.row}>
+          <Text
+            style={{
+              width: "7%",
+              borderRight: "1px solid black",
+              textAlign: "center",
+              padding: "10px 0",
+            }}
+          >
+            5.
+          </Text>
+          <Text
+            style={{
+              width: "30%",
+              borderRight: "1px solid black",
+              padding: "10px",
+            }}
+          >
+            Total Biaya
+          </Text>
+          <View
+            style={{
+              width: "63%",
+            }}
+          >
+            <Text style={{ width: "100%", padding: "10px" }}>
+              {konsul.totalPrice}
+            </Text>
+          </View>
+        </View>
       </Page>
     </Document>
   );

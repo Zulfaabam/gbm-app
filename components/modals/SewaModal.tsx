@@ -39,7 +39,7 @@ export interface SewaFormData {
   address: string;
   items: Items[] | undefined;
   date: string;
-  duration: string;
+  duration: number;
   guarantee: string;
   paymentInvoice: File | null | undefined;
   totalPrice: number | undefined;
@@ -65,7 +65,7 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
       },
     ],
     date: "",
-    duration: "",
+    duration: 0,
     guarantee: "",
     paymentInvoice: null,
     totalPrice: 0,
@@ -194,7 +194,8 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
           />
           <InputField
             name="duration"
-            label="Lama peminjaman"
+            type="number"
+            label="Lama peminjaman (hari)"
             placeholder="1 hari"
             value={sewa.duration}
             onChange={(e) => handleChange(e)}

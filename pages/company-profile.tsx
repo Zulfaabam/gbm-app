@@ -4,11 +4,28 @@ import MainLayout from "@/components/layouts/MainLayout";
 import { Avatar, Paper } from "@mui/material";
 import Image from "next/image";
 import React, { useState } from "react";
+import { PDFViewer } from "@react-pdf/renderer";
+import Mou from "@/components/receipt/Mou";
+import { fetcher } from "@/common/utils/fetcher";
+import useSWR from "swr";
 
 const dummyArr = new Array(10).fill("nama");
 
+export interface Anggota {
+  desc: string;
+  iconURL: string;
+  id: string;
+  name: string;
+  seqNo: number;
+}
+
 const companyProfile = () => {
   const [openModal, setOpenModal] = useState(false);
+
+  const { data, error, isLoading } = useSWR<Anggota[], Error>(
+    "/api/anggota",
+    fetcher
+  );
 
   function handleOpenModal() {
     setOpenModal(true);
@@ -125,26 +142,28 @@ const companyProfile = () => {
               </p>
             </div>
             <div className="flex flex-wrap justify-center gap-4">
-              {dummyArr.map((d, idx) => (
-                <Paper
-                  className="w-32 md:w-48 xl:w-64 h-40 md:h-60 xl:h-80 flex flex-col items-center gap-2 md:gap-5 p-3 lg:p-9"
-                  key={idx}
-                >
-                  <div className="w-16 md:w-28 xl:w-44 h-16 md:h-28 xl:h-44">
-                    <Avatar
-                      src=""
-                      alt=""
-                      sx={{ width: "100%", height: "100%" }}
-                    />
-                  </div>
-                  <div className="text-center">
-                    <h3 className="font-bold text-lg md:text-xl xl:text-2xl">
-                      {d}
-                    </h3>
-                    <p className="text-base xl:text-lg">role</p>
-                  </div>
-                </Paper>
-              ))}
+              {data
+                ?.sort((a, b) => a.seqNo - b.seqNo)
+                ?.map((item, idx) => (
+                  <Paper
+                    className="w-32 md:w-48 xl:w-64 h-40 md:h-60 xl:h-80 flex flex-col items-center gap-2 md:gap-5 p-3 lg:p-9"
+                    key={idx}
+                  >
+                    <div className="w-16 md:w-28 xl:w-40 h-16 md:h-28 xl:h-40">
+                      <Avatar
+                        src={item.iconURL}
+                        alt={item.name}
+                        sx={{ width: "100%", height: "100%" }}
+                      />
+                    </div>
+                    <div className="text-center">
+                      <h3 className="font-bold text-lg md:text-xl">
+                        {item.name}
+                      </h3>
+                      <p className="text-base">{item.desc}</p>
+                    </div>
+                  </Paper>
+                ))}
             </div>
           </div>
           <div className="space-y-16 px-4 text-center mb-14">
@@ -197,7 +216,10 @@ const companyProfile = () => {
         </div>
         {openModal ? (
           <KerjasamaModal open={openModal} onClose={handleCloseModal} />
-        ) : null}
+        ) : // <PDFViewer width={600} height={600}>
+        //   <Mou />
+        // </PDFViewer>
+        null}
       </div>
     </MainLayout>
   );

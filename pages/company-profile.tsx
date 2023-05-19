@@ -9,14 +9,18 @@ import Mou from "@/components/receipt/Mou";
 import { fetcher } from "@/common/utils/fetcher";
 import useSWR from "swr";
 
-const dummyArr = new Array(10).fill("nama");
-
 export interface Anggota {
   desc: string;
   iconURL: string;
   id: string;
   name: string;
   seqNo: number;
+}
+export interface Event {
+  title: string;
+  id: string;
+  desc: string;
+  imageUrl: string;
 }
 
 const companyProfile = () => {
@@ -26,6 +30,12 @@ const companyProfile = () => {
     "/api/anggota",
     fetcher
   );
+
+  const {
+    data: event,
+    error: eventError,
+    isLoading: isEventLoading,
+  } = useSWR<Event[], Error>("/api/event", fetcher);
 
   function handleOpenModal() {
     setOpenModal(true);
@@ -146,10 +156,10 @@ const companyProfile = () => {
                 ?.sort((a, b) => a.seqNo - b.seqNo)
                 ?.map((item, idx) => (
                   <Paper
-                    className="w-32 md:w-48 xl:w-64 h-40 md:h-60 xl:h-80 flex flex-col items-center gap-2 md:gap-5 p-3 lg:p-9"
+                    className="w-32 md:w-48 h-40 md:h-60 flex flex-col items-center gap-2 md:gap-5 px-1 py-3 md:p-9"
                     key={idx}
                   >
-                    <div className="w-16 md:w-28 xl:w-40 h-16 md:h-28 xl:h-40">
+                    <div className="w-16 md:w-20 lg:w-24 h-16 md:h-20 lg:h-24">
                       <Avatar
                         src={item.iconURL}
                         alt={item.name}
@@ -157,54 +167,65 @@ const companyProfile = () => {
                       />
                     </div>
                     <div className="text-center">
-                      <h3 className="font-bold text-lg md:text-xl">
+                      <h3 className="font-bold text-sm md:text-base">
                         {item.name}
                       </h3>
-                      <p className="text-base">{item.desc}</p>
+                      <p className="text-xs md:text-sm">{item.desc}</p>
                     </div>
                   </Paper>
                 ))}
             </div>
           </div>
-          <div id="event-gbm" className="space-y-16 px-4 text-center mb-14">
+          <div id="event-gbm" className="space-y-8 px-4 text-center mb-16">
             <h2 className="font-heading text-3xl xl:text-4xl text-dark">
               Program Kerja
             </h2>
-            <div className="py-28">
-              <div className="flex items-center gap-4">
-                <Paper className="w-[534px] h-[310px] rounded-2xl">dsads</Paper>
-                <div className="space-y-4">
-                  <h3 className="text-dark font-bold text-4xl text-left">
-                    OPEN RECRUITMENT & PELATIHAN 1
-                  </h3>
-                  <p className="max-w-3xl text-2xl text-justify">
-                    Anggota GBM dalam kepengurusannya memiliki masa jabatan
-                    selama 2 tahun sehingga diperlukan pergantian/pengaderan
-                    pengurus untuk melanjutkan kegiatan GBM ke depannya. Para
-                    anggota baru yang telah terpilih nantinya akan dibekali
-                    dengan materi pengetahuan gizi serta tata cara konseling dan
-                    penyuluhan agar siap terjun ke masyarakat.
-                  </p>
+            <div className="carousel-scrollbar carousel-center w-full p-4 space-x-4 bg-cream rounded-lg">
+              {event?.map((d, idx) => (
+                <div className="carousel-item" key={idx}>
+                  <div className="bg-base-100 shadow-xl border rounded-lg py-4 md:py-16 px-2 md:px-14 flex flex-col md:flex-row items-center gap-2 md:gap-8 max-w-xs md:max-w-6xl">
+                    <img
+                      src={d.imageUrl || "/images/bro.svg"}
+                      alt={d.title}
+                      className="rounded-lg border w-[200px] md:w-[300px] aspect-video object-cover"
+                    />
+                    <div className="flex flex-col items-center md:items-start gap-2 md:gap-10 md:max-w-lg">
+                      <h2 className="text-justify font-heading text-base md:text-xl text-dark">
+                        {d.title}
+                      </h2>
+                      <p className="text-justify font-bold text-xs md:text-sm lg:text-lg text-paragraph-gray">
+                        {d.desc}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
-          <div id="event-partnership" className="space-y-16 px-4 text-center">
+          <div id="event-partnership" className="space-y-8 px-4 text-center">
             <h2 className="font-heading text-3xl xl:text-4xl text-dark">
               Bentuk Kerjasama
             </h2>
-            <div>
-              <div className="flex flex-col items-center gap-4">
-                <Paper className="w-[534px] h-[310px] rounded-2xl">dsads</Paper>
-                <h3 className="text-dark font-bold text-4xl text-left">
-                  PENYULUHAN
-                </h3>
-                <p className="max-w-3xl text-2xl text-justify">
-                  Kegiatan menyampaikan materi seputar Gizi dan Kesehatan sesuai
-                  dengan kompetensi yang dimiliki oleh anggota GBM, dibantu
-                  dengan beberapa jenis media yang menarik dan praktis seperti
-                  PPT, leaflet, ataupun booklet.
-                </p>
+            <div className="carousel-scrollbar carousel-center w-full p-4 space-x-4 bg-cream rounded-lg">
+              <div className="carousel-item">
+                <div className="bg-base-100 shadow-xl border rounded-lg py-4 md:py-16 px-2 md:px-14 flex flex-col md:flex-row items-center gap-2 md:gap-8 max-w-xs md:max-w-6xl">
+                  <img
+                    src="/images/bro.svg"
+                    alt="paretnership"
+                    className="rounded-lg border w-[200px] md:w-[300px] aspect-video object-cover"
+                  />
+                  <div className="flex flex-col items-center md:items-start gap-2 md:gap-10 md:max-w-lg">
+                    <h2 className="text-justify font-heading text-base md:text-xl text-dark">
+                      PENYULUHAN
+                    </h2>
+                    <p className="text-justify font-bold text-xs md:text-sm lg:text-lg text-paragraph-gray">
+                      Kegiatan menyampaikan materi seputar Gizi dan Kesehatan
+                      sesuai dengan kompetensi yang dimiliki oleh anggota GBM,
+                      dibantu dengan beberapa jenis media yang menarik dan
+                      praktis seperti PPT, leaflet, ataupun booklet.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
             <MyButton

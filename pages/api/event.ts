@@ -1,0 +1,31 @@
+import { db } from "@/firebase/clientApp";
+import {
+  collection,
+  getDocs,
+  QueryDocumentSnapshot,
+  DocumentData,
+} from "firebase/firestore";
+import { NextApiRequest, NextApiResponse } from "next";
+
+const event = async (req: NextApiRequest, res: NextApiResponse) => {
+  const result: QueryDocumentSnapshot<DocumentData>[] = [];
+
+  const docs = await getDocs(collection(db, "event"));
+
+  docs.forEach((doc) => {
+    result.push(doc);
+  });
+
+  if (!docs.empty) {
+    res.status(200).json(
+      result.map((d) => ({
+        ...d.data(),
+        id: d.id,
+      }))
+    );
+  } else {
+    console.log("No such document!");
+  }
+};
+
+export default event;

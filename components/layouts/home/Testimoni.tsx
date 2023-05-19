@@ -17,20 +17,22 @@ const TestimoniCard = ({
   reviewer,
 }: TestimoniCardProps) => {
   return (
-    <div className="bg-base-100 shadow-xl border rounded-lg py-16 px-14 flex items-center gap-16 max-w-6xl">
-      <Image
+    <div className="bg-base-100 shadow-xl border rounded-lg py-4 md:py-16 px-2 md:px-14 flex flex-col md:flex-row items-center gap-2 md:gap-8 max-w-xs md:max-w-6xl">
+      <img
         src={img || "/images/bro.svg"}
         alt={title}
-        width={300}
-        height={300}
-        className="rounded-lg border"
+        className="rounded-lg border w-[200px] md:w-[300px] aspect-square object-cover"
       />
-      <div className="flex flex-col gap-10">
-        <h2 className="text-justify font-heading text-xl text-dark">{title}</h2>
-        <p className="text-justify font-bold text-lg text-paragraph-gray">
+      <div className="flex flex-col items-center md:items-start gap-2 md:gap-10 md:max-w-lg">
+        <h2 className="text-justify font-heading text-base md:text-xl text-dark">
+          {title}
+        </h2>
+        <p className="text-justify font-bold text-xs md:text-sm lg:text-lg text-paragraph-gray">
           {review}
         </p>
-        <p className="ml-auto font-heading text-dark">{reviewer}</p>
+        <p className="ml-auto font-heading text-dark text-xs md:text-sm">
+          {reviewer}
+        </p>
       </div>
     </div>
   );

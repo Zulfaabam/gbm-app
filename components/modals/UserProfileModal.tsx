@@ -41,7 +41,9 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
     if (userPhoneNumber && user?.uid) {
       updateData("users", user?.uid, { phoneNumber: userPhoneNumber })
         .then(() => {
-          enqueueSnackbar("Profil berhasil diperbarui", { variant: "success" });
+          enqueueSnackbar("Profil berhasil diperbarui!", {
+            variant: "success",
+          });
           onClose();
         })
         .catch((error) => enqueueSnackbar(error, { variant: "error" }));
@@ -105,7 +107,7 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
                   setEdit(false);
                   if (
                     user?.displayName !== userName ||
-                    user.photoURL !== userPhotoURL
+                    user?.photoURL !== userPhotoURL
                   )
                     updateUserProfile(auth, userName, userPhotoURL)
                       .then(() => {
@@ -147,24 +149,22 @@ const UserProfileModal = ({ open, onClose }: ModalProps) => {
           label="Email"
           type="email"
           placeholder="example@mail.com"
-          value={userEmail}
-          onChange={(e) => setUserEmail(e.target.value)}
+          defaultValue={userEmail}
           disabled
         />
         <InputField
           label="Nomor WhatsApp"
-          // type="number"
           placeholder="0812345678"
           value={userPhoneNumber}
           onChange={(e) => setUserPhoneNumber(e.target.value)}
         />
       </DialogContent>
-      <DialogActions className="px-6">
+      <DialogActions>
         <MyButton content="Tutup" onClick={onClose} />
         <MyButton
           content="Simpan"
           onClick={handleSubmit}
-          className="btn-purple"
+          className="btn-purple mr-4"
         />
       </DialogActions>
     </Dialog>

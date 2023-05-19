@@ -100,15 +100,14 @@ export const Navbar = ({ user }: NavbarProps) => {
               </a>
               <DropdownMenu>
                 <li>
-                  <a>Event GBM</a>
+                  <Link href="/company-profile#event-gbm">Event GBM</Link>
                 </li>
                 <li>
-                  <a>Event Partnership</a>
+                  <Link href="/company-profile#event-partnership">
+                    Event Partnership
+                  </Link>
                 </li>
               </DropdownMenu>
-            </li>
-            <li>
-              <a>Artikel</a>
             </li>
             <li>
               <Link href="/company-profile">Tentang kami</Link>
@@ -191,15 +190,14 @@ export const Navbar = ({ user }: NavbarProps) => {
             </a>
             <DropdownMenu>
               <li>
-                <a>Event GBM</a>
+                <Link href="/company-profile#event-gbm">Event GBM</Link>
               </li>
               <li>
-                <a>Event Partnership</a>
+                <Link href="/company-profile#event-partnership">
+                  Event Partnership
+                </Link>
               </li>
             </DropdownMenu>
-          </li>
-          <li>
-            <a className="text-white">Artikel</a>
           </li>
           <li>
             <Link href="/company-profile" className="text-white">

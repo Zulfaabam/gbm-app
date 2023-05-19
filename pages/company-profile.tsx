@@ -166,7 +166,7 @@ const companyProfile = () => {
                 ))}
             </div>
           </div>
-          <div className="space-y-16 px-4 text-center mb-14">
+          <div id="event-gbm" className="space-y-16 px-4 text-center mb-14">
             <h2 className="font-heading text-3xl xl:text-4xl text-dark">
               Program Kerja
             </h2>
@@ -189,7 +189,7 @@ const companyProfile = () => {
               </div>
             </div>
           </div>
-          <div className="space-y-16 px-4 text-center">
+          <div id="event-partnership" className="space-y-16 px-4 text-center">
             <h2 className="font-heading text-3xl xl:text-4xl text-dark">
               Bentuk Kerjasama
             </h2>

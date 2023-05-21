@@ -9,8 +9,7 @@ import RequiredLogin from "@/components/RequiredLogin";
 import MyButton from "@/components/MyButton";
 import SewaModal from "@/components/modals/SewaModal";
 import ErrorPage from "@/components/ErrorPage";
-import { collection, getDoc, getDocs } from "firebase/firestore";
-import { db } from "@/firebase/clientApp";
+import { numberFormatter } from "@/common/utils/formatter";
 export interface Sewa {
   id: string;
   data: SewaData;
@@ -97,6 +96,9 @@ const sewa = () => {
                     maxWidth={250}
                     img={d.data.iconURL}
                     title={d.data.desc}
+                    desc={`Rp. ${numberFormatter.format(
+                      d.data.price
+                    )} | Stok: ${d.data.stock}`}
                   />
                 ))}
               </div>

@@ -26,7 +26,7 @@ export default function ActionAreaCard({
       <CardActionArea>
         <CardMedia
           sx={{ height: imgHeight }}
-          image={img ? img : "/images/bro.svg"}
+          image={img ? img : "/images/not-found.jpg"}
           title={title}
         />
         <CardContent>

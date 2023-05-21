@@ -111,11 +111,6 @@ const Chat = ({ room, onLeaveChat }: ChatProps) => {
               message.userId === user?.uid ? "chat-end" : "chat-start"
             }`}
           >
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img alt="" src="/images/bro.svg" />
-              </div>
-            </div>
             <p className="chat-header font-semibold">
               {message.userId === user?.uid
                 ? user?.displayName

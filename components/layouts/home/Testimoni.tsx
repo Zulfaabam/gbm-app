@@ -19,7 +19,7 @@ const TestimoniCard = ({
   return (
     <div className="bg-base-100 shadow-xl border rounded-lg py-4 md:py-16 px-2 md:px-14 flex flex-col md:flex-row items-center gap-2 md:gap-8 max-w-xs md:max-w-6xl">
       <img
-        src={img || "/images/bro.svg"}
+        src={img || "/images/not-found.jpg"}
         alt={title}
         className="rounded-lg border w-[200px] md:w-[300px] aspect-square object-cover"
       />

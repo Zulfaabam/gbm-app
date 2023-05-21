@@ -185,7 +185,7 @@ const companyProfile = () => {
                 <div className="carousel-item" key={idx}>
                   <div className="bg-base-100 shadow-xl border rounded-lg py-4 md:py-16 px-2 md:px-14 flex flex-col md:flex-row items-center gap-2 md:gap-8 max-w-xs md:max-w-6xl">
                     <img
-                      src={d.imageUrl || "/images/bro.svg"}
+                      src={d.imageUrl || "/images/not-found.jpg"}
                       alt={d.title}
                       className="rounded-lg border w-[200px] md:w-[300px] aspect-video object-cover"
                     />
@@ -210,7 +210,7 @@ const companyProfile = () => {
               <div className="carousel-item">
                 <div className="bg-base-100 shadow-xl border rounded-lg py-4 md:py-16 px-2 md:px-14 flex flex-col md:flex-row items-center gap-2 md:gap-8 max-w-xs md:max-w-6xl">
                   <img
-                    src="/images/bro.svg"
+                    src="/images/not-found.jpg"
                     alt="paretnership"
                     className="rounded-lg border w-[200px] md:w-[300px] aspect-video object-cover"
                   />

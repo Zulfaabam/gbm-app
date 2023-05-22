@@ -63,6 +63,7 @@ const KerjasamaModal = ({ open, onClose }: ModalProps) => {
             variant: "success",
             anchorOrigin: { horizontal: "right", vertical: "top" },
           });
+          onClose();
         })
         .catch((error) => enqueueSnackbar(error, { variant: "error" }));
     }
@@ -170,11 +171,11 @@ const KerjasamaModal = ({ open, onClose }: ModalProps) => {
           onChange={(e) => handleChange(e)}
         />
       </DialogContent>
-      <DialogActions className="px-6">
+      <DialogActions>
         <MyButton content="Tutup" onClick={onClose} />
         <MyButton
           content="Kirim"
-          className="btn-purple"
+          className="btn-purple mr-8"
           onClick={handleSubmit}
         />
       </DialogActions>

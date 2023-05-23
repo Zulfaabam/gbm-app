@@ -71,6 +71,7 @@ const KonsultasiOnlineModal = ({ open, onClose }: ModalProps) => {
             persist: true,
             pdf: <ReceiptKonsul konsul={body} />,
           });
+          onClose();
         })
         .catch((error) => enqueueSnackbar(error, { variant: "error" }));
     }

@@ -188,7 +188,7 @@ const konsultasi = () => {
         setChatRooms([...uniqueRooms]);
       })
       .catch((error) => enqueueSnackbar(error, { variant: "error" }));
-  }, []);
+  }, [value]);
 
   if (user == null)
     return (
@@ -308,11 +308,16 @@ const konsultasi = () => {
                   </div>
                 ))}
             </div>
+            {!consultItems || consultItems.length === 0 ? (
+              <div className="flex flex-col justify-center items-center gap-4 pt-16">
+                <h2>Tidak ada konsultasi yang sedang diproses</h2>
+              </div>
+            ) : null}
           </TabPanel>
           <TabPanel value={value} index={1}>
             {room ? (
               <Chat room={room} onLeaveChat={handleLeaveChat} />
-            ) : (
+            ) : consultItems?.find((item) => item.status === "Berlangsung") ? (
               <div className="flex flex-col justify-center items-center gap-4 pt-16">
                 <input
                   type="text"
@@ -329,6 +334,10 @@ const konsultasi = () => {
                     }
                   }}
                 />
+              </div>
+            ) : (
+              <div className="flex flex-col justify-center items-center gap-4 pt-16">
+                <h2>Tidak ada konsultasi yang sedang berlangsung</h2>
               </div>
             )}
           </TabPanel>
@@ -395,10 +404,23 @@ const konsultasi = () => {
                   </div>
                 ))}
             </div>
+            {!consultItems ||
+            consultItems.length === 0 ||
+            !consultItems.find((item) => item.status === "Selesai") ? (
+              <div className="flex flex-col justify-center items-center gap-4 pt-16">
+                <h2>Tidak ada konsultasi yang sudah selesai</h2>
+              </div>
+            ) : null}
           </TabPanel>
         </div>
         {openModal ? (
-          <KonsultasiOnlineModal open={openModal} onClose={handleCloseModal} />
+          <KonsultasiOnlineModal
+            open={openModal}
+            onClose={() => {
+              handleCloseModal();
+              getConsult();
+            }}
+          />
         ) : null}
       </div>
     </MainLayout>

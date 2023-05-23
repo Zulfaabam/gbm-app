@@ -69,6 +69,7 @@ const konsultasi = () => {
   >(null);
   const [selectedItem, setSelectedItem] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [chatRooms, setChatRooms] = useState<string[] | null>(null);
 
   const messagesRef = collection(db, "messages");
 
@@ -137,7 +138,13 @@ const konsultasi = () => {
   async function handleEnterRoom(room: string) {
     if (room === "") return;
 
-    if (user) {
+    const findRoom = chatRooms?.find((item) => item === room);
+
+    if (user && findRoom) {
+      sessionStorage.setItem("chat-room", room);
+
+      setRoom(room);
+
       await addDoc(messagesRef, {
         text: "Mulai Konsultasi",
         createdAt: serverTimestamp(),
@@ -145,6 +152,10 @@ const konsultasi = () => {
         userId: user.uid,
         room: room,
       });
+    } else if (!findRoom) {
+      enqueueSnackbar("Ruangan chat tidak ditemukan", { variant: "error" });
+    } else {
+      return;
     }
   }
 
@@ -166,6 +177,18 @@ const konsultasi = () => {
       getConsult();
     }
   }, [value, user]);
+
+  useEffect(() => {
+    getDocs(messagesRef)
+      .then((res) => {
+        const allRooms = res.docs.map((data) => data.data().room);
+
+        const uniqueRooms = [...new Set(allRooms)];
+
+        setChatRooms([...uniqueRooms]);
+      })
+      .catch((error) => enqueueSnackbar(error, { variant: "error" }));
+  }, []);
 
   if (user == null)
     return (
@@ -302,11 +325,6 @@ const konsultasi = () => {
                   className="btn-purple"
                   onClick={() => {
                     if (inputRef.current?.value) {
-                      sessionStorage.setItem(
-                        "chat-room",
-                        inputRef.current.value
-                      );
-                      setRoom(inputRef.current.value);
                       handleEnterRoom(inputRef.current.value);
                     }
                   }}

@@ -119,14 +119,14 @@ const login = () => {
                 onClick={(e) => handleShowPassword(e)}
               />
             </div>
-            <MyButton
+            {/* <MyButton
               content="Lupa Password?"
               className="underline w-max"
               onClick={(e) => {
                 e.preventDefault();
                 setForgetPassword(true);
               }}
-            />
+            /> */}
             <MyButton type="submit" content="Masuk" className="btn-cream" />
           </Form>
         </Formik>

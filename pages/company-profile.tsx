@@ -60,8 +60,8 @@ const companyProfile = () => {
                   2008 dan merupakan sebuah mandat dari ILMAGI (Ikatan Lembaga
                   Mahasiswa Gizi Indonesia). <br /> Gizi Bakti Masyarakat
                   Universitas Diponegoro merupakan biro yang bertanggung jawab
-                  pada Himpunan Mahasiswa Ilmu Gizi (HMIG). GBM berada di berada
-                  di bawah pembinaan Program Studi S-1 Gizi Fakultas Kedokteran
+                  pada Himpunan Mahasiswa Ilmu Gizi (HMIG). GBM berada di bawah
+                  pembinaan Program Studi S-1 Gizi Fakultas Kedokteran
                   Universitas Diponegoro dan Dekan Fakultas Kedokteran
                   Universitas Diponegoro.
                 </p>
@@ -146,10 +146,10 @@ const companyProfile = () => {
               <h2 className="font-heading text-3xl xl:text-4xl text-center xl:text-left text-dark">
                 Anggota Gizi Bakti Masyarakat 2022
               </h2>
-              <p className="max-w-3xl text-center">
+              {/* <p className="max-w-3xl text-center">
                 Dalam keberjalanannya, GBM memiliki suatu perencanaan dan
                 pengorganisasian untuk mencapai target yang sudah ditetapkan.
-              </p>
+              </p> */}
             </div>
             <div className="flex flex-wrap justify-center gap-4">
               {data

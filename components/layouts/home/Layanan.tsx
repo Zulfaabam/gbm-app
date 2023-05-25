@@ -55,11 +55,7 @@ const Layanan = () => {
               content="Pre-Order Alat Kesehatan"
               className="text-maroon"
             />
-            <Paragraph
-              content="Lorem ipsum dolor sit amet consectetur. Egestas lorem semper ac
-              tristique imperdiet sodales amet donec. Orci tellus et auctor
-              adipiscing ultrices integer id. Enim diam."
-            />
+            <Paragraph content="GBM Undip melayani pre-order alat kesehatan untuk teman-teman yang membutuhkan alat kesehatan." />
             <Link href="/pre-order">
               <MyButton content="Selengkapnya" className="btn-maroon" />
             </Link>
@@ -84,11 +80,7 @@ const Layanan = () => {
               content="Sewa Alat Kesehatan"
               className="text-gbm-purple"
             />
-            <Paragraph
-              content="Lorem ipsum dolor sit amet consectetur. Egestas lorem semper ac
-              tristique imperdiet sodales amet donec. Orci tellus et auctor
-              adipiscing ultrices integer id. Enim diam."
-            />
+            <Paragraph content="GBM Undip melayani sewa alat kesehatan untuk teman-teman yang membutuhkan alat kesehatan." />
             <Link href="/sewa">
               <MyButton content="Selengkapnya" className="btn-purple" />
             </Link>
@@ -113,11 +105,7 @@ const Layanan = () => {
               content="Konsultasi Online Gizi dan Kesehatan"
               className="text-gbm-green-light"
             />
-            <Paragraph
-              content="Lorem ipsum dolor sit amet consectetur. Egestas lorem semper ac
-              tristique imperdiet sodales amet donec. Orci tellus et auctor
-              adipiscing ultrices integer id. Enim diam."
-            />
+            <Paragraph content="GBM Undip melayani konsultasi gizi secara online untuk teman-teman yang ingin melakukan konsultasi tanpa harus tatap muka." />
             <Link href="/konsultasi">
               <MyButton content="Selengkapnya" className="btn-light-green" />
             </Link>

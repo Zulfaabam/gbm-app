@@ -21,9 +21,11 @@ const Hero = () => {
             Gizi Bakti Masyarakat
           </h1>
           <p className="py-6 font-semibold md:px-12 lg:pl-0 lg:pr-40">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
+            Gizi Bakti Masyarakat Universitas Diponegoro merupakan biro yang
+            bertanggung jawab pada Himpunan Mahasiswa Ilmu Gizi (HMIG). GBM
+            berada di bawah pembinaan Program Studi S-1 Gizi Fakultas Kedokteran
+            Universitas Diponegoro dan Dekan Fakultas Kedokteran Universitas
+            Diponegoro.
           </p>
           <Link href="/company-profile">
             <MyButton content="Selengkapnya" className="btn-dark-green" />

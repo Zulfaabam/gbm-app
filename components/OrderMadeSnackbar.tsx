@@ -38,7 +38,7 @@ const OrderMadeSnackbar = forwardRef<HTMLDivElement, OrderMadeSnackbarProps>(
     }, [id, closeSnackbar]);
 
     return (
-      <SnackbarContent ref={ref} className="w-96">
+      <SnackbarContent ref={ref} className="w-80 sm:w-96">
         <Card className="w-full" style={{ backgroundColor: "#43a047" }}>
           <CardActions
             style={{

@@ -1,7 +1,7 @@
 {
   "name": "Gizi Bakti Masyarakat Universitas Diponegoro App",
   "short_name": "GBM UNDIP APP",
-  "theme_color": "#ffffff",
+  "theme_color": "#313552",
   "background_color": "#EEE6CE",
   "display": "standalone",
   "orientation": "portrait",

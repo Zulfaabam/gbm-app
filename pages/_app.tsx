@@ -38,7 +38,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           href="/icons/gbm-logo-64.ico"
           type="image/x-icon"
         />
-        <meta name="theme-color" content="#317EFB" />
+        <meta name="theme-color" content="#313552" />
       </Head>
       <AuthContextProvider>
         <SnackbarProvider

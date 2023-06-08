@@ -318,7 +318,14 @@ const konsultasi = () => {
                   </div>
                 ))}
             </div>
-            {!consultItems || consultItems.length === 0 ? (
+            {!consultItems ||
+            consultItems.length === 0 ||
+            !consultItems.find(
+              (item) =>
+                item.status === "Baru" ||
+                item.status === "Menunggu konfirmasi" ||
+                item.status === "Dikonfirmasi"
+            ) ? (
               <div className="flex flex-col justify-center items-center gap-4 pt-16">
                 <h2>Tidak ada konsultasi yang sedang diproses</h2>
               </div>

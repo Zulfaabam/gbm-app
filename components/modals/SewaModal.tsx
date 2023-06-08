@@ -102,6 +102,7 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
             persist: true,
             pdf: <ReceiptSewa sewa={body} />,
           });
+          onClose();
         })
         .catch((error) => enqueueSnackbar(error, { variant: "error" }));
     }

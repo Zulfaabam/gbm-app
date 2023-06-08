@@ -84,14 +84,15 @@ const PreOrderModal = ({ open, onClose, items }: PreOrderModalProps) => {
       };
 
       addData("preOrderTransaction", body)
-        .then(() =>
+        .then(() => {
           enqueueSnackbar("Pesanan telah dibuat", {
             variant: "orderMade",
             anchorOrigin: { horizontal: "right", vertical: "top" },
             persist: true,
             pdf: <ReceiptPO preOrder={body} />,
-          })
-        )
+          });
+          onClose();
+        })
         .catch((error) => enqueueSnackbar(error, { variant: "error" }));
     }
   }

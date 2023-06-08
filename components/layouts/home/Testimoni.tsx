@@ -39,7 +39,7 @@ const TestimoniCard = ({
 };
 
 interface TestimoniData {
-  img: string;
+  imageUrl: string;
   title: string;
   review: string;
   reviewer: string;
@@ -67,7 +67,7 @@ const Testimoni = () => {
             <div className="carousel-item" key={idx}>
               <TestimoniCard
                 title={d.data.title}
-                img={d.data.img}
+                img={d.data.imageUrl}
                 review={`"${d.data.review}"`}
                 reviewer={`-${d.data.reviewer}`}
               />

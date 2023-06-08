@@ -9,7 +9,7 @@ export interface Article {
 }
 export interface ArticleData {
   desc: string;
-  iconURL: string;
+  iconUrl: string;
   longDesc: string;
 }
 
@@ -29,7 +29,7 @@ const Artikel = () => {
           {data?.map((d, idx) => (
             <div className="carousel-item" key={d.id}>
               <ActionAreaCard
-                img={d.data.iconURL}
+                img={d.data.iconUrl}
                 title={d.data.desc}
                 // desc={d.data.longDesc}
                 className="w-[250px] md:w-[400px]"

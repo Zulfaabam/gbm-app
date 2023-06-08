@@ -138,9 +138,13 @@ const konsultasi = () => {
   async function handleEnterRoom(room: string) {
     if (room === "") return;
 
+    const roomStatus = consultItems?.find(
+      (item) => item.roomCode === room
+    )?.status;
+
     const findRoom = chatRooms?.find((item) => item === room);
 
-    if (user && findRoom) {
+    if (user && findRoom && roomStatus === "Berlangsung") {
       sessionStorage.setItem("chat-room", room);
 
       setRoom(room);
@@ -152,8 +156,14 @@ const konsultasi = () => {
         userId: user.uid,
         room: room,
       });
+    } else if (roomStatus === "Selesai") {
+      enqueueSnackbar("Konsultasi telah selesai", {
+        variant: "error",
+      });
     } else if (!findRoom) {
-      enqueueSnackbar("Ruangan chat tidak ditemukan", { variant: "error" });
+      enqueueSnackbar("Ruangan tidak ditemukan atau belum berlangsung", {
+        variant: "error",
+      });
     } else {
       return;
     }

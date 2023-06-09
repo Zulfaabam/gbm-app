@@ -30,6 +30,7 @@ export interface Items {
   value: string;
   total: number;
   price: number;
+  stock: number;
 }
 
 export interface SewaFormData {
@@ -62,6 +63,7 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
         value: "",
         total: 0,
         price: 0,
+        stock: 0,
       },
     ],
     date: "",
@@ -115,6 +117,7 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
         value: item.data.desc,
         price: item.data.price,
         total: 0,
+        stock: item.data.stock,
       })),
     });
   }, [items]);
@@ -172,8 +175,11 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
               placeholder="Jumlah"
               className="w-28"
               min={0}
+              max={item.stock}
               value={item.total}
               onChange={(e) => {
+                if (parseInt(e.target.value) > item.stock) return;
+
                 let arr = sewa.items;
 
                 if (arr) {

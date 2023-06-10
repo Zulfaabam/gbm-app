@@ -21,10 +21,15 @@ import addData from "@/common/utils/addData";
 import { enqueueSnackbar } from "notistack";
 import ReceiptPO from "../receipt/ReceiptPO";
 import { PreOrder } from "@/pages/pre-order";
-import { Items } from "./SewaModal";
 
 interface PreOrderModalProps extends ModalProps {
   items: PreOrder[] | undefined;
+}
+
+interface Items {
+  value: string;
+  total: number;
+  price: number;
 }
 
 export interface PreOrderFormData {

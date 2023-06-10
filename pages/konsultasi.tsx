@@ -1,7 +1,6 @@
 import { numberFormatter } from "@/common/utils/formatter";
 import { updateData } from "@/common/utils/updateData";
 import uploadPhoto from "@/common/utils/uploadPhoto";
-import InputField from "@/components/InputField";
 import MyButton from "@/components/MyButton";
 import RequiredLogin from "@/components/RequiredLogin";
 import Chat from "@/components/chat";
@@ -26,6 +25,7 @@ import moment from "moment";
 import { enqueueSnackbar } from "notistack";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { BiSave, BiUpload } from "react-icons/bi";
+import { MdContentCopy } from "react-icons/md";
 
 export interface TabPanelProps {
   children?: React.ReactNode;
@@ -278,7 +278,15 @@ const konsultasi = () => {
                         {item.status === "Dikonfirmasi" ||
                         item.status === "Berlangsung" ||
                         item.status === "Selesai" ? (
-                          <p>Kode Ruangan Chat: {item.roomCode}</p>
+                          <p className="flex items-center gap-2">
+                            Kode Ruangan: {item.roomCode}{" "}
+                            <MdContentCopy
+                              onClick={() =>
+                                navigator.clipboard.writeText(item.roomCode)
+                              }
+                              className="cursor-pointer"
+                            />
+                          </p>
                         ) : null}
                       </div>
                       <div className="card-actions">
@@ -323,6 +331,7 @@ const konsultasi = () => {
             !consultItems.find(
               (item) =>
                 item.status === "Baru" ||
+                item.status === "Berlangsung" ||
                 item.status === "Menunggu konfirmasi" ||
                 item.status === "Dikonfirmasi"
             ) ? (
@@ -338,7 +347,7 @@ const konsultasi = () => {
               <div className="flex flex-col justify-center items-center gap-4 pt-16">
                 <input
                   type="text"
-                  placeholder="Masukkan kode chat room di sini"
+                  placeholder="Masukkan kode ruangan di sini"
                   ref={inputRef}
                   className="input input-bordered w-full max-w-xs mx-auto"
                 />
@@ -381,7 +390,15 @@ const konsultasi = () => {
                         {item.status === "Dikonfirmasi" ||
                         item.status === "Berlangsung" ||
                         item.status === "Selesai" ? (
-                          <p>Kode Ruangan Chat: {item.roomCode}</p>
+                          <p className="flex items-center gap-2">
+                            Kode Ruangan: {item.roomCode}{" "}
+                            <MdContentCopy
+                              onClick={() =>
+                                navigator.clipboard.writeText(item.roomCode)
+                              }
+                              className="cursor-pointer"
+                            />
+                          </p>
                         ) : null}
                       </div>
                       <div className="card-actions">

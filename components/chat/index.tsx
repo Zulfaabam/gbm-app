@@ -101,7 +101,7 @@ const Chat = ({ room, onLeaveChat }: ChatProps) => {
         <IconButton onClick={onLeaveChat}>
           <IoArrowBack color="#ffffff" />
         </IconButton>
-        <h2>Kode Room: {room.toUpperCase()}</h2>
+        <h2>Kode Room: {room}</h2>
       </div>
       <div className="px-4 min-h-[300px] max-h-[500px] overflow-y-auto overflow-x-hidden hide-scrollbar">
         {messages.map((message) => (

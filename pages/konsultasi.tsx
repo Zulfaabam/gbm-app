@@ -200,6 +200,17 @@ const konsultasi = () => {
       .catch((error) => enqueueSnackbar(error, { variant: "error" }));
   }, [value]);
 
+  useEffect(() => {
+    const currentRoomStatus = consultItems?.find(
+      (item) => item.roomCode === room
+    )?.status;
+
+    if (currentRoomStatus && currentRoomStatus === "Selesai") {
+      sessionStorage.removeItem("chat-room");
+      setRoom("");
+    }
+  }, [consultItems, room]);
+
   if (user == null)
     return (
       <MainLayout>

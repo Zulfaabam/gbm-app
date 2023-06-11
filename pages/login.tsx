@@ -12,6 +12,8 @@ import { BsArrowLeft } from "react-icons/bs";
 import ForgetPasswordModal from "@/components/modals/ForgetPasswordModal";
 import { useSnackbar } from "notistack";
 import Cookies from "universal-cookie";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { db } from "@/firebase/clientApp";
 
 const cookies = new Cookies();
 
@@ -53,6 +55,16 @@ const login = () => {
         { variant: "error" }
       );
     }
+
+    setDoc(doc(db, `users/${result?.user.uid}`), {
+      createdAt: serverTimestamp(),
+      email: result?.user.email,
+      phoneNumber: "",
+      userId: result?.user.uid,
+      userName: result?.user.displayName || "",
+    })
+      .then()
+      .catch((error) => enqueueSnackbar(error, { variant: "error" }));
 
     cookies.set("auth-token", result?.user.refreshToken);
 

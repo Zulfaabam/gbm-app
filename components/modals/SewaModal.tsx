@@ -27,6 +27,7 @@ interface SewaModalProps extends ModalProps {
 }
 
 export interface Items {
+  id: string;
   value: string;
   total: number;
   price: number;
@@ -60,6 +61,7 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
     address: "",
     items: [
       {
+        id: "",
         value: "",
         total: 0,
         price: 0,
@@ -114,6 +116,7 @@ const SewaModal = ({ open, onClose, items }: SewaModalProps) => {
     setSewa({
       ...sewa,
       items: items?.map((item) => ({
+        id: item.id,
         value: item.data.desc,
         price: item.data.price,
         total: 0,
